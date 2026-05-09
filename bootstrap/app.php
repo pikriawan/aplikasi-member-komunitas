@@ -28,5 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($exception instanceof TooManyRequestsHttpException) {
                 return Inertia::flash('error', 'Terlalu banyak percobaan. Silahkan coba beberapa saat lagi.')->back();
             }
+
+            return $response;
         });
     })->create();
