@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Inertia\Inertia;
 
 class AuthController extends Controller
 {
@@ -42,7 +45,30 @@ class AuthController extends Controller
 
         Auth::login($user);
 
+        event(new Registered($user));
+
         return redirect()->route('dashboard');
+    }
+
+    public function noticeVerification(Request $request)
+    {
+        if ($request->user()->email_verified_at !== NULL) {
+            return redirect()->route('dashboard');
+        }
+
+        return Inertia::render('VerifyEmail');
+    }
+
+    public function verify(EmailVerificationRequest $request) {
+        $request->fulfill();
+    
+        return redirect()->route('dashboard');
+    }
+
+    public function sendVerification(Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+
+        return Inertia::flash('message', 'Email verifikasi berhasil dikirim.')->back();
     }
 
     public function login(Request $request)
@@ -59,7 +85,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'general' => 'Email atau password tidak sesuai.',
+            'email' => 'Email atau password tidak sesuai.',
         ]);
     }
 

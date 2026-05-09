@@ -6,7 +6,7 @@ import HomeLayout from '../layouts/HomeLayout.vue';
 <template>
     <HomeLayout>
         <h1 class="text-3xl font-medium">Login</h1>
-        <Form class="flex flex-col items-start gap-3" action="/login" method="post" #default="{ errors }">
+        <Form class="flex flex-col items-start gap-3" action="/login" method="post" v-slot="{ errors }">
             <div class="flex flex-col gap-2">
                 <label for="login_email">Email</label>
                 <input class="px-2 py-1 border border-neutral-950" id="login_email" name="email" type="email" />
@@ -18,7 +18,6 @@ import HomeLayout from '../layouts/HomeLayout.vue';
                 <p class="text-red-600 text-sm" v-if="errors.password">{{ errors.password }}</p>
             </div>
             <button class="bg-blue-700 text-white px-4 py-2">Login</button>
-            <p class="text-red-600 text-sm" v-if="errors.general">{{ errors.general }}</p>
             <p>Belum punya akun? <Link class="text-blue-600" href="/register">Daftar sekarang</Link></p>
         </Form>
     </HomeLayout>

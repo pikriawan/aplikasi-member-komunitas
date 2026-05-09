@@ -16,7 +16,15 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::inertia('/dashboard', 'Dashboard')->name('dashboard');
-
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/email/verify', [AuthController::class, 'noticeVerification'])->name('verification.notice');
+
+    Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verify'])->middleware('signed')->name('verification.verify');
+
+    Route::post('/email/verification-notification', [AuthController::class, 'sendVerification'])->middleware(['throttle:6,1'])->name('verification.send');
+
+    Route::middleware('verified')->group(function () {
+        Route::inertia('/dashboard', 'Dashboard')->name('dashboard');
+    });
 });
