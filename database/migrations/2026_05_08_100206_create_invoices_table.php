@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('number');
             $table->decimal('amount');
             $table->timestamp('due_date');
-            $table->status('enum', ['unpaid', 'paid', 'canceled']);
+            $table->enum('status', ['unpaid', 'paid', 'canceled']);
             $table->timestamps();
         });
     }

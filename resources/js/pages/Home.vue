@@ -4,6 +4,6 @@ import HomeLayout from '../layouts/HomeLayout.vue';
 
 <template>
     <HomeLayout>
-        <h1 class="m-1 text-5xl font-medium">Laravel</h1>
+        <h1 class="text-3xl font-medium">Home</h1>
     </HomeLayout>
 </template>
