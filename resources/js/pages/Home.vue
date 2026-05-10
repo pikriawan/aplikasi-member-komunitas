@@ -24,6 +24,27 @@ const appUrl = page.props.appUrl;
                     </div>
                 </div>
             </section>
+            <section class="flex lg:justify-center lg:items-center p-8 lg:p-0 lg:px-4 lg:py-16">
+                <div class="lg:w-full lg:max-w-270 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                    <img class="w-full lg:w-80 aspect-square object-cover" :src="`${appUrl}/images/earth.jpg`" />
+                    <div class="lg:w-full lg:max-w-150 flex flex-col gap-6">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <span class="w-6 h-0.5 bg-[#007FFF]" />
+                            </div>
+                            <h2 class="font-medium text-2xl w-full">Tentang</h2>
+                        </div>
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-8 h-8" />
+                            <p class="text-[#999999] w-full">
+                                Komunitas ini adalah ruang terbuka bagi siapa saja yang ingin belajar, berkembang, dan saling terhubung dalam lingkungan yang positif dan kolaboratif. Kami menghadirkan berbagai kesempatan untuk bertukar wawasan, membangun relasi, serta berpartisipasi dalam kegiatan yang mendorong pertumbuhan pribadi maupun profesional.
+                                <br />
+                                Dengan semangat kebersamaan, kami percaya bahwa setiap individu memiliki potensi untuk memberikan kontribusi dan menciptakan dampak yang berarti. Di sini, kamu tidak hanya menjadi bagian dari komunitas, tetapi juga bagian dari perjalanan untuk tumbuh dan berkembang bersama.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </HomeLayout>
 </template>
