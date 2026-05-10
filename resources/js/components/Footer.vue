@@ -49,15 +49,15 @@ const user = page.props.auth.user;
                         <div class="flex flex-col gap-2">
                             <Link class="bg-black font-medium" href="/#about">TENTANG</Link>
                             <div class="w-full h-px bg-[#1A1A1A]" />
-                            <Link class="bg-black font-medium" href="#">BLOG</Link>
+                            <Link class="bg-black font-medium" href="/blog">BLOG</Link>
                             <div class="w-full h-px bg-[#1A1A1A]" />
-                            <Link class="bg-black font-medium" href="#">KONTAK</Link>
+                            <Link class="bg-black font-medium" href="#contact">KONTAK</Link>
                             <div class="w-full h-px bg-[#1A1A1A]" />
                             <Link v-if="user" class="bg-black font-medium" href="/dashboard">DASHBOARD</Link>
                             <Link v-else class="bg-black font-medium" href="/login">LOGIN</Link>
                         </div>
                     </div>
-                    <div class="w-full flex flex-col gap-8 p-8">
+                    <div class="w-full flex flex-col gap-8 p-8" id="contact">
                         <p class="font-medium">Kontak</p>
                         <div class="flex flex-col gap-2 text-[#999999]">
                             <Link class="flex gap-2" href="#">

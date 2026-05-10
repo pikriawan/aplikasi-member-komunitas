@@ -5,17 +5,18 @@ import HomeLayout from "../layouts/HomeLayout.vue";
 const page = usePage();
 
 const appUrl = page.props.appUrl;
+const posts = page.props.posts;
 
-const posts = [
-    { id: 0, date: "05/04/2026", title: "Kolaborasi Komunitas Dorong Inovasi Digital Lokal", description: "Sinergi antar anggota komunitas terbukti menjadi kunci lahirnya berbagai solusi digital yang relevan dengan kebutuhan masyarakat lokal. Temukan kisah inspiratif di balik proyek-proyek kolaboratif yang mengubah ekosistem digital daerah." },
-    { id: 1, date: "04/04/2026", title: "Generasi Muda Semakin Aktif dalam Kegiatan Sosial", description: "Tren keterlibatan anak muda dalam berbagai gerakan sosial terus meningkat. Dari kegiatan lingkungan hingga pemberdayaan masyarakat, generasi Z dan milenial membuktikan bahwa perubahan bisa dimulai dari aksi nyata." },
-    { id: 2, date: "01/04/2026", title: "Workshop Pengembangan Diri Diminati Banyak Peserta", description: "Antusiasme masyarakat terhadap kegiatan pelatihan dan pengembangan diri semakin tinggi. Workshop yang mengangkat tema produktivitas, mindset, dan keterampilan hidup ini berhasil menarik ratusan peserta dari berbagai latar belakang." },
-    { id: 3, date: "23/03/2026", title: "Komunitas Lokal Gelar Event Kreatif Tahunan", description: "Ajang tahunan yang dinantikan kembali hadir, menghadirkan ruang ekspresi bagi para seniman, pelaku budaya, dan kreator lokal. Event ini menjadi bukti nyata bahwa kreativitas komunitas mampu menyatukan banyak pihak." },
-    { id: 4, date: "22/03/2026", title: "Pentingnya Jejaring dalam Dunia Profesional Modern", description: "Di era kompetisi global, membangun relasi yang kuat bukan lagi sekadar pilihan—melainkan keharusan. Artikel ini mengulas strategi efektif membangun jejaring profesional yang bermakna dan berkelanjutan." },
-    { id: 5, date: "28/02/2026", title: "Komunitas Gelar Workshop Digital Untuk Pemula", description: "Tidak perlu latar belakang teknis untuk mulai belajar dunia digital. Workshop ramah pemula ini dirancang khusus untuk memperkenalkan keterampilan digital dasar kepada masyarakat yang ingin meningkatkan kompetensinya." },
-    { id: 6, date: "01/01/2026", title: "Seminar Nasional Buka Wawasan Tentang Tren Teknologi Terkini", description: "Para pakar dan praktisi teknologi berkumpul dalam seminar nasional untuk berbagi pandangan tentang perkembangan AI, otomasi, dan transformasi digital. Wawasan baru siap membuka perspektif Anda tentang masa depan teknologi." },
-    { id: 7, date: "13/11/2025", title: "Event Kolaborasi Hadirkan Berbagai Kegiatan Inspiratif", description: "Dalam satu panggung yang sama, puluhan komunitas bersatu untuk menghadirkan rangkaian kegiatan yang memotivasi dan menginspirasi. Dari talk show hingga pameran karya, setiap sudut event ini menyimpan cerita yang layak untuk diikuti." }
-];
+// const posts = [
+//     { id: 0, date: "05/04/2026", title: "Kolaborasi Komunitas Dorong Inovasi Digital Lokal", description: "Sinergi antar anggota komunitas terbukti menjadi kunci lahirnya berbagai solusi digital yang relevan dengan kebutuhan masyarakat lokal. Temukan kisah inspiratif di balik proyek-proyek kolaboratif yang mengubah ekosistem digital daerah." },
+//     { id: 1, date: "04/04/2026", title: "Generasi Muda Semakin Aktif dalam Kegiatan Sosial", description: "Tren keterlibatan anak muda dalam berbagai gerakan sosial terus meningkat. Dari kegiatan lingkungan hingga pemberdayaan masyarakat, generasi Z dan milenial membuktikan bahwa perubahan bisa dimulai dari aksi nyata." },
+//     { id: 2, date: "01/04/2026", title: "Workshop Pengembangan Diri Diminati Banyak Peserta", description: "Antusiasme masyarakat terhadap kegiatan pelatihan dan pengembangan diri semakin tinggi. Workshop yang mengangkat tema produktivitas, mindset, dan keterampilan hidup ini berhasil menarik ratusan peserta dari berbagai latar belakang." },
+//     { id: 3, date: "23/03/2026", title: "Komunitas Lokal Gelar Event Kreatif Tahunan", description: "Ajang tahunan yang dinantikan kembali hadir, menghadirkan ruang ekspresi bagi para seniman, pelaku budaya, dan kreator lokal. Event ini menjadi bukti nyata bahwa kreativitas komunitas mampu menyatukan banyak pihak." },
+//     { id: 4, date: "22/03/2026", title: "Pentingnya Jejaring dalam Dunia Profesional Modern", description: "Di era kompetisi global, membangun relasi yang kuat bukan lagi sekadar pilihan—melainkan keharusan. Artikel ini mengulas strategi efektif membangun jejaring profesional yang bermakna dan berkelanjutan." },
+//     { id: 5, date: "28/02/2026", title: "Komunitas Gelar Workshop Digital Untuk Pemula", description: "Tidak perlu latar belakang teknis untuk mulai belajar dunia digital. Workshop ramah pemula ini dirancang khusus untuk memperkenalkan keterampilan digital dasar kepada masyarakat yang ingin meningkatkan kompetensinya." },
+//     { id: 6, date: "01/01/2026", title: "Seminar Nasional Buka Wawasan Tentang Tren Teknologi Terkini", description: "Para pakar dan praktisi teknologi berkumpul dalam seminar nasional untuk berbagi pandangan tentang perkembangan AI, otomasi, dan transformasi digital. Wawasan baru siap membuka perspektif Anda tentang masa depan teknologi." },
+//     { id: 7, date: "13/11/2025", title: "Event Kolaborasi Hadirkan Berbagai Kegiatan Inspiratif", description: "Dalam satu panggung yang sama, puluhan komunitas bersatu untuk menghadirkan rangkaian kegiatan yang memotivasi dan menginspirasi. Dari talk show hingga pameran karya, setiap sudut event ini menyimpan cerita yang layak untuk diikuti." }
+// ];
 </script>
 
 <template>
@@ -66,12 +67,12 @@ const posts = [
                             </div>
                             <h2 class="font-medium text-2xl w-full">Berita Terbaru</h2>
                         </div>
-                        <Link class="hidden lg:flex shrink-0 justify-start items-center gap-3 text-[#007FFF] shadow-[0_0_0_0.0625rem_#007FFF_inset] px-6 py-2 rounded-full" href="#">
+                        <Link class="hidden lg:flex shrink-0 justify-start items-center gap-3 text-[#007FFF] shadow-[0_0_0_0.0625rem_#007FFF_inset] px-6 py-2 rounded-full" href="/blog">
                             Lihat semua
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
                         </Link>
                     </div>
-                    <div class="w-full flex flex-col gap-6 lg:grid lg:grid-cols-4">
+                    <div v-if="posts.length > 0" class="w-full flex flex-col gap-6 lg:grid lg:grid-cols-4">
                         <div
                             v-for="post in posts"
                             :key="post.id"
@@ -91,7 +92,8 @@ const posts = [
                             </div>
                         </div>
                     </div>
-                    <Link class="flex lg:hidden justify-start items-center gap-3 text-[#007FFF] shadow-[0_0_0_0.0625rem_#007FFF_inset] px-6 py-2 rounded-full" href="#">
+                    <p v-else>Tidak ada berita.</p>
+                    <Link class="flex lg:hidden justify-start items-center gap-3 text-[#007FFF] shadow-[0_0_0_0.0625rem_#007FFF_inset] px-6 py-2 rounded-full" href="/blog">
                         Lihat semua
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
                     </Link>

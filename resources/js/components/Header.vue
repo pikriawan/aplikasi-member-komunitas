@@ -24,8 +24,8 @@ const user = page.props.auth.user;
         <Link class="font-medium flex justify-start items-center gap-3 px-6 py-2 rounded-full shadow-[0_0_0_0.0625rem_#333333_inset]" href="/login" v-else>Login</Link>
         <div v-if="isNavbarShow" class="absolute top-full left-0 w-full bg-white flex flex-col">
             <Link class="font-medium flex p-4 shadow-[0_-0.0625rem_0_#CCCCCC_inset]" href="/#about">TENTANG</Link>
-            <Link class="font-medium flex p-4 shadow-[0_-0.0625rem_0_#CCCCCC_inset]" href="#">BLOG</Link>
-            <Link class="font-medium flex p-4 shadow-[0_-0.0625rem_0_#CCCCCC_inset]" href="#">KONTAK</Link>
+            <Link class="font-medium flex p-4 shadow-[0_-0.0625rem_0_#CCCCCC_inset]" href="/blog">BLOG</Link>
+            <Link class="font-medium flex p-4 shadow-[0_-0.0625rem_0_#CCCCCC_inset]" href="#contact">KONTAK</Link>
             <div class="h-14 flex gap-px px-px pb-px bg-[#CCCCCC]">
                 <Link class="w-full h-full flex justify-center items-center gap-3 bg-white" href="#">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail-icon lucide-mail"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
@@ -71,8 +71,8 @@ const user = page.props.auth.user;
         <div class="w-full relative flex h-14 justify-center items-center gap-8 px-4 bg-[rgba(0,0,0,0.2)]">
             <div class="absolute top-0 left-0 w-full h-full bg-[#007FFF] -z-1" />
             <Link class="font-medium text-white" href="/#about">TENTANG</Link>
-            <Link class="font-medium text-white" href="#">BLOG</Link>
-            <Link class="font-medium text-white" href="#">KONTAK</Link>
+            <Link class="font-medium text-white" href="/blog">BLOG</Link>
+            <Link class="font-medium text-white" href="#contact">KONTAK</Link>
             <Link class="font-medium text-white flex justify-start items-center gap-3 px-6 py-2 rounded-full shadow-[0_0_0_0.0625rem_white_inset]" href="/dashboard" v-if="user">Dashboard</Link>
             <Link class="font-medium text-white flex justify-start items-center gap-3 px-6 py-2 rounded-full shadow-[0_0_0_0.0625rem_white_inset]" href="/login" v-else>Login</Link>
         </div>

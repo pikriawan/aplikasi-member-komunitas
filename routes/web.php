@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('/', 'Home')->name('home');
+Route::get('/', HomeController::class)->name('home');
+
+Route::inertia('/blog', 'Blog')->name('blog');
 
 Route::middleware('guest')->group(function () {
     Route::inertia('/register', 'Register')->name('register');
