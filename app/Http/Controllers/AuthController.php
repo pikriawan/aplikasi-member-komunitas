@@ -52,7 +52,7 @@ class AuthController extends Controller
 
     public function noticeVerification(Request $request)
     {
-        if ($request->user()->email_verified_at !== NULL) {
+        if ($request->user()->email_verified_at) {
             return redirect()->route('dashboard');
         }
 

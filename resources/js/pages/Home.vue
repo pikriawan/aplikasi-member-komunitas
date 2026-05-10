@@ -4,6 +4,6 @@ import HomeLayout from '../layouts/HomeLayout.vue';
 
 <template>
     <HomeLayout>
-        <h1 class="text-3xl font-medium">Home</h1>
+        <h1 class="text-3xl font-medium bg-amber-300 h-270">Home</h1>
     </HomeLayout>
 </template>
