@@ -5,18 +5,10 @@ import HomeLayout from "../layouts/HomeLayout.vue";
 const page = usePage();
 
 const appUrl = page.props.appUrl;
+const storageUrl = page.props.storageUrl;
+const settings = page.props.settings;
+const user = page.props.auth.user;
 const posts = page.props.posts;
-
-// const posts = [
-//     { id: 0, date: "05/04/2026", title: "Kolaborasi Komunitas Dorong Inovasi Digital Lokal", description: "Sinergi antar anggota komunitas terbukti menjadi kunci lahirnya berbagai solusi digital yang relevan dengan kebutuhan masyarakat lokal. Temukan kisah inspiratif di balik proyek-proyek kolaboratif yang mengubah ekosistem digital daerah." },
-//     { id: 1, date: "04/04/2026", title: "Generasi Muda Semakin Aktif dalam Kegiatan Sosial", description: "Tren keterlibatan anak muda dalam berbagai gerakan sosial terus meningkat. Dari kegiatan lingkungan hingga pemberdayaan masyarakat, generasi Z dan milenial membuktikan bahwa perubahan bisa dimulai dari aksi nyata." },
-//     { id: 2, date: "01/04/2026", title: "Workshop Pengembangan Diri Diminati Banyak Peserta", description: "Antusiasme masyarakat terhadap kegiatan pelatihan dan pengembangan diri semakin tinggi. Workshop yang mengangkat tema produktivitas, mindset, dan keterampilan hidup ini berhasil menarik ratusan peserta dari berbagai latar belakang." },
-//     { id: 3, date: "23/03/2026", title: "Komunitas Lokal Gelar Event Kreatif Tahunan", description: "Ajang tahunan yang dinantikan kembali hadir, menghadirkan ruang ekspresi bagi para seniman, pelaku budaya, dan kreator lokal. Event ini menjadi bukti nyata bahwa kreativitas komunitas mampu menyatukan banyak pihak." },
-//     { id: 4, date: "22/03/2026", title: "Pentingnya Jejaring dalam Dunia Profesional Modern", description: "Di era kompetisi global, membangun relasi yang kuat bukan lagi sekadar pilihan—melainkan keharusan. Artikel ini mengulas strategi efektif membangun jejaring profesional yang bermakna dan berkelanjutan." },
-//     { id: 5, date: "28/02/2026", title: "Komunitas Gelar Workshop Digital Untuk Pemula", description: "Tidak perlu latar belakang teknis untuk mulai belajar dunia digital. Workshop ramah pemula ini dirancang khusus untuk memperkenalkan keterampilan digital dasar kepada masyarakat yang ingin meningkatkan kompetensinya." },
-//     { id: 6, date: "01/01/2026", title: "Seminar Nasional Buka Wawasan Tentang Tren Teknologi Terkini", description: "Para pakar dan praktisi teknologi berkumpul dalam seminar nasional untuk berbagi pandangan tentang perkembangan AI, otomasi, dan transformasi digital. Wawasan baru siap membuka perspektif Anda tentang masa depan teknologi." },
-//     { id: 7, date: "13/11/2025", title: "Event Kolaborasi Hadirkan Berbagai Kegiatan Inspiratif", description: "Dalam satu panggung yang sama, puluhan komunitas bersatu untuk menghadirkan rangkaian kegiatan yang memotivasi dan menginspirasi. Dari talk show hingga pameran karya, setiap sudut event ini menyimpan cerita yang layak untuk diikuti." }
-// ];
 </script>
 
 <template>
@@ -24,11 +16,15 @@ const posts = page.props.posts;
         <div class="flex flex-col">
             <section class="relative flex lg:justify-center lg:items-center p-8 lg:p-0 lg:px-4 lg:h-136">
                 <div class="absolute top-0 left-0 w-full h-full bg-[rgba(0,127,255,0.8)] -z-1" />
-                <div class="absolute top-0 left-0 w-full h-full grayscale -z-2 bg-cover" :style="{ backgroundImage: `url('${appUrl}/images/background.jpg')` }" />
+                <img class="absolute top-0 left-0 w-full h-full grayscale -z-2 object-cover" :src="settings.background_image ? `${storageUrl}/${settings.background_image}` : `${appUrl}/images/background.jpg`" />
                 <div class="lg:w-full lg:max-w-270">
                     <div class="flex flex-col items-start gap-8 lg:max-w-150">
-                        <h1 class="font-medium text-3xl text-white">Bangun Koneksi dan Tumbuh Bersama</h1>
-                        <p class="text-white">Terhubung dengan individu dari berbagai latar belakang, berbagi ide, dan membangun kolaborasi dalam komunitas inklusif untuk berkembang bersama serta menciptakan dampak nyata.</p>
+                        <h1 class="font-medium text-3xl text-white">
+                            {{ settings.hero_title || "Bangun Koneksi dan Tumbuh Bersama" }}
+                        </h1>
+                        <p class="text-white">
+                            {{ settings.hero_description || "Terhubung dengan individu dari berbagai latar belakang, berbagi ide, dan membangun kolaborasi dalam komunitas inklusif untuk berkembang bersama serta menciptakan dampak nyata." }}
+                        </p>
                         <Link class="flex justify-start items-center gap-3 bg-black text-white px-6 py-2 rounded-full" href="/register">
                             Gabung membership
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
@@ -38,21 +34,20 @@ const posts = page.props.posts;
             </section>
             <section class="flex lg:justify-center lg:items-center p-8 lg:p-0 lg:px-4 lg:py-16" id="about">
                 <div class="lg:w-full lg:max-w-270 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-                    <img class="w-full lg:w-80 aspect-square object-cover" :src="`${appUrl}/images/earth.jpg`" />
+                    <img class="w-full lg:w-80 aspect-square object-cover" :src="settings.about_image ? `${storageUrl}/${settings.about_image}` : `${appUrl}/images/about.jpg`" />
                     <div class="lg:w-full lg:max-w-150 flex flex-col gap-6">
                         <div class="flex items-center gap-2.5">
                             <div class="w-8 h-8 flex items-center justify-center">
                                 <span class="w-6 h-0.5 bg-[#007FFF]" />
                             </div>
-                            <h2 class="font-medium text-2xl w-full">Tentang</h2>
+                            <h2 class="font-medium text-2xl w-full">
+                                {{ settings.about_title || "Tentang" }}
+                            </h2>
                         </div>
                         <div class="flex items-center gap-2.5">
                             <div class="w-8 h-8" />
                             <p class="text-[#999999] w-full">
-                                Komunitas ini adalah ruang terbuka bagi siapa saja yang ingin belajar, berkembang, dan saling terhubung dalam lingkungan yang positif dan kolaboratif. Kami menghadirkan berbagai kesempatan untuk bertukar wawasan, membangun relasi, serta berpartisipasi dalam kegiatan yang mendorong pertumbuhan pribadi maupun profesional.
-                                <br />
-                                <br />
-                                Dengan semangat kebersamaan, kami percaya bahwa setiap individu memiliki potensi untuk memberikan kontribusi dan menciptakan dampak yang berarti. Di sini, kamu tidak hanya menjadi bagian dari komunitas, tetapi juga bagian dari perjalanan untuk tumbuh dan berkembang bersama.
+                                {{ settings.about_description || "Komunitas ini adalah ruang terbuka bagi siapa saja yang ingin belajar, berkembang, dan saling terhubung dalam lingkungan yang positif dan kolaboratif. Kami menghadirkan berbagai kesempatan untuk bertukar wawasan, membangun relasi, serta berpartisipasi dalam kegiatan yang mendorong pertumbuhan pribadi maupun profesional. Dengan semangat kebersamaan, kami percaya bahwa setiap individu memiliki potensi untuk memberikan kontribusi dan menciptakan dampak yang berarti. Di sini, kamu tidak hanya menjadi bagian dari komunitas, tetapi juga bagian dari perjalanan untuk tumbuh dan berkembang bersama." }}
                             </p>
                         </div>
                     </div>
