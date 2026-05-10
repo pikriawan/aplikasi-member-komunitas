@@ -9,7 +9,7 @@ const user = computed(() => page.props.auth.user);
 </script>
 
 <template>
-    <header class="w-full h-14 fixed top-0 left-0 flex md:hidden items-center justify-between pr-5 bg-white shadow-[0_-0.0625rem_0_#CCCCCC_inset]">
+    <header class="w-full h-14 sticky top-0 flex lg:hidden items-center justify-between pr-5 bg-white shadow-[0_-0.0625rem_0_#CCCCCC_inset] z-1">
         <div class="flex h-full">
             <button class="flex justify-center items-center w-14 h-14" @click="isNavbarShow = !isNavbarShow">
                 <svg v-if="!isNavbarShow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
@@ -41,7 +41,7 @@ const user = computed(() => page.props.auth.user);
             </div>
         </div>
     </header>
-    <header class="hidden lg:flex fixed top-0 left-0 flex-col w-full">
+    <header class="hidden lg:flex sticky top-0 flex-col w-full z-1">
         <div class="w-full h-14 flex justify-center px-4 bg-white">
             <div class="w-full h-full max-w-270 flex justify-between">
                 <Link href="/" class="h-full flex justify-center items-center px-8 shadow-[0.0625rem_0_0_#CCCCCC_inset,-0.0625rem_0_0_#CCCCCC_inset]">
@@ -67,7 +67,8 @@ const user = computed(() => page.props.auth.user);
                 </div>
             </div>
         </div>
-        <div class="w-full flex h-14 justify-center items-center gap-8 px-4 bg-[rgba(0,0,0,0.2)]">
+        <div class="w-full relative flex h-14 justify-center items-center gap-8 px-4 bg-[rgba(0,0,0,0.2)]">
+            <div class="absolute top-0 left-0 w-full h-full bg-[#007FFF] -z-1" />
             <Link class="font-medium text-white" href="#">TENTANG</Link>
             <Link class="font-medium text-white" href="#">BLOG</Link>
             <Link class="font-medium text-white" href="#">KONTAK</Link>
