@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 
-Route::get('/blog', [PostController::class, 'show'])->name('blog');
+Route::get('/blog', [PostController::class, 'index'])->name('blog');
 
 Route::middleware('guest')->group(function () {
     Route::inertia('/register', 'Register')->name('register');

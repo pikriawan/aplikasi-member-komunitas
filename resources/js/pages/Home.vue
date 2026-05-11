@@ -60,7 +60,7 @@ const posts = page.props.posts;
                             <div class="w-8 h-8 flex items-center justify-center">
                                 <span class="w-6 h-0.5 bg-[#007FFF]" />
                             </div>
-                            <h2 class="font-medium text-2xl w-full">Berita Terbaru</h2>
+                            <h2 class="font-medium text-2xl w-full">Postingan Terbaru</h2>
                         </div>
                         <Link class="hidden lg:flex shrink-0 justify-start items-center gap-3 text-[#007FFF] shadow-[0_0_0_0.0625rem_#007FFF_inset] px-6 py-2 rounded-full" href="/blog">
                             Lihat semua
@@ -87,7 +87,7 @@ const posts = page.props.posts;
                             </div>
                         </div>
                     </div>
-                    <p v-else>Tidak ada berita.</p>
+                    <p v-else>Tidak ada postingan.</p>
                     <Link class="flex lg:hidden justify-start items-center gap-3 text-[#007FFF] shadow-[0_0_0_0.0625rem_#007FFF_inset] px-6 py-2 rounded-full" href="/blog">
                         Lihat semua
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
