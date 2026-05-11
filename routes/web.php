@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 
-Route::inertia('/blog', 'Blog')->name('blog');
+Route::get('/blog', [PostController::class, 'show'])->name('blog');
 
 Route::middleware('guest')->group(function () {
     Route::inertia('/register', 'Register')->name('register');
