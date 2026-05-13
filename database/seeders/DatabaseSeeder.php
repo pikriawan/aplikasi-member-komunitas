@@ -53,14 +53,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $categories = [
-            Category::create([
-                'name' => 'Berita',
-                'slug' => 'berita',
-            ]),
-            Category::create([
-                'name' => 'Acara',
-                'slug' => 'acara',
-            ]),
+            Category::create([ 'name' => 'Berita' ]),
+            Category::create([ 'name' => 'Acara' ]),
         ];
 
         $posts = [
@@ -141,9 +135,7 @@ class DatabaseSeeder extends Seeder
                 'updated_at'    => $post['date'],
             ]);
 
-            foreach ($post['category'] as $category) {
-                $newPost->categories()->attach($category);
-            }
+            $newPost->category()->associate($post['category']);
         }
 
         $settings = [

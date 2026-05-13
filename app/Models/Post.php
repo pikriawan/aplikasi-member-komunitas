@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 #[Fillable(['author_id', 'title', 'slug', 'description', 'content', 'created_at', 'updated_at'])]
 class Post extends Model
@@ -17,9 +16,9 @@ class Post extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function categories(): BelongsToMany
+    public function category(): BelongsTo
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     #[Scope]
