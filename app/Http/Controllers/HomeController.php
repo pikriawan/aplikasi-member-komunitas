@@ -14,12 +14,9 @@ class HomeController extends Controller
     public function __invoke(Request $request)
     {
         $posts = Post::all()->map(function ($post) {
-            return [
-                'id'            => $post->id,
-                'date'          => $post->created_at->format('d/m/Y'),
-                'title'         => $post->title,
-                'description'   => $post->description,
-            ];
+            $post->date = $post->created_at->format('d/m/Y');
+
+            return $post;
         });
 
         return Inertia::render('Home', [

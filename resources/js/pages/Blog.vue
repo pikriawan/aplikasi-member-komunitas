@@ -64,7 +64,7 @@ const links = computed(() => posts.links.map((link) => {
                         </Form>
                     </div>
                     <div v-if="posts.data.length > 0" class="flex flex-col gap-6">
-                        <Link v-for="post of posts.data" :key="post.id" class="flex flex-col items-start gap-6 p-6 shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" href="#">
+                        <Link v-for="post of posts.data" :key="post.id" class="flex flex-col items-start gap-6 p-6 shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" :href="`/blog/${post.slug}`">
                             <p class="p-1 text-sm text-white bg-[#007FFF]">{{ post.date }}</p>
                             <h2 class="font-medium">{{ post.title }}</h2>
                             <div class="w-full h-px bg-[#CCCCCC]" />

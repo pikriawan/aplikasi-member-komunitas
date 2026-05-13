@@ -16,20 +16,17 @@ class PostController extends Controller
         $posts = Post::with(['category', 'author'])
             ->byCategory($categorySlug)
             ->latest('created_at')
-            ->paginate(2)
+            ->paginate(10)
             ->appends($request->query())
             ->through(function ($post) {
-                return [
-                    'id'            => $post->id,
-                    'date'          => $post->created_at->format('d/m/Y'),
-                    'title'         => $post->title,
-                    'description'   => $post->description,
-                ];
+                $post->date = $post->created_at->format('d/m/Y');
+
+                return $post;
             });
 
         $categories = Category::all()
             ->map(function ($category) use ($categorySlug) {
-                $category['active'] = $category->slug === $categorySlug;
+                $category->active = $category->slug === $categorySlug;
 
                 return $category;
             })
@@ -41,6 +38,22 @@ class PostController extends Controller
 
         return Inertia::render('Blog', [
             'posts' => $posts,
+            'categories' => $categories,
+        ]);
+    }
+
+    public function show(string $slug)
+    {
+        $post = Post::where('slug', $slug)->firstOrFail();
+        $post->date = $post->created_at->format('d/m/Y');
+
+        $categories = Category::all()->prepend([
+            'name' => 'Semua',
+            'slug' => '',
+        ]);
+
+        return Inertia::render('Post', [
+            'post' => $post->load(['category', 'author']),
             'categories' => $categories,
         ]);
     }
