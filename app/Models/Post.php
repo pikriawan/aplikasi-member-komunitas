@@ -19,7 +19,7 @@ class Post extends Model
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany('categories')->withPivot('category_blog');
+        return $this->belongsToMany(Category::class);
     }
 
     #[Scope]
@@ -34,5 +34,15 @@ class Post extends Model
                 ->where('description', 'like', "%{$term}%")
                 ->where('content', 'like', "%{$term}%");
         });
+    }
+
+    #[Scope]
+    protected function byCategory(Builder $query, ?string $slug): Builder
+    {
+        if (!$slug || $slug === 'semua') {
+            return $query;
+        }
+
+        return $query->whereHas('categories', fn ($q) => $q->where('slug', $slug));
     }
 }
