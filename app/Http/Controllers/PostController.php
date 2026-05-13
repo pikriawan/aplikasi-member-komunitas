@@ -16,7 +16,8 @@ class PostController extends Controller
         $posts = Post::with(['category', 'author'])
             ->byCategory($categorySlug)
             ->latest('created_at')
-            ->paginate(5)
+            ->paginate(2)
+            ->appends($request->query())
             ->through(function ($post) {
                 return [
                     'id'            => $post->id,
