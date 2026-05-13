@@ -2,14 +2,18 @@
 import { Form, Link, usePage } from "@inertiajs/vue3";
 import HomeLayout from "../layouts/HomeLayout.vue";
 import { cn } from "../lib/utils";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 const page = usePage();
 
 const posts = page.props.posts;
 const categories = page.props.categories;
 
-const category = ref(new URLSearchParams(window.location.search).get("category"));
+const category = ref("");
+
+onMounted(() => {
+    category.value = new URLSearchParams(window.location.search).get("category");
+});
 
 const links = computed(() => posts.links.map((link) => {
     if (link.label === "&laquo; Previous") {
@@ -31,6 +35,10 @@ const links = computed(() => posts.links.map((link) => {
                     <Link href="/">Beranda</Link>
                     &gt;
                     <Link href="/blog">Blog</Link>
+                    <template v-if="category">
+                        &gt;
+                        {{ categories.find((c) => c.slug === category)?.name }}
+                    </template>
                 </div>
             </div>
         </div>
