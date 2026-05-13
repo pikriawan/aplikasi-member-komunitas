@@ -13,7 +13,7 @@ class PostController extends Controller
     {
         $categorySlug = $request->query('category');
 
-        $posts = Post::with(['categories', 'author'])
+        $posts = Post::with(['category', 'author'])
             ->byCategory($categorySlug)
             ->latest('created_at')
             ->paginate(5)
@@ -26,10 +26,21 @@ class PostController extends Controller
                 ];
             });
 
+        $categories = Category::all()
+            ->map(function ($category) use ($categorySlug) {
+                $category['active'] = $category->slug === $categorySlug;
+
+                return $category;
+            })
+            ->prepend([
+                'name' => 'Semua',
+                'slug' => '',
+                'active' => !$categorySlug,
+            ]);
+
         return Inertia::render('Blog', [
             'posts' => $posts,
-            'categories' => Category::all(),
-            'selectedCategory' => $request->query('category'),
+            'categories' => $categories,
         ]);
     }
 }

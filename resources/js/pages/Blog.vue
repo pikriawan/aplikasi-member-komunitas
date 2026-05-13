@@ -6,10 +6,10 @@ import { computed, ref } from "vue";
 
 const page = usePage();
 
-const params = ref(new URLSearchParams(window.location.search));
-const category = computed(() => params.value.get("category"));
-
 const posts = page.props.posts;
+const categories = page.props.categories;
+
+const category = ref(new URLSearchParams(window.location.search).get("category"));
 
 const links = computed(() => posts.links.map((link) => {
     if (link.label === "&laquo; Previous") {
@@ -20,21 +20,6 @@ const links = computed(() => posts.links.map((link) => {
 
     return link;
 }));
-
-const categories = computed(() => [
-    {
-        name: "Semua",
-        slug: "semua",
-        active: !category.value || category.value === "semua"
-    },
-    ...page.props.categories.map((c) => ({
-        name: c.name,
-        slug: c.slug,
-        active: category.value === c.slug
-    }))
-]);
-
-console.log(categories.value);
 </script>
 
 <template>
@@ -54,9 +39,9 @@ console.log(categories.value);
                 <div class="h-fit hidden lg:flex flex-col gap-6 p-6 shadow-[0_0_0_0.0625rem_#CCCCCC_inset]">
                     <h2 class="font-medium">Kategori</h2>
                     <div class="flex flex-col gap-2">
-                        <template v-for="(category, i) in categories" :key="category.slug">
-                            <Link :class="cn('font-medium text-[#999999]', category.active && 'text-[#007FFF]')" :href="`/blog?category=${category.slug}`">
-                                {{ category.name }}
+                        <template v-for="(c, i) in categories">
+                            <Link :class="cn('font-medium text-[#999999]', c.active && 'text-[#007FFF]')" :href="`/blog?category=${c.slug}`">
+                                {{ c.name }}
                             </Link>
                             <div v-if="i !== categories.length - 1" class="w-full h-px bg-[#CCCCCC]" />
                         </template>
@@ -89,9 +74,9 @@ console.log(categories.value);
                     <div class="flex flex-col gap-6 p-6 shadow-[0_0_0_0.0625rem_#CCCCCC_inset] lg:hidden">
                         <h2 class="font-medium">Kategori</h2>
                         <div class="flex flex-col gap-2">
-                            <template v-for="(category, i) in categories" :key="category.slug">
-                                <Link :class="cn('font-medium text-[#999999]', category.active && 'text-[#007FFF]')" :href="`/blog?category=${category.slug}`">
-                                    {{ category.name }}
+                            <template v-for="(c, i) in categories">
+                                <Link :class="cn('font-medium text-[#999999]', c.active && 'text-[#007FFF]')" :href="`/blog?category=${c.slug}`">
+                                    {{ c.name }}
                                 </Link>
                                 <div v-if="i !== categories.length - 1" class="w-full h-px bg-[#CCCCCC]" />
                             </template>
