@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['author_id', 'title', 'slug', 'description', 'content', 'created_at', 'updated_at'])]
+#[Fillable(['author_id', 'category_id', 'title', 'slug', 'description', 'content', 'created_at', 'updated_at'])]
 class Post extends Model
 {
     public function author(): BelongsTo
@@ -38,10 +38,10 @@ class Post extends Model
     #[Scope]
     protected function byCategory(Builder $query, ?string $slug): Builder
     {
-        if (!$slug || $slug === 'semua') {
+        if (!$slug) {
             return $query;
         }
 
-        return $query->whereHas('categories', fn ($q) => $q->where('slug', $slug));
+        return $query->whereRelation('category', 'slug', $slug);
     }
 }
