@@ -38,7 +38,7 @@ const posts = page.props.posts;
                     <div class="lg:w-full lg:max-w-150 flex flex-col gap-6">
                         <div class="flex items-center gap-2.5">
                             <div class="w-8 h-8 flex items-center justify-center">
-                                <span class="w-6 h-0.5 bg-[#007FFF]" />
+                                <span class="w-6 h-0.5 bg-primary" />
                             </div>
                             <h2 class="font-medium text-2xl w-full">
                                 {{ settings.about_title || "Tentang" }}
@@ -58,11 +58,11 @@ const posts = page.props.posts;
                     <div class="w-full flex items-center gap-6">
                         <div class="w-full flex items-center gap-2.5">
                             <div class="w-8 h-8 flex items-center justify-center">
-                                <span class="w-6 h-0.5 bg-[#007FFF]" />
+                                <span class="w-6 h-0.5 bg-primary" />
                             </div>
                             <h2 class="font-medium text-2xl w-full">Postingan Terbaru</h2>
                         </div>
-                        <Link class="hidden lg:flex shrink-0 justify-start items-center gap-3 text-[#007FFF] shadow-[0_0_0_0.0625rem_#007FFF_inset] px-6 py-2 rounded-full" href="/blog">
+                        <Link class="hidden lg:flex shrink-0 justify-start items-center gap-3 text-primary shadow-[0_0_0_0.0625rem_var(--color-primary)_inset] px-6 py-2 rounded-full" href="/blog">
                             Lihat semua
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
                         </Link>
@@ -74,7 +74,7 @@ const posts = page.props.posts;
                             class="flex flex-col items-start justify-between gap-6 p-6 bg-white"
                         >
                             <div class="w-full flex flex-col items-start gap-6">
-                                <span class="p-1 text-sm text-white bg-[#007FFF]">{{ post.date }}</span>
+                                <span class="p-1 text-sm text-white bg-primary">{{ post.date }}</span>
                                 <h3 class="font-medium">{{ post.title }}</h3>
                                 <p class="text-[#999999]">{{ post.description }}</p>
                             </div>
@@ -88,7 +88,7 @@ const posts = page.props.posts;
                         </div>
                     </div>
                     <p v-else>Tidak ada postingan.</p>
-                    <Link class="flex lg:hidden justify-start items-center gap-3 text-[#007FFF] shadow-[0_0_0_0.0625rem_#007FFF_inset] px-6 py-2 rounded-full" href="/blog">
+                    <Link class="flex lg:hidden justify-start items-center gap-3 text-primary shadow-[0_0_0_0.0625rem_var(--color-primary)_inset] px-6 py-2 rounded-full" href="/blog">
                         Lihat semua
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
                     </Link>
