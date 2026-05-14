@@ -29,7 +29,7 @@ const links = computed(() => posts.links.map((link) => {
 
 <template>
     <HomeLayout>
-        <div class="bg-[#007FFF] text-white flex p-8 lg:p-0 lg:px-4 lg:py-8 lg:justify-center">
+        <div class="bg-primary text-white flex p-8 lg:p-0 lg:px-4 lg:py-8 lg:justify-center">
             <div class="flex flex-col gap-4 lg:w-full lg:max-w-270 lg:flex-row lg:items-center lg:justify-between">
                 <h1 class="text-2xl font-medium">Hasil pencarian untuk: {{ search }}</h1>
                 <div>
@@ -47,7 +47,7 @@ const links = computed(() => posts.links.map((link) => {
                     <label class="font-medium" for="search">Cari postingan</label>
                     <div class="flex items-center gap-4">
                         <input class="w-full px-6 py-2 shadow-[0_0_0_0.0625rem_#999999_inset] placeholder-[#999999] rounded-full" id="search" name="q" type="search" placeholder="Cari postingan" :value="search" />
-                        <button class="flex justify-start items-center gap-3 bg-[#007FFF] text-white px-6 py-2 rounded-full">Cari</button>
+                        <button class="flex justify-start items-center gap-3 bg-primary text-white px-6 py-2 rounded-full">Cari</button>
                     </div>
                 </Form>
                 <div v-if="posts.data.length > 0" class="w-full flex flex-col gap-6">
@@ -62,7 +62,7 @@ const links = computed(() => posts.links.map((link) => {
                 <p v-else>Postingan tidak ditemukan.</p>
                 <div class="flex justify-center items-center gap-4">
                     <template v-for="link in links">
-                        <Link v-if="link.url" :class="cn('w-10 h-10 flex justify-center items-center shadow-[0_0_0_0.0625rem_#CCCCCC_inset] font-medium text-[#999999]', link.active && 'text-[#007FFF]')" :href="link.url">
+                        <Link v-if="link.url" :class="cn('w-10 h-10 flex justify-center items-center shadow-[0_0_0_0.0625rem_#CCCCCC_inset] font-medium text-[#999999]', link.active && 'text-primary')" :href="link.url">
                             <span v-html="link.label" />
                         </Link>
                     </template>

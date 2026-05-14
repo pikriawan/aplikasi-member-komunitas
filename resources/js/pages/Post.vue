@@ -10,7 +10,7 @@ const props = defineProps({
 
 <template>
     <HomeLayout>
-        <div class="bg-[#007FFF] text-white flex p-8 lg:p-0 lg:px-4 lg:py-8 lg:justify-center">
+        <div class="bg-primary text-white flex p-8 lg:p-0 lg:px-4 lg:py-8 lg:justify-center">
             <div class="flex flex-col gap-4 lg:w-full lg:max-w-270 lg:flex-row lg:items-center lg:justify-between">
                 <h1 class="text-2xl font-medium">Blog</h1>
                 <div>
@@ -28,13 +28,13 @@ const props = defineProps({
             <div class="w-full lg:max-w-270 flex lg:grid lg:grid-cols-3 lg:gap-6">
                 <div class="flex flex-col gap-6 lg:col-span-2">
                     <div class="flex flex-col items-start gap-6 p-6 shadow-[0_0_0_0.0625rem_#CCCCCC_inset]">
-                        <p class="p-1 text-sm text-white bg-[#007FFF]">{{ post.date }}</p>
+                        <p class="p-1 text-sm text-white bg-primary">{{ post.date }}</p>
                         <h2 class="font-medium text-2xl w-full">{{ post.title }}</h2>
                         <div class="w-full h-px bg-[#CCCCCC]" />
                         <div class="w-full text-[#999999]" v-html="post.content" />
                         <div class="w-full flex items-center gap-2.5">
                             <div class="w-8 h-8 flex justify-center items-center">
-                                <span class="w-6 h-0.5 bg-[#007FFF]" />
+                                <span class="w-6 h-0.5 bg-primary" />
                             </div>
                             <p class="text-[#999999]">
                                 oleh

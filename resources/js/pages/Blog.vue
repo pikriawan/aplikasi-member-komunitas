@@ -28,7 +28,7 @@ const links = computed(() => posts.links.map((link) => {
 
 <template>
     <HomeLayout>
-        <div class="bg-[#007FFF] text-white flex p-8 lg:p-0 lg:px-4 lg:py-8 lg:justify-center">
+        <div class="bg-primary text-white flex p-8 lg:p-0 lg:px-4 lg:py-8 lg:justify-center">
             <div class="flex flex-col gap-4 lg:w-full lg:max-w-270 lg:flex-row lg:items-center lg:justify-between">
                 <h1 class="text-2xl font-medium">Blog</h1>
                 <div>
@@ -48,7 +48,7 @@ const links = computed(() => posts.links.map((link) => {
                     <h2 class="font-medium">Kategori</h2>
                     <div class="flex flex-col gap-2">
                         <template v-for="(c, i) in categories">
-                            <Link :class="cn('font-medium text-[#999999]', c.active && 'text-[#007FFF]')" :href="`/blog?category=${c.slug}`">
+                            <Link :class="cn('font-medium text-[#999999]', c.active && 'text-primary')" :href="`/blog?category=${c.slug}`">
                                 {{ c.name }}
                             </Link>
                             <div v-if="i !== categories.length - 1" class="w-full h-px bg-[#CCCCCC]" />
@@ -60,12 +60,12 @@ const links = computed(() => posts.links.map((link) => {
                         <label class="font-medium" for="search">Cari postingan</label>
                         <div class="flex items-center gap-4">
                             <input class="w-full px-6 py-2 shadow-[0_0_0_0.0625rem_#999999_inset] placeholder-[#999999] rounded-full" id="search" name="q" type="search" placeholder="Cari postingan" />
-                            <button class="flex justify-start items-center gap-3 bg-[#007FFF] text-white px-6 py-2 rounded-full">Cari</button>
+                            <button class="flex justify-start items-center gap-3 bg-primary text-white px-6 py-2 rounded-full">Cari</button>
                         </div>
                     </Form>
                     <div v-if="posts.data.length > 0" class="flex flex-col gap-6">
                         <Link v-for="post of posts.data" :key="post.id" class="flex flex-col items-start gap-6 p-6 shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" :href="`/blog/posts/${post.slug}`">
-                            <p class="p-1 text-sm text-white bg-[#007FFF]">{{ post.date }}</p>
+                            <p class="p-1 text-sm text-white bg-primary">{{ post.date }}</p>
                             <h2 class="font-medium">{{ post.title }}</h2>
                             <div class="w-full h-px bg-[#CCCCCC]" />
                             <p class="text-[#999999]">{{ post.description }}</p>
@@ -74,7 +74,7 @@ const links = computed(() => posts.links.map((link) => {
                     <p v-else>Tidak ada postingan.</p>
                     <div class="flex justify-center items-center gap-4">
                         <template v-for="link in links">
-                            <Link v-if="link.url" :class="cn('w-10 h-10 flex justify-center items-center shadow-[0_0_0_0.0625rem_#CCCCCC_inset] font-medium text-[#999999]', link.active && 'text-[#007FFF]')" :href="link.url">
+                            <Link v-if="link.url" :class="cn('w-10 h-10 flex justify-center items-center shadow-[0_0_0_0.0625rem_#CCCCCC_inset] font-medium text-[#999999]', link.active && 'text-primary')" :href="link.url">
                                 <span v-html="link.label" />
                             </Link>
                         </template>
@@ -83,7 +83,7 @@ const links = computed(() => posts.links.map((link) => {
                         <h2 class="font-medium">Kategori</h2>
                         <div class="flex flex-col gap-2">
                             <template v-for="(c, i) in categories">
-                                <Link :class="cn('font-medium text-[#999999]', c.active && 'text-[#007FFF]')" :href="`/blog?category=${c.slug}`">
+                                <Link :class="cn('font-medium text-[#999999]', c.active && 'text-primary')" :href="`/blog?category=${c.slug}`">
                                     {{ c.name }}
                                 </Link>
                                 <div v-if="i !== categories.length - 1" class="w-full h-px bg-[#CCCCCC]" />

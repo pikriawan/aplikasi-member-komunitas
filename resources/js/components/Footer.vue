@@ -14,7 +14,7 @@ const user = page.props.auth.user;
         <div class="flex flex-col lg:items-center bg-black text-white lg:px-4 lg:pb-6">
             <div class="flex flex-col lg:flex-row w-full lg:max-w-270">
                 <div class="flex flex-col gap-8 p-8 bg-[#121212] relative w-full">
-                    <div class="absolute top-0 left-0 -translate-y-full w-full h-2 bg-[#007FFF]" />
+                    <div class="absolute top-0 left-0 -translate-y-full w-full h-2 bg-primary" />
                     <Link class="flex justify-center items-center w-24 h-24 bg-white" href="/">
                         <img :src="settings.community_logo ? `${storageUrl}/${settings.community_logo}` : `${appUrl}/images/community-logo.png`" width="64" />
                     </Link>

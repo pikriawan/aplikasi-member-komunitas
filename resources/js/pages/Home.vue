@@ -15,7 +15,7 @@ const posts = page.props.posts;
     <HomeLayout>
         <div class="flex flex-col">
             <section class="relative flex lg:justify-center lg:items-center p-8 lg:p-0 lg:px-4 lg:h-136">
-                <div class="absolute top-0 left-0 w-full h-full bg-[rgba(0,127,255,0.8)] -z-1" />
+                <div class="absolute top-0 left-0 w-full h-full bg-primary opacity-80 -z-1" />
                 <img class="absolute top-0 left-0 w-full h-full grayscale -z-2 object-cover" :src="settings.background_image ? `${storageUrl}/${settings.background_image}` : `${appUrl}/images/background.jpg`" />
                 <div class="lg:w-full lg:max-w-270">
                     <div class="flex flex-col items-start gap-8 lg:max-w-150">

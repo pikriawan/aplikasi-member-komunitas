@@ -72,7 +72,7 @@ const user = page.props.auth.user;
             </div>
         </div>
         <div class="w-full relative flex h-14 justify-center items-center gap-8 px-4 bg-[rgba(0,0,0,0.2)]">
-            <div class="absolute top-0 left-0 w-full h-full bg-[#007FFF] -z-1" />
+            <div class="absolute top-0 left-0 w-full h-full bg-primary -z-1" />
             <Link class="font-medium text-white" href="/#about">TENTANG</Link>
             <Link class="font-medium text-white" href="/blog">BLOG</Link>
             <Link class="font-medium text-white" href="#contact">KONTAK</Link>
