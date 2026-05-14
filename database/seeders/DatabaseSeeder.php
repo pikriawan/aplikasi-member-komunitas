@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\MemberProfile;
 use App\Models\Post;
 use App\Models\Setting;
 use App\Models\User;
@@ -30,6 +31,15 @@ class DatabaseSeeder extends Seeder
             'password'          => Hash::make('password'),
             'is_active'         => true,
             'email_verified_at' => now(),
+        ]);
+
+        MemberProfile::create([
+            'user_id'       => $member->id,
+            'expire_date'   => date('Y-m-d', strtotime('+1 year')),
+            'institution'   => 'Universitas Sebelas Maret',
+            'department'    => 'Teknik Informatika',
+            'address'       => 'Jalan Ir. Sutami 36A, Surakarta',
+            'is_active'     => true,
         ]);
 
         $staff = User::create([
@@ -133,6 +143,7 @@ class DatabaseSeeder extends Seeder
         foreach ($posts as $post) {
             $newPost = Post::create([
                 'author_id'     => $staff->id,
+                'category_id'   => $post['category']->id,
                 'title'         => $post['title'],
                 'slug'          => $post['slug'],
                 'description'   => $post['description'],
@@ -140,9 +151,6 @@ class DatabaseSeeder extends Seeder
                 'created_at'    => $post['date'],
                 'updated_at'    => $post['date'],
             ]);
-
-            $newPost->category()->associate($post['category']);
-            $newPost->save();
         }
 
         $settings = [
