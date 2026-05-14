@@ -78,8 +78,8 @@ Route::middleware(['auth', 'verified', 'role:leader'])
     });
 
 Route::middleware(['auth', 'verified', 'role:super_admin'])
-    ->prefix('superadmin')
-    ->name('superadmin.')
+    ->prefix('super-admin')
+    ->name('super_admin.')
     ->group(function () {
         Route::get('/accounts', [AccountController::class, 'index'])->name('accounts');
     });

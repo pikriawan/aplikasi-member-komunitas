@@ -16,7 +16,7 @@ class DashboardController extends Controller
             'staff'         => redirect()->route('staff.contents'),
             'finance'       => redirect()->route('finance.payments'),
             'leader'        => redirect()->route('leader.statistics'),
-            'super_admin'   => redirect()->route('superadmin.accounts'),
+            'super_admin'   => redirect()->route('super_admin.accounts'),
         };
     }
 }
