@@ -1,6 +1,10 @@
 <script setup>
-import { Form, Link } from '@inertiajs/vue3';
-import HomeLayout from '../layouts/HomeLayout.vue';
+import { Form, Link } from "@inertiajs/vue3";
+import HomeLayout from "../layouts/HomeLayout.vue";
+import { ref } from "vue";
+
+const passwordShow = ref(false);
+const confirmPasswordShow = ref(false);
 </script>
 
 <template>
@@ -44,13 +48,25 @@ import HomeLayout from '../layouts/HomeLayout.vue';
                         <p class="text-[#FF0800] text-sm" v-if="errors.address">{{ errors.address }}</p>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <label class="font-semibold" for="register_password">Password *</label>
-                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="register_password" name="password" type="password" placeholder="Password" />
+                        <label class="font-semibold" for="register_password">Password</label>
+                        <div class="relative">
+                            <input class="w-full pl-4 pr-12 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="register_password" name="password" :type="passwordShow ? 'text' : 'password'" placeholder="Password" />
+                            <button class="absolute top-0 right-0 h-full aspect-square flex justify-center items-center" type="button" @click="passwordShow = !passwordShow">
+                                <svg v-if="passwordShow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off-icon lucide-eye-off"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
+                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>
+                        </div>
                         <p class="text-[#FF0800] text-sm" v-if="errors.password">{{ errors.password }}</p>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <label class="font-semibold" for="register_confirmPassword">Konfirmasi Password *</label>
-                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="register_confirmPassword" name="confirmPassword" type="password" placeholder="Konfirmasi password" />
+                        <label class="font-semibold" for="register_confirmPassword">Konfirmasi password</label>
+                        <div class="relative">
+                            <input class="w-full pl-4 pr-12 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="register_confirmPassword" name="confirmPassword" :type="confirmPasswordShow ? 'text' : 'password'" placeholder="Konfirmasi password" />
+                            <button class="absolute top-0 right-0 h-full aspect-square flex justify-center items-center" type="button" @click="confirmPasswordShow = !confirmPasswordShow">
+                                <svg v-if="confirmPasswordShow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off-icon lucide-eye-off"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
+                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>
+                        </div>
                         <p class="text-[#FF0800] text-sm" v-if="errors.confirmPassword">{{ errors.confirmPassword }}</p>
                     </div>
                     <div class="flex gap-2 text-[#999999]">
