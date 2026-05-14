@@ -56,15 +56,15 @@ const links = computed(() => posts.links.map((link) => {
                     </div>
                 </div>
                 <div class="flex flex-col gap-6 lg:col-span-2">
-                    <div class="w-full max-w-150 flex flex-col gap-4">
+                    <Form class="w-full max-w-150 flex flex-col gap-4" action="/blog/search" method="get">
                         <label class="font-medium" for="search">Cari postingan</label>
-                        <Form class="flex items-center gap-4">
-                            <input class="w-full px-6 py-2 shadow-[0_0_0_0.0625rem_#999999_inset] placeholder-[#999999] rounded-full" id="search" type="search" placeholder="Cari postingan" />
+                        <div class="flex items-center gap-4">
+                            <input class="w-full px-6 py-2 shadow-[0_0_0_0.0625rem_#999999_inset] placeholder-[#999999] rounded-full" id="search" name="q" type="search" placeholder="Cari postingan" />
                             <button class="flex justify-start items-center gap-3 bg-[#007FFF] text-white px-6 py-2 rounded-full">Cari</button>
-                        </Form>
-                    </div>
+                        </div>
+                    </Form>
                     <div v-if="posts.data.length > 0" class="flex flex-col gap-6">
-                        <Link v-for="post of posts.data" :key="post.id" class="flex flex-col items-start gap-6 p-6 shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" :href="`/blog/${post.slug}`">
+                        <Link v-for="post of posts.data" :key="post.id" class="flex flex-col items-start gap-6 p-6 shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" :href="`/blog/posts/${post.slug}`">
                             <p class="p-1 text-sm text-white bg-[#007FFF]">{{ post.date }}</p>
                             <h2 class="font-medium">{{ post.title }}</h2>
                             <div class="w-full h-px bg-[#CCCCCC]" />

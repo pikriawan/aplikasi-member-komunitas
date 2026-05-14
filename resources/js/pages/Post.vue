@@ -6,8 +6,6 @@ const props = defineProps({
     post: Object,
     categories: Array
 });
-
-console.log(props.categories);
 </script>
 
 <template>

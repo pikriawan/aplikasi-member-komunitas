@@ -57,4 +57,15 @@ class PostController extends Controller
             'categories' => $categories,
         ]);
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->query('q');
+
+        $posts = Post::search($search)->latest()->paginate(10);
+
+        return Inertia::render('BlogSearch', [
+            'posts' => $posts,
+        ]);
+    }
 }
