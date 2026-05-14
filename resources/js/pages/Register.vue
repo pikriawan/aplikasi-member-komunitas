@@ -15,28 +15,51 @@ import HomeLayout from '../layouts/HomeLayout.vue';
                 <Form class="w-full font-geist flex flex-col gap-8" action="/register" method="post" v-slot="{ errors }">
                     <div class="flex flex-col gap-2">
                         <label class="font-semibold" for="register_name">Nama lengkap *</label>
-                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="register_name" name="name" placeholder="Nama lengkap" />
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="register_name" name="name" placeholder="Nama lengkap" />
                         <p class="text-[#FF0800] text-sm" v-if="errors.name">{{ errors.name }}</p>
                     </div>
                     <div class="flex flex-col gap-2">
                         <label class="font-semibold" for="register_email">Email *</label>
-                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="register_email" name="email" type="email" placeholder="example@mail.com" />
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="register_email" name="email" type="email" placeholder="example@mail.com" />
                         <p class="text-[#FF0800] text-sm" v-if="errors.email">{{ errors.email }}</p>
                     </div>
                     <div class="flex flex-col gap-2">
                         <label class="font-semibold" for="register_telephone">Nomor telepon *</label>
-                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="register_telephone" name="telephone" type="tel" placeholder="Nomor telepon" />
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="register_telephone" name="telephone" type="tel" placeholder="Nomor telepon" />
                         <p class="text-[#FF0800] text-sm" v-if="errors.telephone">{{ errors.telephone }}</p>
                     </div>
                     <div class="flex flex-col gap-2">
+                        <label class="font-semibold" for="register_institution">Institusi</label>
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="register_institution" name="institution" placeholder="Institusi" />
+                        <p class="text-[#FF0800] text-sm" v-if="errors.institution">{{ errors.institution }}</p>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-semibold" for="register_department">Departemen</label>
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="register_department" name="department" placeholder="Departemen" />
+                        <p class="text-[#FF0800] text-sm" v-if="errors.department">{{ errors.department }}</p>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-semibold" for="register_address">Alamat</label>
+                        <textarea class="min-h-32 px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="register_address" name="address" placeholder="Alamat" />
+                        <p class="text-[#FF0800] text-sm" v-if="errors.address">{{ errors.address }}</p>
+                    </div>
+                    <div class="flex flex-col gap-2">
                         <label class="font-semibold" for="register_password">Password *</label>
-                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="register_password" name="password" type="password" placeholder="Password" />
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="register_password" name="password" type="password" placeholder="Password" />
                         <p class="text-[#FF0800] text-sm" v-if="errors.password">{{ errors.password }}</p>
                     </div>
                     <div class="flex flex-col gap-2">
                         <label class="font-semibold" for="register_confirmPassword">Konfirmasi Password *</label>
-                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="register_confirmPassword" name="confirmPassword" type="password" placeholder="Konfirmasi password" />
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="register_confirmPassword" name="confirmPassword" type="password" placeholder="Konfirmasi password" />
                         <p class="text-[#FF0800] text-sm" v-if="errors.confirmPassword">{{ errors.confirmPassword }}</p>
+                    </div>
+                    <div class="flex gap-2 text-[#999999]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                        Password minimal 8 karakter dengan kombinasi huruf dan angka.
+                    </div>
+                    <div class="flex gap-2 text-[#999999]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                        * wajib diisi.
                     </div>
                     <button class="flex justify-center items-center bg-primary text-white font-medium px-4 py-3 rounded-lg">Daftar</button>
                     <p class="text-center">Sudah memiliki akun? <Link class="text-primary" href="/login">Login</Link></p>

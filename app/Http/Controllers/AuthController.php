@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\MemberProfile;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -42,6 +43,15 @@ class AuthController extends Controller
         $userData['is_active'] = true;
 
         $user = User::create($userData);
+
+        $memberProfile = new MemberProfile();
+        $memberProfile->user()->associate($user);
+        $memberProfile->expire_date = now();
+        $memberProfile->institution = $request->string('institution');
+        $memberProfile->department = $request->string('department');
+        $memberProfile->address = $request->string('address');
+        $memberProfile->is_active = false;
+        $memberProfile->save();
 
         Auth::login($user);
 

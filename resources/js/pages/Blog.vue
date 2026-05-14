@@ -59,7 +59,7 @@ const links = computed(() => posts.links.map((link) => {
                     <Form class="w-full max-w-150 flex flex-col gap-4" action="/blog/search" method="get">
                         <label class="font-medium" for="search">Cari postingan</label>
                         <div class="flex items-center gap-4">
-                            <input class="w-full px-6 py-2 shadow-[0_0_0_0.0625rem_#999999_inset] placeholder-[#999999] rounded-full" id="search" name="q" type="search" placeholder="Cari postingan" />
+                            <input class="w-full px-6 py-2 shadow-[0_0_0_0.0625rem_#999999_inset] placeholder-[#999999] rounded-full focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="search" name="q" type="search" placeholder="Cari postingan" />
                             <button class="flex justify-start items-center gap-3 bg-primary text-white px-6 py-2 rounded-full">Cari</button>
                         </div>
                     </Form>

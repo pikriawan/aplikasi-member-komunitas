@@ -15,13 +15,16 @@ import HomeLayout from '../layouts/HomeLayout.vue';
                 <Form class="w-full font-geist flex flex-col gap-8" action="/login" method="post" v-slot="{ errors }">
                     <div class="flex flex-col gap-2">
                         <label class="font-semibold" for="login_email">Email</label>
-                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="login_email" name="email" type="email" placeholder="example@mail.com" />
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="login_email" name="email" type="email" placeholder="example@mail.com" />
                         <p class="text-[#FF0800] text-sm" v-if="errors.email">{{ errors.email }}</p>
                     </div>
                     <div class="flex flex-col gap-2">
                         <label class="font-semibold" for="login_password">Password</label>
-                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="login_password" name="password" type="password" placeholder="Password" />
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset] focus:outline-0 focus:shadow-[0_0_0_0.0625rem_var(--color-primary)_inset]" id="login_password" name="password" type="password" placeholder="Password" />
                         <p class="text-[#FF0800] text-sm" v-if="errors.password">{{ errors.password }}</p>
+                        <div class="flex justify-end">
+                            <Link class="text-primary" href="/forgot-password">Lupa password?</Link>
+                        </div>
                     </div>
                     <button class="flex justify-center items-center bg-primary text-white font-medium px-4 py-3 rounded-lg">Login</button>
                     <p class="text-center">Belum daftar membership? <Link class="text-primary" href="/register">Daftar sekarang</Link></p>
