@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\MemberProfile;
 use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class AuthController extends Controller
@@ -97,6 +100,49 @@ class AuthController extends Controller
         return back()->withErrors([
             'email' => 'Email atau password tidak sesuai.',
         ]);
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $request->validate(['email' => ['required', 'email']]);
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::ResetLinkSent
+            ? Inertia::flash('status', 'Kami telah mengirimi Anda tautan reset password.')->back()
+            : back()->withErrors(['email' => __($status)]);
+    }
+
+    public function resetPassword(string $token)
+    {
+        return Inertia::render('ResetPassword', ['token' => $token]);
+    }
+
+    public function updatePassword(Request $request) {
+        $request->validate([
+            'token' => ['required'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'confirmed'],
+        ]);
+    
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+    
+                $user->save();
+    
+                event(new PasswordReset($user));
+            }
+        );
+    
+        return $status === Password::PasswordReset
+            ? redirect()->route('login')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
     }
 
     public function logout(Request $request)
