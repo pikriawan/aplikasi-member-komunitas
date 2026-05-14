@@ -31,7 +31,7 @@ const props = defineProps({
                         <p class="p-1 text-sm text-white bg-primary">{{ post.date }}</p>
                         <h2 class="font-medium text-2xl w-full">{{ post.title }}</h2>
                         <div class="w-full h-px bg-[#CCCCCC]" />
-                        <div class="w-full text-[#999999]" v-html="post.content" />
+                        <div class="w-full flex flex-col gap-6 text-[#999999]" v-html="post.content" />
                         <div class="w-full flex items-center gap-2.5">
                             <div class="w-8 h-8 flex justify-center items-center">
                                 <span class="w-6 h-0.5 bg-primary" />

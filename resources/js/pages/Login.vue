@@ -5,20 +5,28 @@ import HomeLayout from '../layouts/HomeLayout.vue';
 
 <template>
     <HomeLayout>
-        <h1 class="text-3xl font-medium">Login</h1>
-        <Form class="flex flex-col items-start gap-3" action="/login" method="post" v-slot="{ errors }">
-            <div class="flex flex-col gap-2">
-                <label for="login_email">Email</label>
-                <input class="px-2 py-1 border border-neutral-950" id="login_email" name="email" type="email" />
-                <p class="text-red-600 text-sm" v-if="errors.email">{{ errors.email }}</p>
+        <div class="bg-primary text-white flex p-8 lg:p-0 lg:px-4 lg:py-8 lg:justify-center">
+            <div class="flex flex-col gap-4 lg:w-full lg:max-w-270 lg:flex-row lg:items-center lg:justify-between">
+                <h1 class="text-2xl font-medium">Login</h1>
             </div>
-            <div class="flex flex-col gap-2">
-                <label for="login_password">Password</label>
-                <input class="px-2 py-1 border border-neutral-950" id="login_password" name="password" type="password" />
-                <p class="text-red-600 text-sm" v-if="errors.password">{{ errors.password }}</p>
+        </div>
+        <div class="flex p-8 lg:p-0 lg:px-4 lg:py-16 justify-center">
+            <div class="w-full lg:max-w-lg flex">
+                <Form class="w-full font-geist flex flex-col gap-8" action="/login" method="post" v-slot="{ errors }">
+                    <div class="flex flex-col gap-2">
+                        <label class="font-semibold" for="login_email">Email</label>
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="login_email" name="email" type="email" placeholder="example@mail.com" />
+                        <p class="text-[#FF0800] text-sm" v-if="errors.email">{{ errors.email }}</p>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-semibold" for="login_password">Password</label>
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="login_password" name="password" type="password" placeholder="Password" />
+                        <p class="text-[#FF0800] text-sm" v-if="errors.password">{{ errors.password }}</p>
+                    </div>
+                    <button class="flex justify-center items-center bg-primary text-white font-medium px-4 py-3 rounded-lg">Login</button>
+                    <p class="text-center">Belum daftar membership? <Link class="text-primary" href="/register">Daftar sekarang</Link></p>
+                </Form>
             </div>
-            <button class="bg-blue-700 text-white px-4 py-2">Login</button>
-            <p>Belum punya akun? <Link class="text-blue-600" href="/register">Daftar sekarang</Link></p>
-        </Form>
+        </div>
     </HomeLayout>
 </template>

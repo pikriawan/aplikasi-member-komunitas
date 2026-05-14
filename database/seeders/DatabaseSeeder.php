@@ -141,7 +141,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($posts as $post) {
-            $newPost = Post::create([
+            Post::create([
                 'author_id'     => $staff->id,
                 'category_id'   => $post['category']->id,
                 'title'         => $post['title'],

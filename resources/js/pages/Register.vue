@@ -5,34 +5,43 @@ import HomeLayout from '../layouts/HomeLayout.vue';
 
 <template>
     <HomeLayout>
-        <h1 class="text-3xl font-medium">Daftar</h1>
-        <Form class="flex flex-col items-start gap-3" action="/register" method="post" v-slot="{ errors }">
-            <div class="flex flex-col gap-2">
-                <label for="register_name">Nama</label>
-                <input class="px-2 py-1 border border-neutral-950" id="register_name" name="name" />
-                <p class="text-red-600 text-sm" v-if="errors.name">{{ errors.name }}</p>
+        <div class="bg-primary text-white flex p-8 lg:p-0 lg:px-4 lg:py-8 lg:justify-center">
+            <div class="flex flex-col gap-4 lg:w-full lg:max-w-270 lg:flex-row lg:items-center lg:justify-between">
+                <h1 class="text-2xl font-medium">Daftar Membership</h1>
             </div>
-            <div class="flex flex-col gap-2">
-                <label for="register_email">Email</label>
-                <input class="px-2 py-1 border border-neutral-950" id="register_email" name="email" type="email" />
-                <p class="text-red-600 text-sm" v-if="errors.email">{{ errors.email }}</p>
+        </div>
+        <div class="flex p-8 lg:p-0 lg:px-4 lg:py-16 justify-center">
+            <div class="w-full lg:max-w-lg flex">
+                <Form class="w-full font-geist flex flex-col gap-8" action="/register" method="post" v-slot="{ errors }">
+                    <div class="flex flex-col gap-2">
+                        <label class="font-semibold" for="register_name">Nama lengkap *</label>
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="register_name" name="name" placeholder="Nama lengkap" />
+                        <p class="text-[#FF0800] text-sm" v-if="errors.name">{{ errors.name }}</p>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-semibold" for="register_email">Email *</label>
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="register_email" name="email" type="email" placeholder="example@mail.com" />
+                        <p class="text-[#FF0800] text-sm" v-if="errors.email">{{ errors.email }}</p>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-semibold" for="register_telephone">Nomor telepon *</label>
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="register_telephone" name="telephone" type="tel" placeholder="Nomor telepon" />
+                        <p class="text-[#FF0800] text-sm" v-if="errors.telephone">{{ errors.telephone }}</p>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-semibold" for="register_password">Password *</label>
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="register_password" name="password" type="password" placeholder="Password" />
+                        <p class="text-[#FF0800] text-sm" v-if="errors.password">{{ errors.password }}</p>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-semibold" for="register_confirmPassword">Konfirmasi Password *</label>
+                        <input class="px-4 py-3 rounded-lg placeholder:text-[#CCCCCC] shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" id="register_confirmPassword" name="confirmPassword" type="password" placeholder="Konfirmasi password" />
+                        <p class="text-[#FF0800] text-sm" v-if="errors.confirmPassword">{{ errors.confirmPassword }}</p>
+                    </div>
+                    <button class="flex justify-center items-center bg-primary text-white font-medium px-4 py-3 rounded-lg">Daftar</button>
+                    <p class="text-center">Sudah memiliki akun? <Link class="text-primary" href="/login">Login</Link></p>
+                </Form>
             </div>
-            <div class="flex flex-col gap-2">
-                <label for="register_telephone">Telephone</label>
-                <input class="px-2 py-1 border border-neutral-950" id="register_telephone" name="telephone" />
-                <p class="text-red-600 text-sm" v-if="errors.telephone">{{ errors.telephone }}</p>
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="register_password">Password</label>
-                <input class="px-2 py-1 border border-neutral-950" id="register_password" name="password" type="password" />
-                <p class="text-red-600 text-sm" v-if="errors.password">{{ errors.password }}</p>
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="register_confirmPassword">Konfirmasi password</label>
-                <input class="px-2 py-1 border border-neutral-950" id="register_confirmPassword" name="confirmPassword" type="password" />
-            </div>
-            <button class="bg-blue-700 text-white px-4 py-2">Registrasi</button>
-            <p>Sudah punya akun? <Link class="text-blue-600" href="/login">Login sekarang</Link></p>
-        </Form>
+        </div>
     </HomeLayout>
 </template>

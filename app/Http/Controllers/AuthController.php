@@ -68,7 +68,7 @@ class AuthController extends Controller
     public function sendVerification(Request $request) {
         $request->user()->sendEmailVerificationNotification();
 
-        return Inertia::flash('message', 'Email verifikasi berhasil dikirim.')->back();
+        return Inertia::flash('message', 'Tautan verifikasi baru telah dikirim ke email Anda yang Anda tulis ketika registrasi.')->back();
     }
 
     public function login(Request $request)
