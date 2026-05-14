@@ -155,7 +155,7 @@ class DatabaseSeeder extends Seeder
 
         $settings = [
             'community_name'        => 'Aplikasi Member Komunitas',
-            'community_logo'        => Storage::putFile('uploads', new File(public_path('images/community-logo.png'))),
+            'community_logo'        => Storage::putFile('uploads', new File(public_path('images/community-logo.svg'))),
             'email'                 => 'amk@mail.com',
             'phone_number'          => '081200000000',
             'address'               => 'Gedung Cipta Karya, Jl. Pahlawan Sejahtera No. 5, Surabaya',
