@@ -52,6 +52,26 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
+        $finance = User::create([
+            'role'              => 'finance',
+            'name'              => 'Jo Paijo',
+            'email'             => 'jopaijo@gmail.com',
+            'telephone'         => '081234567892',
+            'password'          => Hash::make('password'),
+            'is_active'         => true,
+            'email_verified_at' => now(),
+        ]);
+
+        $leader = User::create([
+            'role'              => 'leader',
+            'name'              => 'Jo Bejo',
+            'email'             => 'jobejo@gmail.com',
+            'telephone'         => '081234567893',
+            'password'          => Hash::make('password'),
+            'is_active'         => true,
+            'email_verified_at' => now(),
+        ]);
+
         $superAdmin = User::create([
             'role'              => 'super_admin',
             'name'              => 'Met Slamet',

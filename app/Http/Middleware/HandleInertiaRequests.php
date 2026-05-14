@@ -61,7 +61,7 @@ class HandleInertiaRequests extends Middleware
                 'about_description',
             ])->mapWithKeys(fn (string $key) => [$key => Setting::get($key)]),
             'auth.user' => fn (Request $request) => $request->user()
-                ? $request->user()->only('id', 'name', 'email')
+                ? $request->user()->only('id', 'role', 'name', 'email')
                 : null,
         ]);
     }

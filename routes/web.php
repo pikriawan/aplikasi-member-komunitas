@@ -1,8 +1,14 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Finance\PaymentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Leader\StatisticController;
+use App\Http\Controllers\Member\ContentController as MemberContentController;
+use App\Http\Controllers\Staff\ContentController as StaffContentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SuperAdmin\AccountController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -39,8 +45,41 @@ Route::middleware('auth')->group(function () {
     Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verify'])->middleware('signed')->name('verification.verify');
 
     Route::post('/email/verification-notification', [AuthController::class, 'sendVerification'])->middleware(['throttle:6,1'])->name('verification.send');
-
-    Route::middleware('verified')->group(function () {
-        Route::inertia('/dashboard', 'Dashboard')->name('dashboard');
-    });
 });
+
+Route::get('/dashboard', DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'verified', 'role:member'])
+    ->prefix('member')
+    ->name('member.')
+    ->group(function () {
+        Route::get('/contents', [MemberContentController::class, 'index'])->name('contents');
+    });
+
+Route::middleware(['auth', 'verified', 'role:staff'])
+    ->prefix('staff')
+    ->name('staff.')
+    ->group(function () {
+        Route::get('/contents', [StaffContentController::class, 'index'])->name('contents');
+    });
+
+Route::middleware(['auth', 'verified', 'role:finance'])
+    ->prefix('finance')
+    ->name('finance.')
+    ->group(function () {
+        Route::get('/payments', [PaymentController::class, 'index'])->name('payments');
+    });
+
+Route::middleware(['auth', 'verified', 'role:leader'])
+    ->prefix('leader')
+    ->name('leader.')
+    ->group(function () {
+        Route::get('/statistics', [StatisticController::class, 'index'])->name('statistics');
+    });
+
+Route::middleware(['auth', 'verified', 'role:super_admin'])
+    ->prefix('superadmin')
+    ->name('superadmin.')
+    ->group(function () {
+        Route::get('/accounts', [AccountController::class, 'index'])->name('accounts');
+    });
