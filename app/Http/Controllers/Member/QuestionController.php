@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
-use App\Models\Content;
+use App\Models\Conversation;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class ContentController extends Controller
+class QuestionController extends Controller
 {
     public function index(Request $request)
     {
@@ -19,19 +19,18 @@ class ContentController extends Controller
             ]);
         }
 
-        $type = $request->query('type', 'video');
-
-        $contents = Content::byType($type)
+        $conversations = Conversation::where('submitter_id', $request->user()->id)
             ->latest()
             ->paginate(10)
-            ->through(function ($content) {
-                $content->date = $content->created_at->format('d F Y • H:i');
+            ->through(function ($conversation) {
+                $conversation->title = $conversation->messages()->oldest()->first()?->content;
+                $conversation->date = $conversation->created_at->format('d F Y • H:i');
 
-                return $content;
+                return $conversation;
             });
 
-        return Inertia::render('member/Contents', [
-            'contents' => $contents,
+        return Inertia::render('member/Questions', [
+            'conversations' => $conversations,
         ]);
     }
 }

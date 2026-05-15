@@ -6,6 +6,7 @@ use App\Http\Controllers\Finance\PaymentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Leader\StatisticController;
 use App\Http\Controllers\Member\ContentController as MemberContentController;
+use App\Http\Controllers\Member\QuestionController as MemberQuestionController;
 use App\Http\Controllers\Staff\ContentController as StaffContentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SuperAdmin\AccountController;
@@ -54,6 +55,8 @@ Route::middleware(['auth', 'verified', 'role:member'])
     ->name('member.')
     ->group(function () {
         Route::get('/contents', [MemberContentController::class, 'index'])->name('contents');
+
+        Route::get('/questions', [MemberQuestionController::class, 'index'])->name('questions');
     });
 
 Route::middleware(['auth', 'verified', 'role:staff'])
