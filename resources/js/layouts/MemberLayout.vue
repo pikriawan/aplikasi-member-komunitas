@@ -19,22 +19,16 @@ function setSidebarShow(value) {
     sidebarShow.value = value;
 }
 
-provide('sidebarShow', {
-    sidebarShow,
-    setSidebarShow
-});
-
 const mobileProfileMenuShow = ref(false);
 const desktopProfileMenuShow = ref(false);
 </script>
 
 <template>
-    <button @click="sidebarShow = true">Show</button>
     <div
         class="w-full h-full fixed top-0 left-0 bg-black opacity-40 z-1 lg:hidden"
         v-if="sidebarShow"
         @click="() => {
-            setSidebarShow(false);
+            sidebarShow = false;
             mobileProfileMenuShow = false;
         }"
     />
@@ -135,6 +129,8 @@ const desktopProfileMenuShow = ref(false);
                 </div>
             </div>
         </aside>
-        <slot />
+        <div class="lg:w-full lg:h-full lg:grid lg:grid-cols-1 lg:grid-rows-[5rem_1fr]">
+            <slot :sidebarShow="sidebarShow" :setSidebarShow="setSidebarShow" />
+        </div>
     </div>
 </template>
