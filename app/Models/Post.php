@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['author_id', 'category_id', 'title', 'slug', 'description', 'content', 'created_at', 'updated_at'])]
+#[Fillable(['author_id', 'category_id', 'title', 'slug', 'description', 'content'])]
 class Post extends Model
 {
     public function author(): BelongsTo
