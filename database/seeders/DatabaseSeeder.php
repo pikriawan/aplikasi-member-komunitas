@@ -87,97 +87,97 @@ class DatabaseSeeder extends Seeder
             [
                 'type'          => 'video',
                 'title'         => 'Belajar Coding dari Nol: Bisa Jadi Programmer dalam 7 Hari?',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-1.jpg')))
             ],
             [
                 'type'          => 'video',
                 'title'         => 'Apa Itu Artificial Intelligence? Penjelasan Simpel Buat Pemula',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-2.jpg')))
             ],
             [
                 'type'          => 'video',
                 'title'         => 'Eksperimen Machine Learning: Prediksi Data Sederhana',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-3.jpg')))
             ],
             [
                 'type'          => 'video',
                 'title'         => 'Ngoding 24 Jam Nonstop, Seberapa Jauh Progresnya?',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-4.jpg')))
             ],
             [
                 'type'          => 'video',
                 'title'         => 'Perbandingan Bahasa Pemrograman Populer: Mana yang Terbaik?',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-5.jpg')))
             ],
             [
                 'type'          => 'video',
                 'title'         => 'Cara Bikin Website Sederhana Pakai HTML, CSS, dan JavaScript',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-6.jpg')))
             ],
             [
                 'type'          => 'video',
                 'title'         => '5 Cara Meningkatkan Produktivitas Kerja dari Rumah',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-7.jpg')))
             ],
             [
                 'type'          => 'video',
                 'title'         => 'Tutorial Dasar Editing Video untuk Pemula',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-8.jpg')))
             ],
             [
                 'type'          => 'ebook',
                 'title'         => 'Panduan Lengkap Memulai Bisnis Online dari Nol',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-9.jpg')))
             ],
             [
                 'type'          => 'ebook',
                 'title'         => 'Strategi Personal Branding di Era Digital',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-10.jpg')))
             ],
             [
                 'type'          => 'ebook',
                 'title'         => 'Dasar-Dasar Pemrograman untuk Pemula: Dari Nol Sampai Bisa',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-11.jpg')))
             ],
             [
                 'type'          => 'ebook',
                 'title'         => 'Mengenal Dunia Artificial Intelligence: Konsep dan Implementasi',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-12.jpg')))
             ],
             [
                 'type'          => 'ebook',
                 'title'         => 'Belajar Web Development: Panduan Lengkap HTML, CSS, dan JavaScript',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-13.jpg')))
             ],
             [
                 'type'          => 'ebook',
                 'title'         => 'Pengantar Data Science: Cara Mengolah Data Secara Efektif',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-14.jpg')))
             ],
             [
                 'type'          => 'ebook',
                 'title'         => 'Cybersecurity 101: Cara Melindungi Data di Era Digital',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-15.jpg')))
             ],
             [
                 'type'          => 'ebook',
                 'title'         => 'Rahasia Developer Produktif',
-                'file_url'      => '',
+                'file_url'      => '#',
                 'thumbnail_url' => Storage::putFile('uploads', new File(public_path('images/content-thumbnail-16.jpg')))
             ],
         ];
