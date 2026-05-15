@@ -20,7 +20,7 @@ const user = page.props.auth.user;
                 <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
             </button>
             <Link href="/" class="h-full flex justify-center items-center px-8 shadow-[0.0625rem_0_0_#CCCCCC_inset,-0.0625rem_0_0_#CCCCCC_inset]">
-                <img :src="settings.community_logo ? `${storageUrl}/${settings.community_logo}` : `${appUrl}/images/community-logo.png`" width="64" />
+                <img :src="settings.community_logo ? `${storageUrl}/${settings.community_logo}` : `${appUrl}/images/community-logo.png`" width="46" />
             </Link>
         </div>
         <Link class="font-medium flex justify-start items-center gap-3 px-6 py-2 rounded-full shadow-[0_0_0_0.0625rem_#333333_inset]" href="/dashboard" v-if="user">Dashboard</Link>
@@ -49,7 +49,7 @@ const user = page.props.auth.user;
         <div class="w-full h-14 flex justify-center px-4 bg-white">
             <div class="w-full h-full max-w-270 flex justify-between">
                 <Link href="/" class="h-full flex justify-center items-center px-8 shadow-[0.0625rem_0_0_#CCCCCC_inset,-0.0625rem_0_0_#CCCCCC_inset]">
-                    <img :src="settings.community_logo ? `${storageUrl}/${settings.community_logo}` : `${appUrl}/images/community-logo.png`" width="64" />
+                    <img :src="settings.community_logo ? `${storageUrl}/${settings.community_logo}` : `${appUrl}/images/community-logo.png`" width="46" />
                 </Link>
                 <div class="h-full flex gap-px px-px bg-[#CCCCCC]">
                     <a class="h-full flex items-center gap-3 px-4 bg-white" :href="settings.email ? ('mailto://' + settings.email) : '#'" target="_blank">

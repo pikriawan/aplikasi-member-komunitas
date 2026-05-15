@@ -16,7 +16,7 @@ const user = page.props.auth.user;
                 <div class="flex flex-col gap-8 p-8 bg-[#121212] relative w-full">
                     <div class="absolute top-0 left-0 -translate-y-full w-full h-2 bg-primary" />
                     <Link class="flex justify-center items-center w-24 h-24 bg-white" href="/">
-                        <img :src="settings.community_logo ? `${storageUrl}/${settings.community_logo}` : `${appUrl}/images/community-logo.png`" width="64" />
+                        <img :src="settings.community_logo ? `${storageUrl}/${settings.community_logo}` : `${appUrl}/images/community-logo.png`" width="46" />
                     </Link>
                     <p class="text-[#999999]">
                         {{ settings.about_description || "Komunitas ini adalah ruang terbuka bagi siapa saja yang ingin belajar, berkembang, dan saling terhubung dalam lingkungan yang positif dan kolaboratif. Kami menghadirkan berbagai kesempatan untuk bertukar wawasan, membangun relasi, serta berpartisipasi dalam kegiatan yang mendorong pertumbuhan pribadi maupun profesional. Dengan semangat kebersamaan, kami percaya bahwa setiap individu memiliki potensi untuk memberikan kontribusi dan menciptakan dampak yang berarti. Di sini, kamu tidak hanya menjadi bagian dari komunitas, tetapi juga bagian dari perjalanan untuk tumbuh dan berkembang bersama." }}
