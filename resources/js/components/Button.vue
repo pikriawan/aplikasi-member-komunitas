@@ -1,8 +1,13 @@
 <script setup>
+import { Link } from "@inertiajs/vue3";
 import { cn } from "../lib/utils";
 import { computed } from "vue";
 
 const props = defineProps({
+    tag: {
+        type: String,
+        default: "button"
+    },
     variant: String,
     justify: String
 });
@@ -31,7 +36,7 @@ const justifyClass = computed(() => {
 </script>
 
 <template>
-    <button :class="cn('flex items-center gap-3 px-4 py-3 rounded-lg font-medium', variantClasses, justifyClass)" v-bind="props">
+    <component :is="tag" :class="cn('flex items-center gap-3 px-4 py-3 rounded-lg font-medium', variantClasses, justifyClass)" v-bind="props">
         <slot />
-    </button>
+    </component>
 </template>

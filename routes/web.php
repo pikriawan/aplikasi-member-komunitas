@@ -56,7 +56,9 @@ Route::middleware(['auth', 'verified', 'role:member'])
     ->group(function () {
         Route::get('/contents', [MemberContentController::class, 'index'])->name('contents');
 
-        Route::get('/questions', [MemberQuestionController::class, 'index'])->name('questions');
+        Route::get('/questions', [MemberQuestionController::class, 'index'])->name('questions.index');
+
+        Route::get('/questions/create', [MemberQuestionController::class, 'create'])->name('questions.create');
     });
 
 Route::middleware(['auth', 'verified', 'role:staff'])

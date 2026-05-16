@@ -1,10 +1,10 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import Button from "../../components/Button.vue";
-import MemberLayout from "../../layouts/MemberLayout.vue";
-import { cn } from "../../lib/utils";
+import Button from "../../../components/Button.vue";
+import MemberLayout from "../../../layouts/MemberLayout.vue";
+import { cn } from "../../../lib/utils";
 import { Form, Link, usePage } from "@inertiajs/vue3";
-import Alert from "../../components/Alert.vue";
+import Alert from "../../../components/Alert.vue";
 
 const page = usePage();
 

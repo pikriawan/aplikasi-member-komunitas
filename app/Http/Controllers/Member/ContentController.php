@@ -14,7 +14,7 @@ class ContentController extends Controller
         $premium = $request->user()?->memberProfile?->is_active;
 
         if (!$premium) {
-            return Inertia::render('member/Contents', [
+            return Inertia::render('member/contents/Index', [
                 'error' => 'Anda perlu berlangganan member premium untuk mengakses fitur ini.',
             ]);
         }
@@ -30,7 +30,7 @@ class ContentController extends Controller
                 return $content;
             });
 
-        return Inertia::render('member/Contents', [
+        return Inertia::render('member/contents/Index', [
             'contents' => $contents,
         ]);
     }

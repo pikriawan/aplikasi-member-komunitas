@@ -11,10 +11,10 @@ class QuestionController extends Controller
 {
     public function index(Request $request)
     {
-        $premium = $request->user()?->memberProfile?->is_active;
+        $premium = $request->user()->memberProfile->is_active;
 
         if (!$premium) {
-            return Inertia::render('member/Contents', [
+            return Inertia::render('member/questions/Index', [
                 'error' => 'Anda perlu berlangganan member premium untuk mengakses fitur ini.',
             ]);
         }
@@ -29,8 +29,21 @@ class QuestionController extends Controller
                 return $conversation;
             });
 
-        return Inertia::render('member/Questions', [
+        return Inertia::render('member/questions/Index', [
             'conversations' => $conversations,
         ]);
+    }
+
+    public function create(Request $request)
+    {
+        $premium = $request->user()->memberProfile->is_active;
+
+        if (!$premium) {
+            return Inertia::render('member/questions/Create', [
+                'error' => 'Anda perlu berlangganan member premium untuk mengakses fitur ini.',
+            ]);
+        }
+
+        return Inertia::render('member/questions/Create');
     }
 }

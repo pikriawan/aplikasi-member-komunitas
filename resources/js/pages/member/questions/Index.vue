@@ -1,10 +1,10 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import Button from "../../components/Button.vue";
-import MemberLayout from "../../layouts/MemberLayout.vue";
-import { cn } from "../../lib/utils";
+import Button from "../../../components/Button.vue";
+import MemberLayout from "../../../layouts/MemberLayout.vue";
+import { cn } from "../../../lib/utils";
 import { Form, Link, usePage } from "@inertiajs/vue3";
-import Alert from "../../components/Alert.vue";
+import Alert from "../../../components/Alert.vue";
 
 const page = usePage();
 
@@ -45,7 +45,7 @@ const optionsShow = ref(false);
                 </button>
             </div>
             <div class="shrink-0 gap-4 hidden lg:flex">
-                <Button>
+                <Button :tag="Link" href="/member/questions/create">
                     Buat pertanyaan baru
                 </Button>
             </div>
