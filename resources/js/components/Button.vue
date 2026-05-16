@@ -5,7 +5,7 @@ import { computed } from "vue";
 
 const props = defineProps({
     tag: {
-        type: String,
+        type: [String, Object],
         default: "button"
     },
     variant: String,

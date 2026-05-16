@@ -59,6 +59,12 @@ Route::middleware(['auth', 'verified', 'role:member'])
         Route::get('/questions', [MemberQuestionController::class, 'index'])->name('questions.index');
 
         Route::get('/questions/create', [MemberQuestionController::class, 'create'])->name('questions.create');
+
+        Route::post('/questions/create', [MemberQuestionController::class, 'store'])->name('questions.store');
+
+        Route::get('/questions/{ticketNumber}', [MemberQuestionController::class, 'show'])->name('questions.show');
+
+        Route::post('/questions/{ticketNumber}/send', [MemberQuestionController::class, 'send'])->name('question.send');
     });
 
 Route::middleware(['auth', 'verified', 'role:staff'])

@@ -58,7 +58,7 @@ const optionsShow = ref(false);
                 <template v-else>
                     <div class="flex flex-col items-center gap-8" v-if="conversations.data.length > 0">
                         <div class="w-full lg:max-w-150 flex flex-col gap-8">
-                            <Link class="flex flex-col gap-4 p-6 items-start rounded-2xl shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" v-for="conversation in conversations.data" :key="conversation.id" :href="`/member/conversations/${conversation.ticket_number}`">
+                            <Link class="flex flex-col gap-4 p-6 items-start rounded-2xl shadow-[0_0_0_0.0625rem_#CCCCCC_inset]" v-for="conversation in conversations.data" :key="conversation.id" :href="`/member/questions/${conversation.ticket_number}`">
                                 <span class="w-full">#{{ conversation.ticket_number }}</span>
                                 <h2 class="w-full font-semibold text-2xl">{{ conversation.title }}</h2>
                                 <span class="w-full text-[#999999]">{{ conversation.date }}</span>
