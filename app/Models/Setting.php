@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Collection;
 
 #[Fillable(
     'manager_id',
@@ -21,6 +22,13 @@ class Setting extends Model
     public static function set(string $key, string $value): void
     {
         static::updateOrCreate(['key' => $key], ['value' => $value]);
+    }
+
+    public static function allAsMap(): Collection
+    {
+        return static::all()->mapWithKeys(fn ($setting) => [
+            $setting->key => $setting->value,
+        ]);
     }
 
     public function manager(): BelongsTo
