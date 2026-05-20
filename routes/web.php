@@ -13,6 +13,14 @@ Route::middleware('guest')->group(function () {
     Route::inertia('/login', 'Login')->name('login');
 
     Route::post('/login', [AuthController::class, 'login'])->name('login.store');
+
+    Route::inertia('/forgot-password', 'ForgotPassword')->name('password.request');
+
+    Route::post('/forgot-password', [AuthController::class, 'sendPasswordResetLink'])->name('password.email');
+
+    Route::get('/reset-password/{token}', [AuthController::class, 'showPasswordReset'])->name('password.reset');
+
+    Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 });
 
 Route::middleware('auth')->group(function () {
