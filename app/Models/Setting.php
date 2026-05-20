@@ -14,9 +14,9 @@ use Illuminate\Support\Collection;
 )]
 class Setting extends Model
 {
-    public static function get(string $key): mixed
+    public static function get(string $key, $default = null): mixed
     {
-        return static::where('key', $key)->value('value');
+        return static::where('key', $key)->value('value') ?? $default;
     }
 
     public static function set(string $key, string $value): void

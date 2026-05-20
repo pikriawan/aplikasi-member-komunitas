@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'community_name'        => 'Aplikasi Member Komunitas',
             'community_logo'        => Storage::putFile('', new File(public_path('images/community-logo.svg'))),
             'email'                 => 'amk@mail.com',
-            'phone_number'          => '081200000000',
+            'telephone'             => '081200000000',
             'address'               => 'Gedung Cipta Karya, Jl. Pahlawan Sejahtera No. 5, Surabaya',
             'x_account_url'         => 'https://x.com/amk',
             'facebook_account_url'  => 'https://facebook.com/amk',

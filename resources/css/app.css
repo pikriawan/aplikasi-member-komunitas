@@ -19,6 +19,7 @@
     --color-text-dark: #333333;
     --color-text-dimmed: #999999;
     --color-placeholder: #F2F2F2;
+    --color-overlay: rgba(0, 0, 0, 0.6);
 
     --color-success-50: #E6FFED;
     --color-success-100: #CDFEDC;
