@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('member_profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->timestamp('expire_date');
+            $table->timestamp('expired_date');
             $table->string('institution')->nullable();
             $table->string('department')->nullable();
             $table->string('address')->nullable();

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable(
     'user_id',
-    'expire_date',
+    'expired_date',
     'institution',
     'department',
     'address',
