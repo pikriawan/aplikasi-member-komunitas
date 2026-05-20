@@ -10,4 +10,3 @@ import { Form } from "@inertiajs/vue3";
         </Form>
     </div>
 </template>
-

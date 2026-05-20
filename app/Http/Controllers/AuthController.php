@@ -6,8 +6,10 @@ use App\Enums\UserRole;
 use App\Models\MemberProfile;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class AuthController extends Controller
 {
@@ -47,6 +49,29 @@ class AuthController extends Controller
         event(new Registered($user));
 
         return redirect()->intended(route('dashboard'));
+    }
+
+    public function sendVerification(Request $request)
+    {
+        if ($request->user()->hasVerifiedEmail()) {
+            return redirect()->route('dashboard');
+        }
+
+        return Inertia::render('VerifyEmail');
+    }
+
+    public function verify(EmailVerificationRequest $request)
+    {
+        $request->fulfill();
+
+        return redirect()->intended(route('dashboard'));
+    }
+
+    public function resendVerification(Request $request)
+    {
+        $request->user()->sendEmailVerificationNotification();
+
+        return Inertia::flash('message', 'Verification link sent!')->back();
     }
 
     public function login(Request $request)
