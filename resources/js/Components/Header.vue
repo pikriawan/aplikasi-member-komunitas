@@ -19,16 +19,16 @@ const mobileNavbarVisible = ref(false);
                 <svg v-if="mobileNavbarVisible" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
             </button>
-            <Link href="/" class="h-full px-8 flex justify-center items-center shadow-[-0.0625rem_0_0_var(--color-ring)_inset]">
+            <Link :href="route('home')" class="h-full px-8 flex justify-center items-center shadow-[-0.0625rem_0_0_var(--color-ring)_inset]">
                 <img :src="setting.community_logo ? `${storageUrl}/${setting.community_logo}` : `${appUrl}/images/community-logo.svg`" alt="Logo" width="48">
             </Link>
         </div>
-        <Link v-if="user" class="px-6 py-2 rounded-full ring ring-inset ring-black font-medium" href="/dashboard">Dashboard</Link>
-        <Link v-else class="px-6 py-2 rounded-full ring ring-inset ring-black font-medium" href="/login">Login</Link>
+        <Link v-if="user" class="px-6 py-2 rounded-full ring ring-inset ring-black font-medium" :href="route('dashboard')">Dashboard</Link>
+        <Link v-else class="px-6 py-2 rounded-full ring ring-inset ring-black font-medium" :href="route('login')">Login</Link>
         <nav v-if="mobileNavbarVisible" class="absolute top-full left-0 w-full flex flex-col bg-white">
-            <Link class="p-4 font-medium shadow-[0_-0.0625rem_0_var(--color-ring)_inset]" href="/#about">TENTANG</Link>
+            <Link class="p-4 font-medium shadow-[0_-0.0625rem_0_var(--color-ring)_inset]" :href="`${route('home')}#about`">TENTANG</Link>
             <Link class="p-4 font-medium shadow-[0_-0.0625rem_0_var(--color-ring)_inset]" href="/blog">BLOG</Link>
-            <Link class="p-4 font-medium shadow-[0_-0.0625rem_0_var(--color-ring)_inset]" href="/#contact">KONTAK</Link>
+            <Link class="p-4 font-medium shadow-[0_-0.0625rem_0_var(--color-ring)_inset]" :href="`${route('home')}#contact`">KONTAK</Link>
             <div class="h-14 flex shadow-[0_-0.0625rem_0_var(--color-ring)_inset]">
                 <a class="w-full h-full flex justify-center items-center shadow-[-0.0625rem_0_0_var(--color-ring)_inset]" :href="setting.email ? `mailto:${setting.email}` : 'mailto:amk@mail.com'" target="_blank">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail-icon lucide-mail"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
@@ -49,7 +49,7 @@ const mobileNavbarVisible = ref(false);
         <nav class="flex flex-col">
             <div class="h-14 flex justify-center px-4">
                 <div class="w-full max-w-270 h-full flex justify-between">
-                    <Link class="flex items-center px-8 shadow-[0.0625rem_0_0_var(--color-ring)_inset,-0.0625rem_0_0_var(--color-ring)_inset]" href="/">
+                    <Link class="flex items-center px-8 shadow-[0.0625rem_0_0_var(--color-ring)_inset,-0.0625rem_0_0_var(--color-ring)_inset]" :href="route('home')">
                         <img :src="setting.community_logo ? `${storageUrl}/${setting.community_logo}` : `${appUrl}/images/community-logo.svg`" alt="Logo" width="48">
                     </Link>
                     <div class="flex">
@@ -74,11 +74,11 @@ const mobileNavbarVisible = ref(false);
             </div>
             <div class="relative h-14 flex justify-center items-center gap-8 px-4 bg-[rgba(0,0,0,0.2)]">
                 <div class="absolute top-0 left-0 w-full h-full bg-primary -z-1" />
-                <Link class="font-medium text-white" href="/#about">TENTANG</Link>
+                <Link class="font-medium text-white" :href="`${route('home')}#about`">TENTANG</Link>
                 <Link class="font-medium text-white" href="/blog">BLOG</Link>
-                <Link class="font-medium text-white" href="/#contact">KONTAK</Link>
-                <Link v-if="user" class="px-6 py-2 rounded-full ring ring-inset ring-white font-medium text-white" href="/dashboard">Dashboard</Link>
-                <Link v-else class="px-6 py-2 rounded-full ring ring-inset ring-white font-medium text-white" href="/login">Login</Link>
+                <Link class="font-medium text-white" :href="`${route('home')}#contact`">KONTAK</Link>
+                <Link v-if="user" class="px-6 py-2 rounded-full ring ring-inset ring-white font-medium text-white" :href="route('dashboard')">Dashboard</Link>
+                <Link v-else class="px-6 py-2 rounded-full ring ring-inset ring-white font-medium text-white" :href="route('login')">Login</Link>
             </div>
         </nav>
     </header>
