@@ -27,5 +27,22 @@ const setting = computed(() => page.props.setting);
                 </div>
             </div>
         </main>
+        <section id="about" class="p-8 lg:p-0 lg:px-4 lg:py-16 lg:flex lg:justify-center">
+            <div class="flex flex-col gap-8 lg:flex-row lg:justify-between lg:items-center lg:w-full lg:max-w-270">
+                <img class="w-full lg:w-80 aspect-square object-cover" :src="setting.about_image ? `${storageUrl}/${setting.about_image}` : `${appUrl}/images/about.jpg`" alt="About">
+                <div class="flex flex-col gap-6 lg:max-w-150">
+                    <div class="flex items-center gap-2.5">
+                        <div class="shrink-0 w-8 h-8 flex justify-center items-center">
+                            <span class="w-6 h-0.5 bg-primary" />
+                        </div>
+                        <h2 class="font-medium text-2xl">Tentang</h2>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <div class="shrink-0 w-8 h-8" />
+                        <p class="text-dimmed">{{ setting.about_description || "Komunitas ini adalah ruang terbuka bagi siapa saja yang ingin belajar, berkembang, dan saling terhubung dalam lingkungan yang positif dan kolaboratif. Kami menghadirkan berbagai kesempatan untuk bertukar wawasan, membangun relasi, serta berpartisipasi dalam kegiatan yang mendorong pertumbuhan pribadi maupun profesional. Dengan semangat kebersamaan, kami percaya bahwa setiap individu memiliki potensi untuk memberikan kontribusi dan menciptakan dampak yang berarti. Di sini, kamu tidak hanya menjadi bagian dari komunitas, tetapi juga bagian dari perjalanan untuk tumbuh dan berkembang bersama." }}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </HomeLayout>
 </template>

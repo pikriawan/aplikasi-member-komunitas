@@ -16,8 +16,8 @@
     --color-surface: var(--color-surface);
 
     --color-ring: #CCCCCC;
-    --color-text-dark: #333333;
-    --color-text-dimmed: #999999;
+    --color-dark: #333333;
+    --color-dimmed: #999999;
     --color-placeholder: #F2F2F2;
     --color-overlay: rgba(0, 0, 0, 0.6);
 
