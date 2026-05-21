@@ -15,11 +15,19 @@
     --color-primary: var(--color-primary);
     --color-surface: var(--color-surface);
 
-    --color-ring: #CCCCCC;
-    --color-dark: #333333;
-    --color-dimmed: #999999;
-    --color-placeholder: #F2F2F2;
     --color-overlay: rgba(0, 0, 0, 0.6);
+
+    --color-onyx-50: #F2F2F2;
+    --color-onyx-100: #E6E6E6;
+    --color-onyx-200: #CCCCCC;
+    --color-onyx-300: #B3B3B3;
+    --color-onyx-400: #999999;
+    --color-onyx-500: #808080;
+    --color-onyx-600: #666666;
+    --color-onyx-700: #4D4D4D;
+    --color-onyx-800: #333333;
+    --color-onyx-900: #1A1A1A;
+    --color-onyx-950: #121212;
 
     --color-success-50: #E6FFED;
     --color-success-100: #CDFEDC;
