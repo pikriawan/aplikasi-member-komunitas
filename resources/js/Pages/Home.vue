@@ -40,12 +40,12 @@ const posts = computed(() => page.props.posts);
                     </div>
                     <div class="flex items-center gap-2.5">
                         <div class="shrink-0 w-8 h-8" />
-                        <p class="text-dimmed">{{ setting.about_description || "Komunitas ini adalah ruang terbuka bagi siapa saja yang ingin belajar, berkembang, dan saling terhubung dalam lingkungan yang positif dan kolaboratif. Kami menghadirkan berbagai kesempatan untuk bertukar wawasan, membangun relasi, serta berpartisipasi dalam kegiatan yang mendorong pertumbuhan pribadi maupun profesional. Dengan semangat kebersamaan, kami percaya bahwa setiap individu memiliki potensi untuk memberikan kontribusi dan menciptakan dampak yang berarti. Di sini, kamu tidak hanya menjadi bagian dari komunitas, tetapi juga bagian dari perjalanan untuk tumbuh dan berkembang bersama." }}</p>
+                        <p class="text-onyx-400">{{ setting.about_description || "Komunitas ini adalah ruang terbuka bagi siapa saja yang ingin belajar, berkembang, dan saling terhubung dalam lingkungan yang positif dan kolaboratif. Kami menghadirkan berbagai kesempatan untuk bertukar wawasan, membangun relasi, serta berpartisipasi dalam kegiatan yang mendorong pertumbuhan pribadi maupun profesional. Dengan semangat kebersamaan, kami percaya bahwa setiap individu memiliki potensi untuk memberikan kontribusi dan menciptakan dampak yang berarti. Di sini, kamu tidak hanya menjadi bagian dari komunitas, tetapi juga bagian dari perjalanan untuk tumbuh dan berkembang bersama." }}</p>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="p-8 bg-placeholder lg:p-0 lg:px-4 lg:py-16 lg:flex lg:justify-center">
+        <section class="p-8 bg-onyx-50 lg:p-0 lg:px-4 lg:py-16 lg:flex lg:justify-center">
             <div class="flex flex-col items-start gap-6 lg:w-full lg:max-w-270">
                 <div class="flex items-center gap-2.5">
                     <div class="shrink-0 w-8 h-8 flex justify-center items-center">
@@ -58,10 +58,10 @@ const posts = computed(() => page.props.posts);
                         <div class="flex flex-col items-start gap-6">
                             <span class="p-1 bg-primary text-sm text-white">{{ post.date }}</span>
                             <h3 class="font-medium">{{ post.title }}</h3>
-                            <p class="text-dimmed">{{ post.summary }}</p>
+                            <p class="text-onyx-400">{{ post.summary }}</p>
                         </div>
                         <div class="flex flex-col gap-6">
-                            <span class="h-px bg-ring" />
+                            <span class="h-px bg-onyx-200" />
                             <Link class="flex items-center gap-3 font-medium" href="#">
                                 Lanjutkan membaca
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
