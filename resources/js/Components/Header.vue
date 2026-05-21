@@ -27,7 +27,7 @@ const mobileNavbarVisible = ref(false);
         <Link v-else class="px-6 py-2 rounded-full ring ring-inset ring-black font-medium" :href="route('login')">Login</Link>
         <nav v-if="mobileNavbarVisible" class="absolute top-full left-0 w-full flex flex-col bg-white">
             <Link class="p-4 font-medium shadow-[0_-0.0625rem_0_var(--color-ring)_inset]" :href="`${route('home')}#about`">TENTANG</Link>
-            <Link class="p-4 font-medium shadow-[0_-0.0625rem_0_var(--color-ring)_inset]" href="/blog">BLOG</Link>
+            <Link class="p-4 font-medium shadow-[0_-0.0625rem_0_var(--color-ring)_inset]" :href="route('blog')">BLOG</Link>
             <Link class="p-4 font-medium shadow-[0_-0.0625rem_0_var(--color-ring)_inset]" :href="`${route('home')}#contact`">KONTAK</Link>
             <div class="h-14 flex shadow-[0_-0.0625rem_0_var(--color-ring)_inset]">
                 <a class="w-full h-full flex justify-center items-center shadow-[-0.0625rem_0_0_var(--color-ring)_inset]" :href="setting.email ? `mailto:${setting.email}` : 'mailto:amk@mail.com'" target="_blank">
@@ -75,7 +75,7 @@ const mobileNavbarVisible = ref(false);
             <div class="relative h-14 flex justify-center items-center gap-8 px-4 bg-[rgba(0,0,0,0.2)]">
                 <div class="absolute top-0 left-0 w-full h-full bg-primary -z-1" />
                 <Link class="font-medium text-white" :href="`${route('home')}#about`">TENTANG</Link>
-                <Link class="font-medium text-white" href="/blog">BLOG</Link>
+                <Link class="font-medium text-white" :href="route('blog')">BLOG</Link>
                 <Link class="font-medium text-white" :href="`${route('home')}#contact`">KONTAK</Link>
                 <Link v-if="user" class="px-6 py-2 rounded-full ring ring-inset ring-white font-medium text-white" :href="route('dashboard')">Dashboard</Link>
                 <Link v-else class="px-6 py-2 rounded-full ring ring-inset ring-white font-medium text-white" :href="route('login')">Login</Link>
