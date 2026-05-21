@@ -45,9 +45,9 @@ const mobileNavbarVisible = ref(false);
             </div>
         </nav>
     </header>
-    <header class="hidden lg:block">
+    <header class="hidden lg:block sticky top-0 z-1">
         <nav class="flex flex-col">
-            <div class="h-14 flex justify-center px-4">
+            <div class="h-14 flex justify-center px-4 bg-white">
                 <div class="w-full max-w-270 h-full flex justify-between">
                     <Link class="flex items-center px-8 shadow-[0.0625rem_0_0_var(--color-ring)_inset,-0.0625rem_0_0_var(--color-ring)_inset]" :href="route('home')">
                         <img :src="setting.community_logo ? `${storageUrl}/${setting.community_logo}` : `${appUrl}/images/community-logo.svg`" alt="Logo" width="48">
