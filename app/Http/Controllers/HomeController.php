@@ -19,7 +19,7 @@ class HomeController extends Controller
                 ->get()
                 ->map(fn ($post) => [
                     ...$post->toArray(),
-                    'date' => $post->created_at->format('d/m/Y'),
+                    'date' => $post->created_at->timezone(config('app.timezone'))->format('d/m/Y'),
                 ]),
         ]);
     }
