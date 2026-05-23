@@ -28,7 +28,7 @@ class Post extends Model
     }
 
     #[Scope]
-    protected function byCategory(Builder $query, ?PostCategory $category): Builder
+    protected function byCategory(Builder $query, ?string $category): Builder
     {
         if (!$category) {
             return $query;

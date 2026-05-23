@@ -24,7 +24,7 @@ class Content extends Model
     }
 
     #[Scope]
-    protected function byType(Builder $query, ?ContentType $type): Builder
+    protected function byType(Builder $query, ?string $type): Builder
     {
         if (!$type) {
             return $query;
