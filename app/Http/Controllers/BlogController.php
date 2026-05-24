@@ -13,7 +13,7 @@ class BlogController extends Controller
     {
         $posts = Post::byCategory($request->query('category'))
             ->latest()
-            ->paginate(20)
+            ->paginate(10)
             ->appends($request->query())
             ->through(fn ($post) => [
                 ...$post->toArray(),
@@ -43,6 +43,19 @@ class BlogController extends Controller
         return Inertia::render('Blog', [
             'posts' => $posts,
             'categories' => $categories,
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $posts = Post::search($request->query('q'))
+            ->latest()
+            ->paginate(10)
+            ->appends($request->query());
+
+        return Inertia::render('BlogSearch', [
+            'posts' => $posts,
+            'q' => $request->query('q'),
         ]);
     }
 }

@@ -1,6 +1,6 @@
 <script setup>
 import { Form, Link, usePage } from "@inertiajs/vue3";
-import { computed, watchEffect } from "vue";
+import { computed } from "vue";
 import PillButton from "../Components/Ui/PillButton.vue";
 import HomeLayout from "../Layouts/HomeLayout.vue";
 import { cn } from "../lib/utils";
@@ -23,11 +23,6 @@ const links = computed(() => posts.value.links.map((link) => {
 
     return result;
 }));
-
-watchEffect(() => {
-    console.log(posts.value);
-    console.log(categories.value);
-});
 </script>
 
 <template>
@@ -56,10 +51,10 @@ watchEffect(() => {
                     </div>
                 </div>
                 <div class="lg:col-span-2 flex flex-col gap-8">
-                    <Form class="flex flex-col gap-6">
+                    <Form class="flex flex-col gap-6" :action="route('blog.search')" method="get">
                         <h3 class="font-medium">Cari postingan</h3>
                         <div class="flex items-center gap-4">
-                            <input class="w-full px-6 py-2 rounded-full ring ring-inset ring-onyx-400 placeholder:text-onyx-400" name="search" placeholder="Cari postingan">
+                            <input class="w-full px-6 py-2 rounded-full ring ring-inset ring-onyx-400 placeholder:text-onyx-400" name="q" placeholder="Cari postingan">
                             <PillButton>Cari</PillButton>
                         </div>
                     </Form>
@@ -75,6 +70,7 @@ watchEffect(() => {
                     <div class="flex flex-wrap gap-4 justify-center">
                         <template v-for="link in links" :key="link.label">
                             <Link v-if="link.url" :class="cn('w-10 h-10 flex justify-center items-center ring ring-inset ring-onyx-200 text-onyx-400 font-medium', link.active && 'text-primary')" :href="link.url" v-html="link.label" />
+                            <span v-else class="w-10 h-10 flex justify-center items-center ring ring-inset ring-onyx-200 text-onyx-400 font-medium" v-html="link.label" />
                         </template>
                     </div>
                 </div>

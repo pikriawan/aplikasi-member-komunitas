@@ -9,6 +9,8 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 
+Route::get('/blog/search', [BlogController::class, 'search'])->name('blog.search');
+
 Route::middleware('guest')->group(function () {
     Route::inertia('/register', 'Register')->name('register');
 
