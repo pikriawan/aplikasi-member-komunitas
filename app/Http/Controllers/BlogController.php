@@ -25,24 +25,16 @@ class BlogController extends Controller
                 ...$category,
                 'active' => $category['value'] === $request->query('category', ''),
             ];
-        }, [
-            [
-                'name' => 'All',
-                'value' => '',
-                'label' => 'Semua',
-            ],
-            ...array_map(function ($category) {
-                return [
-                    'name' => $category->name,
-                    'value' => $category->value,
-                    'label' => $category->label(),
-                ];
-            }, PostCategory::cases()),
-        ]);
+        }, PostCategory::entries());
+
+        $activeCategory = array_find($categories, function ($category) use ($request) {
+            return $category['value'] === $request->query('category');
+        });
 
         return Inertia::render('Blog', [
             'posts' => $posts,
             'categories' => $categories,
+            'activeCategory' => $activeCategory,
         ]);
     }
 
@@ -56,6 +48,20 @@ class BlogController extends Controller
         return Inertia::render('BlogSearch', [
             'posts' => $posts,
             'q' => $request->query('q'),
+        ]);
+    }
+
+    public function show(string $slug)
+    {
+        $post = Post::with('author')->where('slug', $slug)->first();
+
+        if ($post) {
+            $post->date = $post->created_at->timezone(config('app.timezone'))->format('d/m/Y H:i');
+        }
+
+        return Inertia::render('Post', [
+            'post' => $post,
+            'categories' => PostCategory::entries(),
         ]);
     }
 }

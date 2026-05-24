@@ -9,6 +9,7 @@ const page = usePage();
 
 const posts = computed(() => page.props.posts);
 const categories = computed(() => page.props.categories);
+const activeCategory = computed(() => page.props.activeCategory);
 
 const links = computed(() => posts.value.links.map((link) => {
     const result = {...link};
@@ -32,8 +33,18 @@ const links = computed(() => posts.value.links.map((link) => {
                 <h1 class="font-medium text-2xl">Blog</h1>
                 <div>
                     <Link :href="route('home')">Beranda</Link>
-                    &gt;
-                    Blog
+                    <template v-if="activeCategory">
+                        <Link :href="route('blog')">
+                            &gt;
+                            Blog
+                        </Link>
+                        &gt;
+                        {{ activeCategory.label }}
+                    </template>
+                    <template v-else>
+                        &gt;
+                        Blog
+                    </template>
                 </div>
             </div>
         </section>
@@ -59,7 +70,7 @@ const links = computed(() => posts.value.links.map((link) => {
                         </div>
                     </Form>
                     <div v-if="posts.data.length > 0" class="flex flex-col gap-6">
-                        <Link class="flex flex-col items-start gap-6 p-6 ring ring-inset ring-onyx-200" v-for="post in posts.data" :key="post.id" href="#">
+                        <Link class="flex flex-col items-start gap-6 p-6 ring ring-inset ring-onyx-200" v-for="post in posts.data" :key="post.id" :href="route('blog.post', post.slug)">
                             <span class="p-1 bg-primary text-white text-sm">{{ post.date }}</span>
                             <h3 class="font-medium">{{ post.title }}</h3>
                             <span class="w-full h-px bg-onyx-200" />

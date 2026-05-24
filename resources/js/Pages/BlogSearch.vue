@@ -50,7 +50,7 @@ const links = computed(() => posts.value.links.map((link) => {
                 </Form>
                 <div v-if="posts.data.length > 0" class="flex flex-col gap-6">
                     <template v-for="post in posts.data" :key="post.id">
-                        <Link href="#" class="flex flex-col gap-6">
+                        <Link :href="route('blog.post', post.slug)" class="flex flex-col gap-6">
                             <h3 class="font-medium">{{ post.title }}</h3>
                             <p class="text-onyx-400">{{ post.summary }}</p>
                         </Link>

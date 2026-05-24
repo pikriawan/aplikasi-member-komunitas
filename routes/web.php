@@ -11,6 +11,8 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 
 Route::get('/blog/search', [BlogController::class, 'search'])->name('blog.search');
 
+Route::get('/blog/posts/{slug}', [BlogController::class, 'show'])->name('blog.post');
+
 Route::middleware('guest')->group(function () {
     Route::inertia('/register', 'Register')->name('register');
 
