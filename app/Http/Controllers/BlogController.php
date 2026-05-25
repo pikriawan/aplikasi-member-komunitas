@@ -18,6 +18,7 @@ class BlogController extends Controller
             ->through(fn ($post) => [
                 ...$post->toArray(),
                 'date' => $post->created_at->timezone(config('app.timezone'))->format('d/m/Y'),
+                'category' => $post->category->toArray(),
             ]);
 
         $categories = array_map(function ($category) use ($request) {
@@ -53,11 +54,15 @@ class BlogController extends Controller
 
     public function show(string $slug)
     {
-        $post = Post::with('author')->where('slug', $slug)->first();
+        $foundPost = Post::with('author')->where('slug', $slug)->first();
 
-        if ($post) {
-            $post->date = $post->created_at->timezone(config('app.timezone'))->format('d/m/Y H:i');
-        }
+        $post = $foundPost
+            ? [
+                ...$foundPost->toArray(),
+                'date' => $foundPost->created_at->timezone(config('app.timezone'))->format('d/m/Y H:i'),
+                'category' => $foundPost->category->toArray(),
+            ]
+            : null;
 
         return Inertia::render('Post', [
             'post' => $post,

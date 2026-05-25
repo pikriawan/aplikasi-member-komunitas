@@ -34,7 +34,7 @@ class Post extends Model
             get: fn (string $value) => array_find(
                 PostCategory::cases(),
                 fn ($category) => $category->value === $value
-            )?->toArray(),
+            ),
         );
     }
 
