@@ -1,24 +1,29 @@
 <script setup>
 import { Form, usePage } from "@inertiajs/vue3";
-import { watchEffect } from "vue";
+import PillButton from "../Components/Ui/PillButton.vue";
+import HomeLayout from "../Layouts/HomeLayout.vue";
 
 const page = usePage();
-
-watchEffect(() => {
-    console.log(page.flash);
-});
 </script>
 
 <template>
-    <div class="flex flex-col gap-4 p-4">
-        <h1 class="font-semibold text-2xl">Lupa Password</h1>
-        <Form class="flex flex-col items-start gap-2" :action="route('password.email')" method="post" v-slot="{ errors }">
-            <div class="flex flex-col gap-1">
-                <input class="ring ring-inset ring-zinc-600 px-2 py-1 rounded-lg" name="email" type="email" placeholder="Email">
-                <p class="text-lime-500 text-sm" v-if="page.flash.status">{{ page.flash.status }}</p>
-                <p class="text-red-600 text-sm" v-if="errors.email">{{ errors.email }}</p>
+    <HomeLayout>
+        <section class="p-8 lg:p-0 lg:px-4 lg:py-8 lg:flex lg:justify-center bg-primary">
+            <div class="lg:w-full lg:max-w-270 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 text-white">
+                <h1 class="font-medium text-2xl">Lupa Password</h1>
             </div>
-            <button class="bg-violet-600 text-white px-2 py-1 rounded-lg">Kirim tautan reset password</button>
-        </Form>
-    </div>
+        </section>
+        <section class="p-8 lg:p-0 lg:px-4 lg:py-16 lg:flex lg:justify-center">
+            <Form class="flex flex-col gap-8 lg:w-full lg:max-w-lg" :action="route('password.email')" method="post" v-slot="{ errors }">
+                <p>Masukkan email Anda untuk menerima tautan reset password.</p>
+                <p v-if="page.flash.status" class="text-success-600">{{ page.flash.status }}</p>
+                <div class="flex flex-col gap-2">
+                    <label class="font-medium" for="email">Email</label>
+                    <input class="w-full px-6 py-2 rounded-full ring ring-inset ring-onyx-400 placeholder:text-onyx-400" name="email" id="email" type="email" placeholder="Email">
+                    <p class="text-danger-500 text-sm" v-if="errors.email">{{ errors.email }}</p>
+                </div>
+                <PillButton class="self-start">Kirim email tautan reset password</PillButton>
+            </Form>
+        </section>
+    </HomeLayout>
 </template>
