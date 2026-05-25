@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Password as RulesPassword;
 use Inertia\Inertia;
 
 class AuthController extends Controller
@@ -22,8 +23,7 @@ class AuthController extends Controller
         $data = $request->validate([
             'name'          => ['required', 'string'],
             'email'         => ['required', 'email'],
-            'telephone'     => ['required', 'string'],
-            'password'      => ['required', 'confirmed'],
+            'password'      => ['required', 'confirmed', RulesPassword::min(8)->numbers()],
         ]);
 
         $existingUser = User::where('email', $data['email'])->first();
@@ -35,6 +35,7 @@ class AuthController extends Controller
         }
 
         $data['role'] = UserRole::Member;
+        $data['telephone'] = $request->string('telephone');
         $data['is_active'] = true;
 
         $user = User::create($data);
@@ -124,7 +125,7 @@ class AuthController extends Controller
         $request->validate([
             'token'     => ['required'],
             'email'     => ['required', 'email'],
-            'password'  => ['required', 'confirmed'],
+            'password'  => ['required', 'confirmed', RulesPassword::min(8)->numbers()],
         ]);
 
         $status = Password::reset(
