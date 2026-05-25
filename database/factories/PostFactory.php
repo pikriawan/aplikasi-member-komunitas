@@ -26,8 +26,8 @@ class PostFactory extends Factory
             'category'  => fake()->randomElement(PostCategory::class),
             'title'     => $title,
             'slug'      => $slug,
-            'summary'   => fake()->paragraph(),
-            'content'   => '<p>' . fake()->paragraph() . '</p>' . '<p>' . fake()->paragraph() . '</p>' . '<p>' . fake()->paragraph() . '</p>',
+            'summary'   => fake()->paragraph(5),
+            'content'   => collect(range(1, 10))->map(fn () => '<p>' . fake()->paragraph(10) . '</p>')->join(''),
         ];
     }
 }
