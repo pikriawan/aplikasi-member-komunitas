@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\PostCategory;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
