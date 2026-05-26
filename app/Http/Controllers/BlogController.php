@@ -18,24 +18,11 @@ class BlogController extends Controller
             ->through(fn ($post) => [
                 ...$post->toArray(),
                 'date' => $post->created_at->timezone(config('app.timezone'))->format('d/m/Y'),
-                'category' => $post->category->toArray(),
             ]);
-
-        $categories = array_map(function ($category) use ($request) {
-            return [
-                ...$category,
-                'active' => $category['value'] === $request->query('category', ''),
-            ];
-        }, PostCategory::entries());
-
-        $activeCategory = array_find($categories, function ($category) use ($request) {
-            return $category['value'] === $request->query('category');
-        });
 
         return Inertia::render('Blog', [
             'posts' => $posts,
-            'categories' => $categories,
-            'activeCategory' => $activeCategory,
+            'category' => $request->query('category', ''),
         ]);
     }
 
@@ -60,13 +47,11 @@ class BlogController extends Controller
             ? [
                 ...$foundPost->toArray(),
                 'date' => $foundPost->created_at->timezone(config('app.timezone'))->format('d/m/Y H:i'),
-                'category' => $foundPost->category->toArray(),
             ]
             : null;
 
         return Inertia::render('Post', [
             'post' => $post,
-            'categories' => PostCategory::entries(),
         ]);
     }
 }

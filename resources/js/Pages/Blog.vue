@@ -2,14 +2,15 @@
 import { Form, Link, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
 import PillButton from "../Components/Ui/PillButton.vue";
+import PostCategory from "../Enums/PostCategory.js";
 import HomeLayout from "../Layouts/HomeLayout.vue";
 import { cn } from "../lib/utils";
 
 const page = usePage();
 
 const posts = computed(() => page.props.posts);
-const categories = computed(() => page.props.categories);
-const activeCategory = computed(() => page.props.activeCategory);
+const category = computed(() => page.props.category);
+const activeCategory = computed(() => PostCategory.from(category.value));
 
 const links = computed(() => posts.value.links.map((link) => {
     const result = {...link};
@@ -53,8 +54,8 @@ const links = computed(() => posts.value.links.map((link) => {
                 <div class="hidden lg:flex flex-col self-start gap-6 p-6 ring ring-inset ring-onyx-200">
                     <h3 class="font-medium">Kategori</h3>
                     <div class="flex flex-col gap-2">
-                        <template v-for="category in categories" :key="category.value">
-                            <Link :class="cn('font-medium text-onyx-400', category.active && 'text-primary')" :href="route('blog', { _query: { category: category.value } })">
+                        <template v-for="[key, category] in PostCategory.entries()" :key="key">
+                            <Link :class="cn('font-medium text-onyx-400', category.value === activeCategory.value && 'text-primary')" :href="route('blog', { _query: { category: category.value } })">
                                 {{ category.label }}
                             </Link>
                             <span class="h-px bg-onyx-200 last:hidden" />
@@ -88,8 +89,8 @@ const links = computed(() => posts.value.links.map((link) => {
                 <div class="flex lg:hidden flex-col gap-6 p-6 ring ring-inset ring-onyx-200">
                     <h3 class="font-medium">Kategori</h3>
                     <div class="flex flex-col gap-2">
-                        <template v-for="category in categories" :key="category.value">
-                            <Link :class="cn('font-medium text-onyx-400', category.active && 'text-primary')" :href="route('blog', { _query: { category: category.value } })">
+                        <template v-for="[key, category] in PostCategory.entries()" :key="key">
+                            <Link :class="cn('font-medium text-onyx-400', category.value === activeCategory.value && 'text-primary')" :href="route('blog', { _query: { category: category.value } })">
                                 {{ category.label }}
                             </Link>
                             <span class="h-px bg-onyx-200 last:hidden" />

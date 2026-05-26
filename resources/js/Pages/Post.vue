@@ -1,17 +1,13 @@
 <script setup>
 import { Link, usePage } from "@inertiajs/vue3";
-import { computed, watchEffect } from "vue";
+import { computed } from "vue";
+import PostCategory from "../Enums/PostCategory.js";
 import HomeLayout from "../Layouts/HomeLayout.vue";
-import { cn } from "../lib/utils";
 
 const page = usePage();
 
 const post = computed(() => page.props.post);
-const categories = computed(() => page.props.categories);
-
-watchEffect(() => {
-    console.log(post.value);
-});
+const category = computed(() => PostCategory.from(post.value?.category));
 </script>
 
 <template>
@@ -25,11 +21,11 @@ watchEffect(() => {
                     <Link :href="route('blog')">Blog</Link>
                     &gt;
                     <template v-if="post">
-                        <Link :href="route('blog', { _query: { category: post?.category?.value } })">
-                            {{ post?.category?.label }}
+                        <Link :href="route('blog', { _query: { category: category.value } })">
+                            {{ category.label }}
                         </Link>
                         &gt;
-                        {{ post?.title }}
+                        {{ post.title }}
                     </template>
                     <template v-else>
                         Postingan tidak ditemukan.
@@ -52,7 +48,7 @@ watchEffect(() => {
                             oleh
                             <strong class="font-medium">{{ post.author.name }}</strong>
                             dalam
-                            <strong class="font-medium">{{ post.category.label }}</strong>
+                            <strong class="font-medium">{{ category.label }}</strong>
                         </div>
                     </div>
                 </div>
@@ -60,9 +56,9 @@ watchEffect(() => {
                 <div class="flex flex-col gap-6 p-6 lg:self-start ring ring-inset ring-onyx-200">
                     <h3 class="font-medium">Kategori</h3>
                     <div class="flex flex-col gap-2">
-                        <template v-for="category in categories" :key="category.value">
-                            <Link :class="cn('font-medium text-onyx-400', category.active && 'text-primary')" :href="route('blog', { _query: { category: category.value } })">
-                                {{ category.label }}
+                        <template v-for="[key, c] in PostCategory.entries()" :key="key">
+                            <Link class="font-medium text-onyx-400" :href="route('blog', { _query: { category: c.value } })">
+                                {{ c.label }}
                             </Link>
                             <span class="h-px bg-onyx-200 last:hidden" />
                         </template>
