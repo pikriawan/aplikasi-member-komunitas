@@ -1,7 +1,9 @@
 <?php
 
+use App\Enums\UserRole;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,5 +44,50 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('/dashboard', 'Dashboard')->name('dashboard');
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
 });
+
+Route::prefix('member')
+    ->name('member.')
+    ->middleware(['auth', 'verified', 'role:' . UserRole::Member->value])
+    ->group(function () {
+        Route::get('/contents', function () {
+            return 'Member: contents';
+        })->name('contents.index');
+    });
+
+Route::prefix('staff')
+    ->name('staff.')
+    ->middleware(['auth', 'verified', 'role:' . UserRole::Staff->value])
+    ->group(function () {
+        Route::get('/contents', function () {
+            return 'Staff: contents';
+        })->name('contents.index');
+    });
+
+Route::prefix('finance')
+    ->name('finance.')
+    ->middleware(['auth', 'verified', 'role:' . UserRole::Finance->value])
+    ->group(function () {
+        Route::get('/payments', function () {
+            return 'Finance: payments';
+        })->name('payments.index');
+    });
+
+Route::prefix('leader')
+    ->name('leader.')
+    ->middleware(['auth', 'verified', 'role:' . UserRole::Leader->value])
+    ->group(function () {
+        Route::get('/statistics', function () {
+            return 'Leader: statistics';
+        })->name('statistics.index');
+    });
+
+Route::prefix('super-admin')
+    ->name('super_admin.')
+    ->middleware(['auth', 'verified', 'role:' . UserRole::SuperAdmin->value])
+    ->group(function () {
+        Route::get('/accounts', function () {
+            return 'Super Admin: accounts';
+        })->name('accounts.index');
+    });
