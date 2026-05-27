@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\UserRole;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -43,6 +44,9 @@ class HandleInertiaRequests extends Middleware
             'setting' => Setting::allAsMap(),
             'user' => fn () => $request->user()
                 ? $request->user()->only('id', 'name', 'email')
+                : null,
+            'memberProfile' => $request->user()?->role === UserRole::Member->value
+                ? $request->user()->memberProfile
                 : null,
         ]);
     }

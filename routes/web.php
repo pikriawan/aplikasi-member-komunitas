@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Member\ContentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -51,9 +52,7 @@ Route::prefix('member')
     ->name('member.')
     ->middleware(['auth', 'verified', 'role:' . UserRole::Member->value])
     ->group(function () {
-        Route::get('/contents', function () {
-            return 'Member: contents';
-        })->name('contents.index');
+        Route::get('/contents', [ContentController::class, 'index'])->name('contents.index');
     });
 
 Route::prefix('staff')
