@@ -5,7 +5,8 @@ import MemberLayout from "../../../Layouts/MemberLayout.vue";
 
 <template>
     <MemberLayout>
-        <DashboardHeader />
-        <p>Konten</p>
+        <DashboardHeader title="Konten" />
+        <main class="w-full h-full overflow-auto">
+        </main>
     </MemberLayout>
 </template>

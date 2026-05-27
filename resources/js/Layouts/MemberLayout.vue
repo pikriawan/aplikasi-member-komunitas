@@ -21,9 +21,9 @@ provide("sidebar", { setSidebarVisible });
 </script>
 
 <template>
-    <div class="font-geist">
-        <aside :class="cn('fixed top-0 -left-full lg:left-0 w-full h-full flex flex-col bg-white transition-[left_var(--default-transition-timing-function)_var(--default-transition-duration)]', sidebarVisible && 'left-0')">
-            <header class="w-full h-20 flex items-center justify-between px-8 shadow-[0_-0.0625rem_0_var(--color-onyx-200)_inset]">
+    <div class="font-geist lg:w-full lg:h-screen lg:grid lg:grid-cols-[22.5rem_1fr] lg:grid-rows-[5rem_1fr]">
+        <aside :class="cn('fixed top-0 -left-full lg:static lg:top-auto lg:left-auto lg:row-span-2 z-2 w-full lg:w-auto h-full lg:h-auto flex flex-col bg-white shadow-[-0.0625rem_0_0_var(--color-onyx-200)_inset] transition-[left_var(--default-transition-timing-function)_var(--default-transition-duration)]', sidebarVisible && 'left-0')">
+            <header class="w-full h-20 shrink-0 flex items-center justify-between px-8 shadow-[0_-0.0625rem_0_var(--color-onyx-200)_inset]">
                 <img :src="setting.community_logo ? `${storageUrl}/${setting.community_logo}` : `${appUrl}/images/community-logo.svg`" alt="Brand">
                 <button class="lg:hidden" @click="setSidebarVisible(false)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
