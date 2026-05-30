@@ -15,7 +15,7 @@ const props = defineProps({
         }
     },
     as: {
-        type: [Object, String],
+        type: [String, Object],
         default: "button"
     }
 });
