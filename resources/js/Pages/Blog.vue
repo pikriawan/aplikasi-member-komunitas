@@ -50,7 +50,7 @@ const links = computed(() => posts.value.links.map((link) => {
             </div>
         </section>
         <section class="p-8 lg:p-0 lg:px-4 lg:py-6 lg:flex lg:justify-center">
-            <div class="flex flex-col gap-8 lg:max-w-270 lg:grid lg:grid-cols-3">
+            <div class="flex flex-col gap-8 lg:w-full lg:max-w-270 lg:grid lg:grid-cols-3">
                 <div class="hidden lg:flex flex-col self-start gap-6 p-6 ring ring-inset ring-onyx-200">
                     <h3 class="font-medium">Kategori</h3>
                     <div class="flex flex-col gap-2">
