@@ -18,7 +18,7 @@ const props = defineProps({
 });
 
 const mergedClasses = computed(() => {
-    return cn("absolute z-2 p-px rounded-lg bg-white shadow-[0_0_0_0.0625rem_var(--color-onyx-200)_inset,0_0.25rem_4rem_rgba(0,0,0,0.1)]", props.class);
+    return cn("absolute z-2 min-w-50 p-px rounded-lg bg-white shadow-[0_0_0_0.0625rem_var(--color-onyx-200)_inset,0_0.25rem_4rem_rgba(0,0,0,0.1)]", props.class);
 });
 
 const popover = inject("popover");

@@ -60,13 +60,13 @@ provide("sidebar", { setSidebarVisible });
                                 <span class="self-start px-2 py-1 rounded bg-surface text-primary text-[0.75rem]">{{ memberProfile.is_active ? "Member Premium" : "Member" }}</span>
                             </div>
                         </PopoverTrigger>
-                        <PopoverContent class="w-50 bottom-full left-0 flex flex-col gap-px bg-onyx-200">
-                            <Link class="flex items-center gap-4 p-4 bg-white rounded-t-[0.4375rem]" href="#">
+                        <PopoverContent class="bottom-full left-0 flex flex-col gap-px bg-onyx-200">
+                            <Link class="flex items-center gap-4 p-4 bg-white first:rounded-t-[0.4375rem] last:rounded-b-[0.4375rem] whitespace-nowrap" href="#">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                                 Profil
                             </Link>
-                            <Form :action="route('logout')" method="post">
-                                <button class="w-full flex items-center gap-4 p-4 bg-white rounded-b-[0.4375rem] text-danger-500">
+                            <Form class="bg-white first:rounded-t-[0.4375rem] last:rounded-b-[0.4375rem]" :action="route('logout')" method="post">
+                                <button class="w-full flex items-center gap-4 p-4 rounded-[0.4375rem] text-danger-500 whitespace-nowrap">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
                                     Log out
                                 </button>
