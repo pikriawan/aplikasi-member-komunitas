@@ -45,6 +45,50 @@ const posts = computed(() => page.props.posts);
                 </div>
             </div>
         </section>
+        <section class="relative p-8 lg:p-0 lg:px-4 lg:py-16 lg:flex lg:justify-center">
+            <img class="absolute top-0 left-0 w-full h-full object-cover saturate-0 -z-2" :src="setting.background_image ? `${storageUrl}/${setting.background_image}` : `${appUrl}/images/background.jpg`" alt="Background">
+            <div class="absolute top-0 left-0 w-full h-full -z-1 bg-primary opacity-80" />
+            <div class="flex flex-col lg:items-center gap-8 lg:w-full lg:max-w-270">
+                <div class="w-full flex flex-col gap-6 items-start lg:items-center lg:max-w-150 lg:text-center">
+                    <h2 class="font-medium text-2xl text-white">{{ setting.member_stat_title || 'Komunitas Kami dalam Angka' }}</h2>
+                    <p class="text-white">{{ setting.member_stat_description || 'Jadilah bagian dari komunitas yang terus berkembang dan berkolaborasi untuk mencapai dampak nyata.' }}</p>
+                </div>
+                <div class="w-full flex flex-col lg:flex-row gap-px">
+                    <div class="w-full flex flex-col items-center gap-4 p-8 bg-[rgba(255,255,255,0.2)] text-white text-center">
+                        <div class="p-8 bg-[rgba(255,255,255,0.2)] rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-icon lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
+                        </div>
+                        <p class="text-4xl font-medium">{{ setting.stat_member_active || '0' }}</p>
+                        <h3 class="font-medium">Member Aktif</h3>
+                        <p>Keanggotaan aktif saat ini</p>
+                    </div>
+                    <div class="w-full flex flex-col items-center gap-4 p-8 bg-[rgba(255,255,255,0.2)] text-white text-center">
+                        <div class="p-8 bg-[rgba(255,255,255,0.2)] rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-icon lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
+                        </div>
+                        <p class="text-4xl font-medium">{{ setting.stat_member_inactive || '0' }}</p>
+                        <h3 class="font-medium">Member Pasif</h3>
+                        <p>Belum memperpanjang membership</p>
+                    </div>
+                    <div class="w-full flex flex-col items-center gap-4 p-8 bg-[rgba(255,255,255,0.2)] text-white text-center">
+                        <div class="p-8 bg-[rgba(255,255,255,0.2)] rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase-icon lucide-briefcase"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
+                        </div>
+                        <p class="text-4xl font-medium">{{ setting.stat_member_company || '0' }}</p>
+                        <h3 class="font-medium">Member Company</h3>
+                        <p>Perusahaan &amp; institusi</p>
+                    </div>
+                    <div class="w-full flex flex-col items-center gap-4 p-8 bg-[rgba(255,255,255,0.2)] text-white text-center">
+                        <div class="p-8 bg-[rgba(255,255,255,0.2)] rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
+                        <p class="text-4xl font-medium">{{ setting.stat_member_personal || '0' }}</p>
+                        <h3 class="font-medium">Member Personal</h3>
+                        <p>Individu dari berbagai bidang</p>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="p-8 bg-onyx-50 lg:p-0 lg:px-4 lg:py-16 lg:flex lg:justify-center">
             <div class="flex flex-col items-start gap-6 lg:w-full lg:max-w-270">
                 <div class="flex items-center gap-2.5">
