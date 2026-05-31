@@ -23,7 +23,7 @@ const posts = computed(() => page.props.posts);
                     <p class="text-white">{{ setting.hero_description || "Terhubung dengan individu dari berbagai latar belakang, berbagi ide, dan membangun kolaborasi dalam komunitas inklusif untuk berkembang bersama serta menciptakan dampak nyata." }}</p>
                     <PillButton :as="Link" :href="route('register')" class="bg-black">
                         Gabung Membership
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right shrink-0"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
                     </PillButton>
                 </div>
             </div>
@@ -64,7 +64,7 @@ const posts = computed(() => page.props.posts);
                             <span class="h-px bg-onyx-200" />
                             <Link class="flex items-center gap-3 font-medium" :href="route('blog.post', post.slug)">
                                 Lanjutkan membaca
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right shrink-0"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
                             </Link>
                         </div>
                     </div>
@@ -72,7 +72,7 @@ const posts = computed(() => page.props.posts);
                 <p v-else>Tidak ada postingan.</p>
                 <PillButton :as="Link" :href="route('blog')" variant="outlined">
                     Lihat semua
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right shrink-0"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
                 </PillButton>
             </div>
         </section>
