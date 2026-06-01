@@ -35,7 +35,7 @@ class AuthController extends Controller
         }
 
         $data['role'] = UserRole::Member;
-        $data['telephone'] = $request->string('telephone');
+        $data['telephone'] = $request->input('telephone');
         $data['is_active'] = true;
 
         $user = User::create($data);
@@ -43,9 +43,9 @@ class AuthController extends Controller
         MemberProfile::create([
             'user_id'       => $user->id,
             'expired_date'  => now(),
-            'institution'   => $request->string('institution'),
-            'department'    => $request->string('department'),
-            'address'       => $request->string('address'),
+            'institution'   => $request->input('institution'),
+            'department'    => $request->input('department'),
+            'address'       => $request->input('address'),
             'is_active'     => false,
         ]);
 
