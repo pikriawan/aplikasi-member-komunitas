@@ -56,7 +56,7 @@ function drawMemberCardProfileImage(ctx, image, x, y, size) {
 }
 
 async function drawMemberCard(memberCard) {
-    const canvasWidth = 1200;
+    const canvasWidth = 600;
     const canvasHeight = canvasWidth * 9 / 16;
     const scale = devicePixelRatio;
 
