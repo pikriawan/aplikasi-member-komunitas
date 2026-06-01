@@ -1,6 +1,8 @@
 <script setup>
 import { Form, Link, usePage } from "@inertiajs/vue3";
 import { computed, provide, ref } from "vue";
+import Badge from "../Components/Ui/Badge.vue";
+import Button from "../Components/Ui/Button.vue";
 import Popover from "../Components/Ui/Popover.vue";
 import PopoverContent from "../Components/Ui/PopoverContent.vue";
 import PopoverTrigger from "../Components/Ui/PopoverTrigger.vue";
@@ -34,7 +36,7 @@ provide("sidebar", { setSidebarVisible });
             </header>
             <div class="w-full h-full flex flex-col justify-between p-8">
                 <nav class="w-full flex flex-col">
-                    <Link :class="cn('w-full flex items-center gap-4 p-4 rounded-lg font-medium', route().current() === 'member.contents.index' && 'bg-surface text-primary')" href="#">
+                    <Link :class="cn('w-full flex items-center gap-4 p-4 rounded-lg font-medium', route().current() === 'member.contents.index' && 'bg-surface text-primary')" :href="route('member.contents.index')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-play-icon lucide-circle-play shrink-0"><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"/><circle cx="12" cy="12" r="10"/></svg>
                         Konten
                     </Link>
@@ -48,20 +50,22 @@ provide("sidebar", { setSidebarVisible });
                     </Link>
                 </nav>
                 <div class="w-full flex flex-col gap-4">
-                    <Link v-if="!memberProfile.is_active" class="flex items-center justify-center gap-4 p-4 rounded-lg text-white font-medium bg-primary" href="#">
+                    <Button :as="Link" v-if="!memberProfile.is_active" class="flex items-center justify-center gap-4 p-4 rounded-lg text-white font-medium bg-primary" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap-icon lucide-zap shrink-0"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
                         Gabung member premium
-                    </Link>
+                    </Button>
                     <Popover>
                         <PopoverTrigger as="div" class="w-full flex items-center gap-4">
                             <img :src="memberProfile.image_url ? `${storageUrl}/${memberProfile.image_url}` : `${appUrl}/images/profile-placeholder.svg`" alt="Profile" class="w-12 aspect-square object-cover rounded-full">
                             <div class="w-full flex flex-col gap-4">
                                 <span>{{ user.name }}</span>
-                                <span class="self-start px-2 py-1 rounded bg-surface text-primary text-[0.75rem]">{{ memberProfile.is_active ? "Member Premium" : "Member" }}</span>
+                                <div>
+                                    <Badge>{{ memberProfile.is_active ? "Member Premium" : "Member" }}</Badge>
+                                </div>
                             </div>
                         </PopoverTrigger>
                         <PopoverContent class="bottom-full left-0 flex flex-col gap-px bg-onyx-200">
-                            <Link class="flex items-center gap-4 p-4 bg-white first:rounded-t-[0.4375rem] last:rounded-b-[0.4375rem] whitespace-nowrap" href="#">
+                            <Link class="flex items-center gap-4 p-4 bg-white first:rounded-t-[0.4375rem] last:rounded-b-[0.4375rem] whitespace-nowrap" :href="route('member.profile.show')">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user shrink-0"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                                 Profil
                             </Link>

@@ -17,6 +17,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 )]
 class MemberProfile extends Model
 {
+    protected function casts(): array
+    {
+        return [
+            'expired_date' => 'datetime',
+        ];
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
