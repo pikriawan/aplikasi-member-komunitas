@@ -28,7 +28,35 @@ watchEffect(() => {
     }
 });
 
-function drawMemberCard(memberCard) {
+function loadImage(src) {
+    return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.src = src;
+        image.onload = () => resolve(image);
+        image.onerror = () => resolve(new Image());
+    });
+}
+
+function drawImageCover(ctx, image, x, y, size) {
+    const sourceSize = Math.min(image.width, image.height);
+
+    const sourceX = (image.width - sourceSize) / 2;
+    const sourceY = (image.height - sourceSize) / 2;
+
+    ctx.drawImage(
+        image,
+        sourceX,
+        sourceY,
+        sourceSize,
+        sourceSize,
+        x,
+        y,
+        size,
+        size
+    );
+}
+
+async function drawMemberCard(memberCard) {
     const CANVAS_WIDTH = 400;
     const CANVAS_HEIGHT = 240;
     const SCALE = devicePixelRatio;
@@ -57,28 +85,19 @@ function drawMemberCard(memberCard) {
 
     const padding = 20;
 
-    const profileImage = new Image();
-    profileImage.width = 64;
-    profileImage.height = 64;
-    profileImage.src = memberProfile.value.image_url ? `${storageUrl.value}/${memberProfile.value.image_url}` : `${appUrl.value}/images/profile-placeholder.svg`;
-
+    const profileImage = await loadImage(memberProfile.value.image_url ? `${storageUrl.value}/${memberProfile.value.image_url}` : `${appUrl.value}/images/profile-placeholder.svg`);
+    const profileImageSize = 48;
     const profileImageX = padding;
-    const profileImageY = CANVAS_HEIGHT / 2 - profileImage.height / 2;
+    const profileImageY = CANVAS_HEIGHT / 2 - profileImageSize / 2;
 
-    ctx.drawImage(
-        profileImage,
-        profileImageX,
-        profileImageY,
-        profileImage.width,
-        profileImage.height
-    );
+    drawImageCover(ctx, profileImage, profileImageX, profileImageY, profileImageSize);
 
     ctx.beginPath();
     ctx.rect(
         profileImageX,
         profileImageY,
-        profileImage.width,
-        profileImage.height
+        profileImageSize,
+        profileImageSize
     );
     ctx.lineWidth = 1;
     ctx.strokeStyle = primaryColor;
@@ -102,8 +121,8 @@ function drawMemberCard(memberCard) {
 
     const textHeight = nameHeight + textGap + memberIdHeight;
 
-    const nameX = padding + profileImage.width + gap;
-    const nameY = profileImageY  + (profileImage.height - textHeight) / 2;
+    const nameX = padding + profileImageSize + gap;
+    const nameY = profileImageY  + (profileImageSize - textHeight) / 2;
 
     const memberIdX = nameX;
     const memberIdY = nameY + nameHeight + textGap;
