@@ -29,15 +29,14 @@ watchEffect(() => {
 });
 
 function loadImage(src) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         const image = new Image();
         image.src = src;
         image.onload = () => resolve(image);
-        image.onerror = () => resolve(new Image());
     });
 }
 
-function drawImageCover(ctx, image, x, y, size) {
+function drawMemberCardProfileImage(ctx, image, x, y, size) {
     const sourceSize = Math.min(image.width, image.height);
 
     const sourceX = (image.width - sourceSize) / 2;
@@ -57,40 +56,40 @@ function drawImageCover(ctx, image, x, y, size) {
 }
 
 async function drawMemberCard(memberCard) {
-    const CANVAS_WIDTH = 400;
-    const CANVAS_HEIGHT = 240;
-    const SCALE = devicePixelRatio;
+    const canvasWidth = 1200;
+    const canvasHeight = canvasWidth * 9 / 16;
+    const scale = devicePixelRatio;
 
     const canvas = document.createElement("canvas");
-    canvas.width = CANVAS_WIDTH * SCALE;
-    canvas.height = CANVAS_HEIGHT * SCALE;
-    canvas.style.width = `${CANVAS_WIDTH}px`;
-    canvas.style.height = `${CANVAS_HEIGHT}px`;
+    canvas.width = canvasWidth * scale;
+    canvas.height = canvasHeight * scale;
+    canvas.style.width = `${canvasWidth}px`;
+    canvas.style.height = `${canvasHeight}px`;
 
     const ctx = canvas.getContext("2d");
-    ctx.scale(SCALE, SCALE);
+    ctx.scale(scale, scale);
 
-    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    
     const computedStyles = getComputedStyle(document.documentElement);
     const primaryColor = computedStyles.getPropertyValue("--color-primary");
     const surfaceColor = computedStyles.getPropertyValue("--color-surface");
     const fontGeist = computedStyles.getPropertyValue("--font-geist");
 
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
     ctx.beginPath();
-    ctx.rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    ctx.rect(0, 0, canvasWidth, canvasHeight);
     ctx.fillStyle = surfaceColor;
     ctx.fill();
     ctx.closePath();
 
-    const padding = 20;
+    const cardPadding = canvasWidth / 20;
 
     const profileImage = await loadImage(memberProfile.value.image_url ? `${storageUrl.value}/${memberProfile.value.image_url}` : `${appUrl.value}/images/profile-placeholder.svg`);
-    const profileImageSize = 48;
-    const profileImageX = padding;
-    const profileImageY = CANVAS_HEIGHT / 2 - profileImageSize / 2;
+    const profileImageSize = canvasWidth / 8;
+    const profileImageX = cardPadding;
+    const profileImageY = canvasHeight / 2 - profileImageSize / 2;
 
-    drawImageCover(ctx, profileImage, profileImageX, profileImageY, profileImageSize);
+    drawMemberCardProfileImage(ctx, profileImage, profileImageX, profileImageY, profileImageSize);
 
     ctx.beginPath();
     ctx.rect(
@@ -105,24 +104,24 @@ async function drawMemberCard(memberCard) {
     ctx.closePath();
 
     const name = user.value.name;
-    const nameFont = `normal 600 1rem ${fontGeist}`;
+    const nameFont = `normal 600 ${canvasWidth / 25}px ${fontGeist}`;
     ctx.font = nameFont;
     const nameText = ctx.measureText(name);
     const nameHeight = nameText.actualBoundingBoxAscent + nameText.actualBoundingBoxDescent;
 
     const memberId = memberProfile.value.id;
-    const memberIdFont = `0.75rem ${fontGeist}`;
+    const memberIdFont = `${canvasWidth / 33.33}px ${fontGeist}`;
     ctx.font = memberIdFont;
     const memberIdText = ctx.measureText(memberId);
     const memberIdHeight = memberIdText.actualBoundingBoxAscent + memberIdText.actualBoundingBoxDescent;
 
-    const gap = 32;
-    const textGap = 16;
+    const gap = canvasWidth / 12.5;
+    const textGap = canvasWidth / 25;
 
     const textHeight = nameHeight + textGap + memberIdHeight;
 
-    const nameX = padding + profileImageSize + gap;
-    const nameY = profileImageY  + (profileImageSize - textHeight) / 2;
+    const nameX = cardPadding + profileImageSize + gap;
+    const nameY = profileImageY + (profileImageSize - textHeight) / 2;
 
     const memberIdX = nameX;
     const memberIdY = nameY + nameHeight + textGap;
@@ -132,14 +131,16 @@ async function drawMemberCard(memberCard) {
     ctx.fillStyle = "black";
     ctx.fillText(name, nameX, nameY);
 
+    ctx.textBaseline = "top";
     ctx.font = memberIdFont;
+    ctx.fillStyle = "black";
     ctx.fillText(memberId, memberIdX, memberIdY);
 
     const membershipUntil = `Berlaku hingga: ${memberProfile.value.membership_until}`;
     const membershipUntilText = ctx.measureText(membershipUntil);
 
-    const membershipUntilX = padding;
-    const membershipUntilY = CANVAS_HEIGHT - padding;
+    const membershipUntilX = cardPadding;
+    const membershipUntilY = canvasHeight - cardPadding;
 
     ctx.textBaseline = "bottom";
     ctx.fillText(membershipUntil, membershipUntilX, membershipUntilY);
@@ -297,7 +298,7 @@ function downloadMemberCard() {
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                                     </ModalClose>
                                 </header>
-                                <img ref="member-card" src="" alt="Member Card" class="w-full lg:w-100 aspect-5/3 object-cover rounded-lg">
+                                <img ref="member-card" src="" alt="Member Card" class="w-full lg:w-100 aspect-video object-cover rounded-lg">
                                 <Button class="w-full justify-center" @click="downloadMemberCard">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download-icon lucide-download shrink-0"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
                                     Unduh kartu member
