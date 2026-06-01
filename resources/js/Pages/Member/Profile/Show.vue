@@ -1,9 +1,13 @@
 <script setup>
 import { Link, usePage } from "@inertiajs/vue3";
-import { computed } from "vue";
+import { computed, useTemplateRef, watchEffect } from "vue";
 import DashboardHeader from "../../../Components/DashboardHeader.vue";
 import Badge from "../../../Components/Ui/Badge.vue";
 import Button from "../../../Components/Ui/Button.vue";
+import Modal from "../../../Components/Ui/Modal.vue";
+import ModalTrigger from "../../../Components/Ui/ModalTrigger.vue";
+import ModalClose from "../../../Components/Ui/ModalClose.vue";
+import ModalContent from "../../../Components/Ui/ModalContent.vue";
 import Popover from "../../../Components/Ui/Popover.vue";
 import PopoverContent from "../../../Components/Ui/PopoverContent.vue";
 import PopoverTrigger from "../../../Components/Ui/PopoverTrigger.vue";
@@ -15,6 +19,122 @@ const appUrl = computed(() => page.props.appUrl);
 const storageUrl = computed(() => page.props.storageUrl);
 const user = computed(() => page.props.user);
 const memberProfile = computed(() => page.props.memberProfile);
+
+const memberCard = useTemplateRef("member-card");
+
+watchEffect(() => {
+    if (memberCard.value) {
+        drawMemberCard(memberCard.value);
+    }
+});
+
+function drawMemberCard(memberCard) {
+    const CANVAS_WIDTH = 400;
+    const CANVAS_HEIGHT = 240;
+    const SCALE = devicePixelRatio;
+
+    const canvas = document.createElement("canvas");
+    canvas.width = CANVAS_WIDTH * SCALE;
+    canvas.height = CANVAS_HEIGHT * SCALE;
+    canvas.style.width = `${CANVAS_WIDTH}px`;
+    canvas.style.height = `${CANVAS_HEIGHT}px`;
+
+    const ctx = canvas.getContext("2d");
+    ctx.scale(SCALE, SCALE);
+
+    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    
+    const computedStyles = getComputedStyle(document.documentElement);
+    const primaryColor = computedStyles.getPropertyValue("--color-primary");
+    const surfaceColor = computedStyles.getPropertyValue("--color-surface");
+    const fontGeist = computedStyles.getPropertyValue("--font-geist");
+
+    ctx.beginPath();
+    ctx.rect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    ctx.fillStyle = surfaceColor;
+    ctx.fill();
+    ctx.closePath();
+
+    const padding = 20;
+
+    const profileImage = new Image();
+    profileImage.width = 64;
+    profileImage.height = 64;
+    profileImage.src = memberProfile.value.image_url ? `${storageUrl.value}/${memberProfile.value.image_url}` : `${appUrl.value}/images/profile-placeholder.svg`;
+
+    const profileImageX = padding;
+    const profileImageY = CANVAS_HEIGHT / 2 - profileImage.height / 2;
+
+    ctx.drawImage(
+        profileImage,
+        profileImageX,
+        profileImageY,
+        profileImage.width,
+        profileImage.height
+    );
+
+    ctx.beginPath();
+    ctx.rect(
+        profileImageX,
+        profileImageY,
+        profileImage.width,
+        profileImage.height
+    );
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = primaryColor;
+    ctx.stroke();
+    ctx.closePath();
+
+    const name = user.value.name;
+    const nameFont = `normal 600 1rem ${fontGeist}`;
+    ctx.font = nameFont;
+    const nameText = ctx.measureText(name);
+    const nameHeight = nameText.actualBoundingBoxAscent + nameText.actualBoundingBoxDescent;
+
+    const memberId = memberProfile.value.id;
+    const memberIdFont = `0.75rem ${fontGeist}`;
+    ctx.font = memberIdFont;
+    const memberIdText = ctx.measureText(memberId);
+    const memberIdHeight = memberIdText.actualBoundingBoxAscent + memberIdText.actualBoundingBoxDescent;
+
+    const gap = 32;
+    const textGap = 16;
+
+    const textHeight = nameHeight + textGap + memberIdHeight;
+
+    const nameX = padding + profileImage.width + gap;
+    const nameY = profileImageY  + (profileImage.height - textHeight) / 2;
+
+    const memberIdX = nameX;
+    const memberIdY = nameY + nameHeight + textGap;
+
+    ctx.textBaseline = "top";
+    ctx.font = nameFont;
+    ctx.fillStyle = "black";
+    ctx.fillText(name, nameX, nameY);
+
+    ctx.font = memberIdFont;
+    ctx.fillText(memberId, memberIdX, memberIdY);
+
+    const membershipUntil = `Berlaku hingga: ${memberProfile.value.membership_until}`;
+    const membershipUntilText = ctx.measureText(membershipUntil);
+
+    const membershipUntilX = padding;
+    const membershipUntilY = CANVAS_HEIGHT - padding;
+
+    ctx.textBaseline = "bottom";
+    ctx.fillText(membershipUntil, membershipUntilX, membershipUntilY);
+
+    const dataURL = canvas.toDataURL();
+    memberCard.src = dataURL;
+}
+
+function downloadMemberCard() {
+    const a = document.createElement("a");
+    a.href = memberCard.value.src;
+    a.download = "Member Card.png";
+    a.click();
+}
 </script>
 
 <template>
@@ -35,7 +155,7 @@ const memberProfile = computed(() => page.props.memberProfile);
         <main class="w-full h-full overflow-auto">
             <div class="flex flex-col gap-8 p-8">
                 <div class="flex flex-col gap-8 lg:flex-row lg:items-center">
-                    <img :src="memberProfile.image_url ? `${storageUrl}/${memberProfile.image_url}` : `${appUrl}/images/profile-placeholder.svg`" alt="Profile" class="w-32 aspect-square rounded-full">
+                    <img :src="memberProfile.image_url ? `${storageUrl}/${memberProfile.image_url}` : `${appUrl}/images/profile-placeholder.svg`" alt="Profile" class="w-32 aspect-square object-cover rounded-full">
                     <div class="flex flex-col gap-4">
                         <h2 class="font-semibold text-[1.25rem]">{{ user.name }}</h2>
                         <div class="flex flex-col gap-4 lg:flex-row lg:flex-wrap">
@@ -100,7 +220,7 @@ const memberProfile = computed(() => page.props.memberProfile);
                 </div>
                 <div class="flex flex-col gap-8">
                     <h2 class="font-semibold text-2xl">Informasi Pribadi</h2>
-                    <div class="w-full max-w-150 flex flex-col gap-4">
+                    <div class="w-full max-w-150 flex flex-col gap-6 lg:gap-4">
                         <div class="flex flex-col gap-2 lg:grid grid-cols-2">
                             <p>Nama lengkap</p>
                             <p class="font-semibold">{{ user.name }}</p>
@@ -146,11 +266,26 @@ const memberProfile = computed(() => page.props.memberProfile);
                         </div>
                     </div>
                     <div class="flex flex-col lg:flex-row items-start lg:items-center gap-4">
-                        <Button variant="outlined">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye shrink-0"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
-                            Pratinjau kartu member
-                        </Button>
-                        <Button variant="outlined">
+                        <Modal>
+                            <ModalTrigger :as="Button" class="font-geist" variant="outlined" :disabled="!memberProfile.is_active">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye shrink-0"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+                                Pratinjau kartu member
+                            </ModalTrigger>
+                            <ModalContent class="font-geist flex flex-col gap-5">
+                                <header class="flex justify-between gap-4">
+                                    <h3 class="font-semibold">Pratinjau Kartu Member</h3>
+                                    <ModalClose>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                    </ModalClose>
+                                </header>
+                                <img ref="member-card" src="" alt="Member Card" class="w-full lg:w-100 aspect-5/3 object-cover rounded-lg">
+                                <Button class="w-full justify-center" @click="downloadMemberCard">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download-icon lucide-download shrink-0"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
+                                    Unduh kartu member
+                                </Button>
+                            </ModalContent>
+                        </Modal>
+                        <Button variant="outlined" :disabled="!memberProfile.is_active">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download-icon lucide-download shrink-0"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
                             Unduh surat keanggotaan
                         </Button>

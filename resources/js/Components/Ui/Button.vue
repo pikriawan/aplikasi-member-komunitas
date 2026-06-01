@@ -28,7 +28,7 @@ const variantClasses = {
 };
 
 const mergedClasses = computed(() => {
-    return cn("flex items-center gap-3 px-4 py-3 rounded-lg font-medium", variantClasses[props.variant], props.class);
+    return cn("flex items-center gap-3 px-4 py-3 rounded-lg font-medium disabled:bg-onyx-50 disabled:text-onyx-800 disabled:ring-onyx-200 disabled:opacity-60", variantClasses[props.variant], props.class);
 });
 </script>
 
