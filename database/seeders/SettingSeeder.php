@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Setting;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class SettingSeeder extends Seeder
 {
@@ -45,6 +47,7 @@ class SettingSeeder extends Seeder
             'stat_member_inactive'      => '33',
             'stat_member_company'       => '50',
             'stat_member_personal'      => '550',
+            'card_background_image'     => null,
         ];
 
         foreach ($settings as $key => $value) {

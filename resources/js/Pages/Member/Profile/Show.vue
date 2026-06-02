@@ -1,6 +1,7 @@
 <script setup>
 import { Link, usePage } from "@inertiajs/vue3";
-import { computed, useTemplateRef, watchEffect } from "vue";
+import QRCode from "qrcode";
+import { computed, ref, useTemplateRef, watch, watchEffect } from "vue";
 import DashboardHeader from "../../../Components/DashboardHeader.vue";
 import Badge from "../../../Components/Ui/Badge.vue";
 import Button from "../../../Components/Ui/Button.vue";
@@ -17,46 +18,55 @@ const page = usePage();
 
 const appUrl = computed(() => page.props.appUrl);
 const storageUrl = computed(() => page.props.storageUrl);
+const setting = computed(() => page.props.setting);
 const user = computed(() => page.props.user);
 const memberProfile = computed(() => page.props.memberProfile);
 
 const memberCard = useTemplateRef("member-card");
 
-watchEffect(() => {
-    if (memberCard.value) {
-        drawMemberCard(memberCard.value);
-    }
-});
+const memberCardDataURL = ref();
 
 function loadImage(src) {
     return new Promise((resolve) => {
         const image = new Image();
-        image.src = src;
         image.onload = () => resolve(image);
+        image.src = src;
     });
 }
 
-function drawMemberCardProfileImage(ctx, image, x, y, size) {
-    const sourceSize = Math.min(image.width, image.height);
+function drawImageCover(ctx, img, x, y, width, height) {
+    const imgRatio = img.width / img.height;
+    const boxRatio = width / height;
 
-    const sourceX = (image.width - sourceSize) / 2;
-    const sourceY = (image.height - sourceSize) / 2;
+    let sx, sy, sWidth, sHeight;
+
+    if (imgRatio > boxRatio) {
+        sHeight = img.height;
+        sWidth = sHeight * boxRatio;
+        sx = (img.width - sWidth) / 2;
+        sy = 0;
+    } else {
+        sWidth = img.width;
+        sHeight = sWidth / boxRatio;
+        sx = 0;
+        sy = (img.height - sHeight) / 2;
+    }
 
     ctx.drawImage(
-        image,
-        sourceX,
-        sourceY,
-        sourceSize,
-        sourceSize,
+        img,
+        sx,
+        sy,
+        sWidth,
+        sHeight,
         x,
         y,
-        size,
-        size
+        width,
+        height
     );
 }
 
-async function drawMemberCard(memberCard) {
-    const canvasWidth = 600;
+async function getMemberCardDataURL() {
+    const canvasWidth = 800;
     const canvasHeight = canvasWidth * 9 / 16;
     const scale = devicePixelRatio;
 
@@ -76,11 +86,22 @@ async function drawMemberCard(memberCard) {
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    ctx.beginPath();
-    ctx.rect(0, 0, canvasWidth, canvasHeight);
-    ctx.fillStyle = surfaceColor;
-    ctx.fill();
-    ctx.closePath();
+    if (setting.value.card_background_image) {
+        const cardBackgroundImage = await loadImage(`${storageUrl.value}/${setting.value.card_background_image}`);
+        ctx.drawImage(cardBackgroundImage, 0, 0, canvasWidth, canvasHeight);
+
+        ctx.beginPath();
+        ctx.rect(0, 0, canvasWidth, canvasHeight);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+        ctx.fill();
+        ctx.closePath();
+    } else {
+        ctx.beginPath();
+        ctx.rect(0, 0, canvasWidth, canvasHeight);
+        ctx.fillStyle = surfaceColor;
+        ctx.fill();
+        ctx.closePath();
+    }
 
     const cardPadding = canvasWidth / 20;
 
@@ -89,7 +110,7 @@ async function drawMemberCard(memberCard) {
     const profileImageX = cardPadding;
     const profileImageY = canvasHeight / 2 - profileImageSize / 2;
 
-    drawMemberCardProfileImage(ctx, profileImage, profileImageX, profileImageY, profileImageSize);
+    drawImageCover(ctx, profileImage, profileImageX, profileImageY, profileImageSize, profileImageSize);
 
     ctx.beginPath();
     ctx.rect(
@@ -137,21 +158,66 @@ async function drawMemberCard(memberCard) {
     ctx.fillText(memberId, memberIdX, memberIdY);
 
     const membershipUntil = `Berlaku hingga: ${memberProfile.value.membership_until}`;
+    const membershipUntilFont = `${canvasWidth / 33.33}px ${fontGeist}`;
+    ctx.font = membershipUntilFont;
     const membershipUntilText = ctx.measureText(membershipUntil);
 
     const membershipUntilX = cardPadding;
     const membershipUntilY = canvasHeight - cardPadding;
 
     ctx.textBaseline = "bottom";
+    ctx.font = membershipUntilFont;
+    ctx.fillStyle = "black";
     ctx.fillText(membershipUntil, membershipUntilX, membershipUntilY);
 
-    const dataURL = canvas.toDataURL();
-    memberCard.src = dataURL;
+    const memberInfo = `${name};${memberId}`;
+    const memberInfoURL = await QRCode.toDataURL(memberInfo);
+    const memberInfoImage = await loadImage(memberInfoURL);
+    const memberInfoImageSize = canvasWidth / 8;
+    const memberInfoImageX = canvasWidth - cardPadding - memberInfoImageSize;
+    const memberInfoImageY = canvasHeight - cardPadding - memberInfoImageSize;
+    memberInfoImage.width = memberInfoImageSize;
+    memberInfoImage.height = memberInfoImageSize;
+
+    ctx.drawImage(
+        memberInfoImage,
+        memberInfoImageX,
+        memberInfoImageY,
+        memberInfoImageSize,
+        memberInfoImageSize
+    );
+
+    ctx.beginPath();
+    ctx.rect(
+        memberInfoImageX,
+        memberInfoImageY,
+        memberInfoImageSize,
+        memberInfoImageSize
+    );
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = primaryColor;
+    ctx.stroke();
+    ctx.closePath();
+
+    return canvas.toDataURL();
 }
+
+watchEffect(async () => {
+    memberCardDataURL.value = await getMemberCardDataURL();
+});
+
+watch([memberCard, memberCardDataURL], async ([el, dataURL]) => {
+    if (el && el.childElementCount === 0 && dataURL) {
+        const memberCardImage = await loadImage(dataURL);
+        memberCardImage.alt = "Member Card";
+        memberCardImage.classList.add("w-full", "lg:w-100", "aspect-video", "object-cover");
+        el.append(memberCardImage);
+    }
+});
 
 function downloadMemberCard() {
     const a = document.createElement("a");
-    a.href = memberCard.value.src;
+    a.href = memberCardDataURL.value;
     a.download = "Member Card.png";
     a.click();
 }
@@ -298,7 +364,7 @@ function downloadMemberCard() {
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                                     </ModalClose>
                                 </header>
-                                <img ref="member-card" src="" alt="Member Card" class="w-full lg:w-100 aspect-video object-cover rounded-lg">
+                                <div ref="member-card" class="w-full lg:w-100 aspect-video bg-surface" />
                                 <Button class="w-full justify-center" @click="downloadMemberCard">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download-icon lucide-download shrink-0"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
                                     Unduh kartu member
