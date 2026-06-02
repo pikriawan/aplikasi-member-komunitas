@@ -33,6 +33,55 @@ const passwordConfirmationVisible = ref(false);
                     <p class="text-danger-500 text-sm" v-if="errors.telephone">{{ errors.telephone }}</p>
                 </div>
                 <div class="flex flex-col gap-2">
+                    <span class="font-medium">Jenis kelamin</span>
+                    <div class="flex flex-col gap-2">
+                        <label class="flex items-center gap-2" for="gender_male">
+                            <input type="radio" name="gender" id="gender_male" value="Laki-laki">
+                            <span>Laki-laki</span>
+                        </label>
+                        <label class="flex items-center gap-2" for="gender_female">
+                            <input type="radio" name="gender" id="gender_female" value="Perempuan">
+                            <span>Perampuan</span>
+                        </label>
+                        <label class="flex items-center gap-2" for="gender_none">
+                            <input class="hidden" type="radio" name="gender" id="gender_none" value="" checked>
+                            <PillButton as="span" variant="outlined" type="button">Batalkan pilihan</PillButton>
+                        </label>
+                    </div>
+                    <p class="text-danger-500 text-sm" v-if="errors.gender">{{ errors.gender }}</p>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span class="font-medium">Golongan darah</span>
+                    <div class="flex flex-col gap-2">
+                        <label class="flex items-center gap-2" for="blood_type_a">
+                            <input type="radio" name="blood_type" id="blood_type_a" value="A">
+                            <span>A</span>
+                        </label>
+                        <label class="flex items-center gap-2" for="blood_type_b">
+                            <input type="radio" name="blood_type" id="blood_type_b" value="B">
+                            <span>B</span>
+                        </label>
+                        <label class="flex items-center gap-2" for="blood_type_ab">
+                            <input type="radio" name="blood_type" id="blood_type_ab" value="AB">
+                            <span>AB</span>
+                        </label>
+                        <label class="flex items-center gap-2" for="blood_type_o">
+                            <input type="radio" name="blood_type" id="blood_type_o" value="O">
+                            <span>O</span>
+                        </label>
+                        <label class="flex items-center gap-2" for="blood_type_none">
+                            <input class="hidden" type="radio" name="blood_type" id="blood_type_none" value="" checked>
+                            <PillButton as="span" variant="outlined" type="button">Batalkan pilihan</PillButton>
+                        </label>
+                    </div>
+                    <p class="text-danger-500 text-sm" v-if="errors.blood_type">{{ errors.blood_type }}</p>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="font-medium" for="last_education">Pendidikan Terakhir</label>
+                    <input class="w-full px-6 py-2 rounded-full ring ring-inset ring-onyx-400 placeholder:text-onyx-400" name="last_education" id="last_education" placeholder="Pendidikan terakhir">
+                    <p class="text-danger-500 text-sm" v-if="errors.institution">{{ errors.last_education }}</p>
+                </div>
+                <div class="flex flex-col gap-2">
                     <label class="font-medium" for="institution">Institusi</label>
                     <input class="w-full px-6 py-2 rounded-full ring ring-inset ring-onyx-400 placeholder:text-onyx-400" name="institution" id="institution" placeholder="Institusi">
                     <p class="text-danger-500 text-sm" v-if="errors.institution">{{ errors.institution }}</p>

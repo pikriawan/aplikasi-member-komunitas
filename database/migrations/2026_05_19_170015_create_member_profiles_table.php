@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamp('expired_date');
+            $table->string('gender')->nullable();
+            $table->string('blood_type')->nullable();
+            $table->string('last_education')->nullable();
             $table->string('institution')->nullable();
             $table->string('department')->nullable();
             $table->string('address')->nullable();

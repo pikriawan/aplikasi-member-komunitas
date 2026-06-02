@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\MemberGender;
 use App\Enums\UserRole;
 use App\Models\MemberProfile;
 use App\Models\User;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\Password as RulesPassword;
 use Inertia\Inertia;
 
@@ -41,12 +43,15 @@ class AuthController extends Controller
         $user = User::create($data);
 
         MemberProfile::create([
-            'user_id'       => $user->id,
-            'expired_date'  => now(),
-            'institution'   => $request->input('institution'),
-            'department'    => $request->input('department'),
-            'address'       => $request->input('address'),
-            'is_active'     => false,
+            'user_id'           => $user->id,
+            'expired_date'      => now(),
+            'gender'            => $request->input('gender'),
+            'blood_type'        => $request->input('blood_type'),
+            'last_education'    => $request->input('last_education'),
+            'institution'       => $request->input('institution'),
+            'department'        => $request->input('department'),
+            'address'           => $request->input('address'),
+            'is_active'         => false,
         ]);
 
         Auth::login($user);

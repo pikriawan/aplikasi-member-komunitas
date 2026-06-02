@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Fillable(
     'user_id',
     'expired_date',
+    'gender',
+    'blood_type',
+    'last_education',
     'institution',
     'department',
     'address',

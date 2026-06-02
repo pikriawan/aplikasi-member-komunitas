@@ -578,6 +578,18 @@ async function downloadMemberLetter() {
                             <p class="font-semibold">{{ memberProfile.membership_until }}</p>
                         </div>
                         <div class="flex flex-col gap-2 lg:grid grid-cols-2">
+                            <p>Jenis kelamin</p>
+                            <p class="font-semibold">{{ memberProfile.gender || "-" }}</p>
+                        </div>
+                        <div class="flex flex-col gap-2 lg:grid grid-cols-2">
+                            <p>Golongan darah</p>
+                            <p class="font-semibold">{{ memberProfile.blood_type || "-" }}</p>
+                        </div>
+                        <div class="flex flex-col gap-2 lg:grid grid-cols-2">
+                            <p>Pendidikan terakhir</p>
+                            <p class="font-semibold">{{ memberProfile.institution || "-" }}</p>
+                        </div>
+                        <div class="flex flex-col gap-2 lg:grid grid-cols-2">
                             <p>Institusi</p>
                             <p class="font-semibold">{{ memberProfile.institution || "-" }}</p>
                         </div>
