@@ -21,6 +21,7 @@ const storageUrl = computed(() => page.props.storageUrl);
 const setting = computed(() => page.props.setting);
 const user = computed(() => page.props.user);
 const memberProfile = computed(() => page.props.memberProfile);
+const leaderName = computed(() => page.props.leaderName);
 
 const memberCard = useTemplateRef("member-card");
 
@@ -128,13 +129,13 @@ async function getMemberCardDataURL() {
     const nameFont = `normal 600 ${canvasWidth / 25}px ${fontGeist}`;
     ctx.font = nameFont;
     const nameText = ctx.measureText(name);
-    const nameHeight = nameText.actualBoundingBoxAscent + nameText.actualBoundingBoxDescent;
+    const nameHeight = nameText.fontBoundingBoxAscent + nameText.fontBoundingBoxDescent;
 
     const memberId = memberProfile.value.id;
     const memberIdFont = `${canvasWidth / 33.33}px ${fontGeist}`;
     ctx.font = memberIdFont;
     const memberIdText = ctx.measureText(memberId);
-    const memberIdHeight = memberIdText.actualBoundingBoxAscent + memberIdText.actualBoundingBoxDescent;
+    const memberIdHeight = memberIdText.fontBoundingBoxAscent + memberIdText.fontBoundingBoxDescent;
 
     const gap = canvasWidth / 12.5;
     const textGap = canvasWidth / 25;
@@ -219,6 +220,248 @@ function downloadMemberCard() {
     const a = document.createElement("a");
     a.href = memberCardDataURL.value;
     a.download = "Member Card.png";
+    a.click();
+}
+
+function splitTextToSize(ctx, text, maxWidth) {
+    const words = text.split(" ");
+    const lines = [];
+    let currentLine = "";
+
+    for (const word of words) {
+        const testLine = currentLine ? `${currentLine} ${word}` : word;
+        const { width } = ctx.measureText(testLine);
+
+        if (width > maxWidth && currentLine) {
+            lines.push(currentLine);
+            currentLine = word;
+        } else {
+            currentLine = testLine;
+        }
+    }
+
+    if (currentLine) {
+        lines.push(currentLine);
+    }
+
+    return lines;
+}
+
+async function downloadMemberLetter() {
+    const canvasWidth = 2000;
+    const canvasHeight = canvasWidth * 4 / 3;
+    const scale = devicePixelRatio;
+
+    const canvas = document.createElement("canvas");
+    canvas.width = canvasWidth * scale;
+    canvas.height = canvasHeight * scale;
+    canvas.style.width = `${canvasWidth}px`;
+    canvas.style.height = `${canvasHeight}px`;
+
+    const ctx = canvas.getContext("2d");
+    ctx.scale(scale, scale);
+
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+    ctx.beginPath();
+    ctx.rect(0, 0, canvasWidth, canvasHeight);
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.closePath();
+
+    const letterPadding = canvasWidth / 10;
+
+    ctx.font = `normal 700 ${canvasWidth / 40}px serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+
+    let text = setting.value.community_name?.toUpperCase() || "-";
+    let textMetrics = ctx.measureText(text);
+    let textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    let y = letterPadding;
+    ctx.fillStyle = "black";
+    ctx.fillText(text, canvasWidth / 2, y);
+    y += textHeight + canvasWidth / 40;
+
+    ctx.font = `normal 400 ${canvasWidth / 60}px serif`;
+    text = `Email: ${setting.value.email || "-"} | Website: ${appUrl.value}`;
+    textMetrics = ctx.measureText(text);
+    textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    ctx.fillText(text, canvasWidth / 2, y);
+    y += textHeight + canvasWidth / 40;
+
+    ctx.beginPath();
+    ctx.moveTo(letterPadding, y);
+    ctx.lineTo(canvasWidth - letterPadding, y);
+    ctx.stroke();
+    ctx.closePath();
+    y += ctx.lineWidth * canvasWidth / 250;
+
+    ctx.beginPath();
+    ctx.moveTo(letterPadding, y);
+    ctx.lineTo(canvasWidth - letterPadding, y);
+    ctx.stroke();
+    ctx.closePath();
+    y += ctx.lineWidth + canvasWidth / 20;
+
+    ctx.font = `normal 700 ${canvasWidth / 60}px serif`;
+    text = "SURAT KETERANGAN KEANGGOTAAN PREMIUM";
+    textMetrics = ctx.measureText(text);
+    textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    ctx.fillText(text, canvasWidth / 2, y);
+    y += textHeight + canvasWidth / 20;
+
+    ctx.font = `normal 400 ${canvasWidth / 60}px serif`;
+    ctx.textAlign = "left";
+    let textLines = splitTextToSize(
+        ctx,
+        `Dengan ini menerangkan bahwa data di bawah ini adalah anggota resmi dan terdaftar secara aktif dalam komunitas "${setting.value.community_name || '-'}":`,
+        canvasWidth - letterPadding * 2
+    );
+
+    for (const line of textLines) {
+        textMetrics = ctx.measureText(line);
+        textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+        ctx.fillText(line, letterPadding, y);
+        y += textHeight + canvasWidth / 100;
+    }
+
+    y += canvasWidth / 30;
+
+    text = "Nama";
+    ctx.fillText(text, letterPadding, y);
+    text = `: ${user.value.name}`;
+    textMetrics = ctx.measureText(text);
+    textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    ctx.fillText(text, letterPadding + canvasWidth / 4, y);
+    y += textHeight + canvasWidth / 100;
+
+    text = "Nomor anggota";
+    ctx.fillText(text, letterPadding, y);
+    text = `: ${memberProfile.value.id}`;
+    textMetrics = ctx.measureText(text);
+    textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    ctx.fillText(text, letterPadding + canvasWidth / 4, y);
+    y += textHeight + canvasWidth / 100;
+
+    text = "Email";
+    ctx.fillText(text, letterPadding, y);
+    text = `: ${user.value.email}`;
+    textMetrics = ctx.measureText(text);
+    textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    ctx.fillText(text, letterPadding + canvasWidth / 4, y);
+    y += textHeight + canvasWidth / 100;
+
+    text = "Status membership";
+    ctx.fillText(text, letterPadding, y);
+    text = `: ${memberProfile.value.is_active ? "Aktif" : "Nonaktif"}`;
+    textMetrics = ctx.measureText(text);
+    textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    ctx.fillText(text, letterPadding + canvasWidth / 4, y);
+    y += textHeight + canvasWidth / 100;
+
+    text = "Bergabung sejak";
+    ctx.fillText(text, letterPadding, y);
+    text = `: ${memberProfile.value.join_date}`;
+    textMetrics = ctx.measureText(text);
+    textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    ctx.fillText(text, letterPadding + canvasWidth / 4, y);
+    y += textHeight + canvasWidth / 100;
+
+    text = "Membership hingga";
+    ctx.fillText(text, letterPadding, y);
+    text = `: ${memberProfile.value.membership_until}`;
+    textMetrics = ctx.measureText(text);
+    textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    ctx.fillText(text, letterPadding + canvasWidth / 4, y);
+    y += textHeight + canvasWidth / 100;
+
+    text = "Institusi";
+    ctx.fillText(text, letterPadding, y);
+    text = `: ${memberProfile.value.institution || "-"}`;
+    textMetrics = ctx.measureText(text);
+    textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    ctx.fillText(text, letterPadding + canvasWidth / 4, y);
+    y += textHeight + canvasWidth / 100;
+
+    text = "Departemen";
+    ctx.fillText(text, letterPadding, y);
+    text = `: ${memberProfile.value.department || "-"}`;
+    textMetrics = ctx.measureText(text);
+    textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    ctx.fillText(text, letterPadding + canvasWidth / 4, y);
+    y += textHeight + canvasWidth / 100;
+
+    y += canvasWidth / 30;
+
+    textLines = splitTextToSize(
+        ctx,
+        "Demikian surat keterangan keanggotaan ini dibuat dengan sebenar-benarnya untuk dapat dipergunakan sebagaimana mestinya.",
+        canvasWidth - letterPadding * 2
+    );
+
+    for (const line of textLines) {
+        textMetrics = ctx.measureText(line);
+        textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+        ctx.fillText(line, letterPadding, y);
+        y += textHeight + canvasWidth / 100;
+    }
+
+    y += canvasWidth / 30;
+
+    const signBoxWidth = canvasWidth / 2;
+
+    ctx.textAlign = "center";
+    text = `${setting.value.city || ""}, ${new Date().toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}`;
+    textMetrics = ctx.measureText(text);
+    textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    ctx.fillText(
+        text,
+        canvasWidth - letterPadding - signBoxWidth / 2,
+        y
+    );
+    y += textHeight + canvasWidth / 100;
+
+    text = "Ketua";
+    textMetrics = ctx.measureText(text);
+    textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    ctx.fillText(
+        text,
+        canvasWidth - letterPadding - signBoxWidth / 2,
+        y
+    );
+    y += textHeight + canvasWidth / 100;
+
+    const signImageSize = canvasWidth / 4;
+
+    if (setting.value.leader_sign_image) {
+        const signImage = await loadImage(`${storageUrl.value}/${setting.value.leader_sign_image}`);
+        drawImageCover(
+            ctx,
+            signImage,
+            canvasWidth - letterPadding - signBoxWidth + (signBoxWidth - signImageSize) / 2,
+            y,
+            signImageSize,
+            signImageSize
+        );
+    }
+
+    y += signImageSize;
+
+    y += textHeight;
+
+    text = leaderName.value|| "-";
+    textMetrics = ctx.measureText(text);
+    textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
+    ctx.fillText(
+        text,
+        canvasWidth - letterPadding - signBoxWidth / 2,
+        y
+    );
+
+    const a = document.createElement("a");
+    a.href = canvas.toDataURL();
+    a.download = "Member Letter.png";
     a.click();
 }
 </script>
@@ -371,7 +614,7 @@ function downloadMemberCard() {
                                 </Button>
                             </ModalContent>
                         </Modal>
-                        <Button variant="outlined" :disabled="!memberProfile.is_active">
+                        <Button variant="outlined" :disabled="!memberProfile.is_active" @click="downloadMemberLetter">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download-icon lucide-download shrink-0"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
                             Unduh surat keanggotaan
                         </Button>

@@ -21,6 +21,7 @@ class SettingSeeder extends Seeder
             'email'                     => 'amk@mail.com',
             'telephone'                 => fake()->phoneNumber(),
             'address'                   => fake()->address(),
+            'city'                      => fake()->city(),
             'x_account_url'             => null,
             'facebook_account_url'      => null,
             'linkedin_account_url'      => null,
@@ -48,6 +49,7 @@ class SettingSeeder extends Seeder
             'stat_member_company'       => '50',
             'stat_member_personal'      => '550',
             'card_background_image'     => null,
+            'leader_sign_image'         => null
         ];
 
         foreach ($settings as $key => $value) {
