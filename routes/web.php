@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Member\ContentController;
 use App\Http\Controllers\Member\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Pest\Plugins\Profile;
 
 Route::get('/', HomeController::class)->name('home');
 
@@ -58,6 +59,8 @@ Route::prefix('member')
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+        Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
     });
 
 Route::prefix('staff')

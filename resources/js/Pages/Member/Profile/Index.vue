@@ -587,7 +587,7 @@ async function downloadMemberLetter() {
                         </div>
                         <div class="flex flex-col gap-2 lg:grid grid-cols-2">
                             <p>Pendidikan terakhir</p>
-                            <p class="font-semibold">{{ memberProfile.institution || "-" }}</p>
+                            <p class="font-semibold">{{ memberProfile.last_education || "-" }}</p>
                         </div>
                         <div class="flex flex-col gap-2 lg:grid grid-cols-2">
                             <p>Institusi</p>
