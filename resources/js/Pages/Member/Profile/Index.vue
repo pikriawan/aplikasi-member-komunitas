@@ -1,5 +1,5 @@
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
+import { Link, progress, usePage } from "@inertiajs/vue3";
 import QRCode from "qrcode";
 import { computed, ref, useTemplateRef, watch, watchEffect } from "vue";
 import DashboardHeader from "../../../Components/DashboardHeader.vue";
@@ -22,6 +22,45 @@ const setting = computed(() => page.props.setting);
 const user = computed(() => page.props.user);
 const memberProfile = computed(() => page.props.memberProfile);
 const leaderName = computed(() => page.props.leaderName);
+
+const profileProgress = computed(() => {
+    const total = 8;
+    let progress = 0;
+
+    if (memberProfile.value.image_url) {
+        progress++;
+    }
+
+    if (memberProfile.value.gender) {
+        progress++;
+    }
+
+    if (memberProfile.value.blood_type) {
+        progress++;
+    }
+
+    if (memberProfile.value.last_education) {
+        progress++;
+    }
+
+    if (memberProfile.value.institution) {
+        progress++;
+    }
+
+    if (memberProfile.value.department) {
+        progress++;
+    }
+
+    if (user.value.telephone) {
+        progress++;
+    }
+
+    if (memberProfile.value.address) {
+        progress++;
+    }
+
+    return progress / total;
+});
 
 const memberCard = useTemplateRef("member-card");
 
@@ -171,7 +210,7 @@ async function getMemberCardDataURL() {
     ctx.fillStyle = "black";
     ctx.fillText(membershipUntil, membershipUntilX, membershipUntilY);
 
-    const memberInfo = `${name};${memberId}`;
+    const memberInfo = memberId;
     const memberInfoURL = await QRCode.toDataURL(memberInfo);
     const memberInfoImage = await loadImage(memberInfoURL);
     const memberInfoImageSize = canvasWidth / 8;
@@ -483,10 +522,15 @@ async function downloadMemberLetter() {
         </DashboardHeader>
         <main class="w-full h-full overflow-auto">
             <div class="flex flex-col gap-8 p-8">
-                <div class="flex flex-col gap-8 lg:flex-row lg:items-center">
+                <div class="flex flex-col gap-8 lg:flex-row lg:max-w-270 lg:items-center">
                     <img :src="memberProfile.image_url ? `${storageUrl}/${memberProfile.image_url}` : `${appUrl}/images/profile-placeholder.svg`" alt="Profile" class="w-32 aspect-square object-cover rounded-full">
-                    <div class="flex flex-col gap-4">
-                        <h2 class="font-semibold text-[1.25rem]">{{ user.name }}</h2>
+                    <div class="flex flex-col gap-4 w-full">
+                        <div class="flex items-center gap-2">
+                            <h2 class="font-semibold text-[1.25rem]">{{ user.name }}</h2>
+                            <div v-if="profileProgress === 1" class="p-1 rounded-full bg-primary text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
+                            </div>
+                        </div>
                         <div class="flex flex-col gap-4 lg:flex-row lg:flex-wrap">
                             <div class="flex items-center gap-2.5 text-onyx-400 font-semibold">
                                 <span class="p-1 rounded-full bg-onyx-50 text-onyx-200">
@@ -507,8 +551,8 @@ async function downloadMemberLetter() {
                                 {{ user.email }}
                             </div>
                         </div>
-                        <div class="flex flex-col gap-4 lg:flex-row lg:flex-wrap">
-                            <div class="lg:min-w-50 flex flex-col gap-4 p-4 rounded-lg border border-dashed border-onyx-200">
+                        <div class="flex flex-col gap-4 lg:grid grid-cols-[repeat(auto-fit,minmax(12.5rem,1fr))]">
+                            <div class="flex flex-col gap-4 p-4 rounded-lg border border-dashed border-onyx-200">
                                 <div class="flex items-center gap-2.5 font-semibold">
                                     <span class="p-1 rounded-full bg-success-50 text-success-600">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-id-card-icon lucide-id-card"><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
@@ -517,7 +561,7 @@ async function downloadMemberLetter() {
                                 </div>
                                 <p class="text-onyx-400">Nomor Anggota</p>
                             </div>
-                            <div class="lg:min-w-50 flex flex-col gap-4 p-4 rounded-lg border border-dashed border-onyx-200">
+                            <div class="flex flex-col gap-4 p-4 rounded-lg border border-dashed border-onyx-200">
                                 <div class="flex items-center gap-2.5 font-semibold">
                                     <span class="p-1 rounded-full bg-blue-50 text-blue-600">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -526,7 +570,7 @@ async function downloadMemberLetter() {
                                 </div>
                                 <p class="text-onyx-400">Status</p>
                             </div>
-                            <div class="lg:min-w-50 flex flex-col gap-4 p-4 rounded-lg border border-dashed border-onyx-200">
+                            <div class="flex flex-col gap-4 p-4 rounded-lg border border-dashed border-onyx-200">
                                 <div class="flex items-center gap-2.5 font-semibold">
                                     <span class="p-1 rounded-full bg-violet-50 text-violet-600">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days-icon lucide-calendar-days"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
@@ -535,7 +579,7 @@ async function downloadMemberLetter() {
                                 </div>
                                 <p class="text-onyx-400">Bergabung Sejak</p>
                             </div>
-                            <div class="lg:min-w-50 flex flex-col gap-4 p-4 rounded-lg border border-dashed border-onyx-200">
+                            <div class="flex flex-col gap-4 p-4 rounded-lg border border-dashed border-onyx-200">
                                 <div class="flex items-center gap-2.5 font-semibold">
                                     <span class="p-1 rounded-full bg-danger-50 text-danger-600">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-timer-icon lucide-timer"><line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/></svg>
@@ -547,9 +591,103 @@ async function downloadMemberLetter() {
                         </div>
                     </div>
                 </div>
+                <div v-if="profileProgress !== 1" class="flex flex-col gap-4 p-4 rounded-lg border border-dashed border-onyx-200 lg:max-w-270">
+                    <div class="flex flex-col lg:flex-row justify-between gap-4 items-start lg:items-center">
+                        <h2 class="font-semibold">Kelengkapan Profil</h2>
+                        <p class="px-2 py-1 text-sm font-semibold rounded bg-surface text-primary">{{ Math.round(profileProgress * 100 )}}%</p>
+                    </div>
+                    <div class="w-full flex flex-col gap-4">
+                        <p>Lengkapi profilmu untuk mendapatkan tanda centang di samping namamu!</p>
+                        <div class="bg-onyx-50 rounded-full overflow-hidden">
+                            <div class="h-2 bg-primary" :style="{ width: `calc(100%*${profileProgress})` }" />
+                        </div>
+                        <div class="flex gap-4 flex-wrap">
+                            <Badge
+                                :variant="memberProfile.image_url ? 'success' : 'danger'"
+                                :as="memberProfile.image_url ? 'span' : Link"
+                                :href="memberProfile.image_url ? '' : route('member.profile.edit')"
+                                class="flex items-center gap-2"
+                            >
+                                <svg v-if="memberProfile.image_url" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x shrink-0"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                Foto profil
+                            </Badge>
+                            <Badge
+                                :variant="memberProfile.gender ? 'success' : 'danger'"
+                                :as="memberProfile.gender ? 'span' : Link"
+                                :href="memberProfile.gender ? '' : route('member.profile.edit')"
+                                class="flex items-center gap-2"
+                            >
+                                <svg v-if="memberProfile.gender" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x shrink-0"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                Jenis kelamin
+                            </Badge>
+                            <Badge
+                                :variant="memberProfile.blood_type ? 'success' : 'danger'"
+                                :as="memberProfile.blood_type ? 'span' : Link"
+                                :href="memberProfile.blood_type ? '' : route('member.profile.edit')"
+                                class="flex items-center gap-2"
+                            >
+                                <svg v-if="memberProfile.blood_type" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x shrink-0"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                Golongan darah
+                            </Badge>
+                            <Badge
+                                :variant="memberProfile.last_education ? 'success' : 'danger'"
+                                :as="memberProfile.last_education ? 'span' : Link"
+                                :href="memberProfile.last_education ? '' : route('member.profile.edit')"
+                                class="flex items-center gap-2"
+                            >
+                                <svg v-if="memberProfile.last_education" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x shrink-0"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                Pendidikan terakhir
+                            </Badge>
+                            <Badge
+                                :variant="memberProfile.institution ? 'success' : 'danger'"
+                                :as="memberProfile.institution ? 'span' : Link"
+                                :href="memberProfile.institution ? '' : route('member.profile.edit')"
+                                class="flex items-center gap-2"
+                            >
+                                <svg v-if="memberProfile.institution" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x shrink-0"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                Institusi
+                            </Badge>
+                            <Badge
+                                :variant="memberProfile.department ? 'success' : 'danger'"
+                                :as="memberProfile.department ? 'span' : Link"
+                                :href="memberProfile.department ? '' : route('member.profile.edit')"
+                                class="flex items-center gap-2"
+                            >
+                                <svg v-if="memberProfile.department" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x shrink-0"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                Departemen
+                            </Badge>
+                            <Badge
+                                :variant="user.telephone ? 'success' : 'danger'"
+                                :as="user.telephone ? 'span' : Link"
+                                :href="user.telephone ? '' : route('member.profile.edit')"
+                                class="flex items-center gap-2"
+                            >
+                                <svg v-if="user.telephone" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x shrink-0"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                Nomor telepon
+                            </Badge>
+                            <Badge
+                                :variant="memberProfile.address ? 'success' : 'danger'"
+                                :as="memberProfile.address ? 'span' : Link"
+                                :href="memberProfile.address ? '' : route('member.profile.edit')"
+                                class="flex items-center gap-2"
+                            >
+                                <svg v-if="memberProfile.address" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                                <svg v-else xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x shrink-0"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                Alamat rumah
+                            </Badge>
+                        </div>
+                    </div>
+                </div>
                 <div class="flex flex-col gap-8">
                     <h2 class="font-semibold text-2xl">Informasi Pribadi</h2>
-                    <div class="w-full max-w-150 flex flex-col gap-6 lg:gap-4">
+                    <div class="w-full lg:max-w-150 flex flex-col gap-6 lg:gap-4">
                         <div class="flex flex-col gap-2 lg:grid grid-cols-2">
                             <p>Nama lengkap</p>
                             <p class="font-semibold">{{ user.name }}</p>
