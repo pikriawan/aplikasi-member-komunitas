@@ -11,7 +11,7 @@ use Inertia\Inertia;
 
 class ProfileController extends Controller
 {
-    public function show(Request $request)
+    public function index(Request $request)
     {
         $foundMemberProfile = $request->user()->memberProfile;
 
@@ -24,9 +24,14 @@ class ProfileController extends Controller
 
         $leaderName = User::where('role', UserRole::Leader->value)->first()?->name;
 
-        return Inertia::render('Member/Profile/Show', [
+        return Inertia::render('Member/Profile/Index', [
             'memberProfile' => $memberProfile,
             'leaderName' => $leaderName,
         ]);
+    }
+
+    public function edit(Request $request)
+    {
+        return Inertia::render('Member/Profile/Edit');
     }
 }

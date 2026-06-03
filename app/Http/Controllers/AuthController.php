@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\Password as RulesPassword;
 use Inertia\Inertia;
 

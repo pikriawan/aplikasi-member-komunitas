@@ -55,7 +55,9 @@ Route::prefix('member')
     ->group(function () {
         Route::get('/contents', [ContentController::class, 'index'])->name('contents.index');
 
-        Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     });
 
 Route::prefix('staff')
