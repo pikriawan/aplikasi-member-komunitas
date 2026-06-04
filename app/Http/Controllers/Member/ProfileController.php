@@ -52,7 +52,7 @@ class ProfileController extends Controller
 
         if ($request->filled('old_password') || $request->filled('password')) {
             $rules['old_password'] = ['required', 'current_password'];
-            $rules['password'] = ['required', 'confirmed', Password::default()];
+            $rules['password'] = ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()];
         }
 
         $validated = $request->validate($rules);

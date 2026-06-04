@@ -24,7 +24,7 @@ class AuthController extends Controller
         $data = $request->validate([
             'name'      => ['required', 'string'],
             'email'     => ['required', 'email'],
-            'password'  => ['required', 'confirmed', RulesPassword::min(8)->numbers()],
+            'password'  => ['required', 'confirmed', RulesPassword::min(8)->mixedCase()->numbers()],
         ]);
 
         $existingUser = User::where('email', $data['email'])->first();

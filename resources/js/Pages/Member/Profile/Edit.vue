@@ -154,14 +154,14 @@ function clearProfileImageInput() {
                         <p class="text-danger-500 text-sm" v-if="errors.old_password">{{ errors.old_password }}</p>
                     </div>
                     <div class="flex flex-col gap-2 lg:max-w-150">
-                        <label for="new_password" class="font-semibold">Password baru</label>
-                        <TextField id="new_password" name="new_password" placeholder="Password baru" type="password" />
-                        <p class="text-danger-500 text-sm" v-if="errors.new_password">{{ errors.new_password }}</p>
+                        <label for="password" class="font-semibold">Password baru</label>
+                        <TextField id="password" name="password" placeholder="Password baru" type="password" />
+                        <p class="text-danger-500 text-sm" v-if="errors.password">{{ errors.password }}</p>
                     </div>
                     <div class="flex flex-col gap-2 lg:max-w-150">
-                        <label for="new_password_confirmation" class="font-semibold">Konfirmasi password baru</label>
-                        <TextField id="new_password_confirmation" name="new_password_confirmation" placeholder="Konfirmasi password baru" type="password" />
-                        <p class="text-danger-500 text-sm" v-if="errors.new_password_confirmation">{{ errors.new_password_confirmation }}</p>
+                        <label for="password_confirmation" class="font-semibold">Konfirmasi password baru</label>
+                        <TextField id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi password baru" type="password" />
+                        <p class="text-danger-500 text-sm" v-if="errors.password_confirmation">{{ errors.password_confirmation }}</p>
                     </div>
                 </div>
             </Form>
