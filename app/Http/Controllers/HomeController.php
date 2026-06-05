@@ -14,13 +14,7 @@ class HomeController extends Controller
     public function __invoke(Request $request)
     {
         return Inertia::render('Home', [
-            'posts' => Post::latest()
-                ->limit(8)
-                ->get()
-                ->map(fn ($post) => [
-                    ...$post->toArray(),
-                    'date' => $post->created_at->timezone(config('app.timezone'))->format('d/m/Y'),
-                ]),
+            'posts' => Post::latest()->limit(8)->get(),
         ]);
     }
 }

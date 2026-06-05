@@ -13,11 +13,7 @@ class BlogController extends Controller
         $posts = Post::byCategory($request->query('category'))
             ->latest()
             ->paginate(10)
-            ->appends($request->query())
-            ->through(fn ($post) => [
-                ...$post->toArray(),
-                'date' => $post->created_at->timezone(config('app.timezone'))->format('d/m/Y'),
-            ]);
+            ->appends($request->query());
 
         return Inertia::render('Blog', [
             'posts' => $posts,
@@ -40,14 +36,7 @@ class BlogController extends Controller
 
     public function show(string $slug)
     {
-        $foundPost = Post::with('author')->where('slug', $slug)->first();
-
-        $post = $foundPost
-            ? [
-                ...$foundPost->toArray(),
-                'date' => $foundPost->created_at->timezone(config('app.timezone'))->format('d/m/Y H:i'),
-            ]
-            : null;
+        $post = Post::with('author')->where('slug', $slug)->first();
 
         return Inertia::render('Post', [
             'post' => $post,

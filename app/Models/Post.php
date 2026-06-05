@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +19,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'summary',
     'content',
 )]
+#[Appends([
+    'date',
+    'long_date',
+])]
 class Post extends Model
 {
     use HasFactory;
@@ -47,5 +53,19 @@ class Post extends Model
             ->where('title', 'like', "%{$term}%")
             ->orWhere('summary', 'like', "%{$term}%")
             ->orWhere('content', 'like', "%{$term}%");
+    }
+
+    protected function date(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->created_at->timezone(config('app.timezone'))->format('d/m/Y'),
+        );
+    }
+
+    protected function longDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->created_at->timezone(config('app.timezone'))->format('d/m/Y H:i'),
+        );
     }
 }

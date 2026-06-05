@@ -36,7 +36,7 @@ const category = computed(() => PostCategory.from(post.value?.category));
         <section class="p-8 lg:p-0 lg:px-4 lg:py-6 lg:flex lg:justify-center">
             <div class="flex flex-col gap-8 w-full lg:max-w-270 lg:grid lg:grid-cols-3">
                 <div v-if="post" class="flex flex-col gap-6 p-6 lg:col-span-2 ring ring-inset ring-onyx-200">
-                    <span class="bg-primary text-white text-sm p-1 self-start">{{ post.date }}</span>
+                    <span class="bg-primary text-white text-sm p-1 self-start">{{ post.long_date }}</span>
                     <h1 class="font-medium text-2xl">{{ post.title }}</h1>
                     <span class="h-px bg-onyx-200" />
                     <div class="text-onyx-400 flex flex-col gap-4" v-html="post.content" />

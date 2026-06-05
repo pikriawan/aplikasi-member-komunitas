@@ -28,6 +28,11 @@ use Illuminate\Support\Str;
 ])]
 class MemberProfile extends Model
 {
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     protected function casts(): array
     {
         return [
@@ -61,10 +66,5 @@ class MemberProfile extends Model
         return Attribute::make(
             get: fn () => $this->expired_date->timezone(config('app.timezone'))->format('d F Y'),
         );
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
     }
 }
