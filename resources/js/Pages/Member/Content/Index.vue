@@ -6,14 +6,13 @@ import Alert from "../../../Components/Ui/Alert.vue";
 import Popover from "../../../Components/Ui/Popover.vue";
 import PopoverContent from "../../../Components/Ui/PopoverContent.vue";
 import PopoverTrigger from "../../../Components/Ui/PopoverTrigger.vue";
+import ContentType from "../../../Enums/ContentType.js";
 import MemberLayout from "../../../Layouts/MemberLayout.vue";
 
 const page = usePage();
 
 const memberProfile = computed(() => page.props.memberProfile);
 const alerts = computed(() => page.flash.alerts);
-
-console.log(alerts);
 </script>
 
 <template>
@@ -47,8 +46,12 @@ console.log(alerts);
                     </Alert>
                 </div>
             </div>
-            <div v-if="memberProfile.is_active" class="flex">
-                
+            <div v-if="memberProfile.is_active" class="lg:h-full flex flex-col lg:justify-between gap-8">
+                <div class="flex gap-4">
+                    <Link v-for="[key, type] in ContentType.entries()" :key="key" href="#">
+                        {{ type.label }}
+                    </Link>
+                </div>
             </div>
         </main>
     </MemberLayout>

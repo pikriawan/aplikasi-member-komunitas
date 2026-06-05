@@ -21,7 +21,6 @@ const storageUrl = computed(() => page.props.storageUrl);
 const setting = computed(() => page.props.setting);
 const user = computed(() => page.props.user);
 const memberProfile = computed(() => page.props.memberProfile);
-console.log(memberProfile.value);
 const leaderName = computed(() => page.props.leaderName);
 
 const profileProgress = computed(() => {
@@ -171,7 +170,7 @@ async function getMemberCardDataURL() {
     const nameText = ctx.measureText(name);
     const nameHeight = nameText.fontBoundingBoxAscent + nameText.fontBoundingBoxDescent;
 
-    const memberId = memberProfile.value.id;
+    const memberId = memberProfile.value.number;
     const memberIdFont = `${canvasWidth / 33.33}px ${fontGeist}`;
     ctx.font = memberIdFont;
     const memberIdText = ctx.measureText(memberId);
@@ -378,7 +377,7 @@ async function downloadMemberLetter() {
 
     text = "Nomor anggota";
     ctx.fillText(text, letterPadding, y);
-    text = `: ${memberProfile.value.id}`;
+    text = `: ${memberProfile.value.number}`;
     textMetrics = ctx.measureText(text);
     textHeight = textMetrics.fontBoundingBoxAscent + textMetrics.fontBoundingBoxDescent;
     ctx.fillText(text, letterPadding + canvasWidth / 4, y);
@@ -558,7 +557,7 @@ async function downloadMemberLetter() {
                                     <span class="p-1 rounded-full bg-success-50 text-success-600">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-id-card-icon lucide-id-card"><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
                                     </span>
-                                    {{ memberProfile.id }}
+                                    {{ memberProfile.number }}
                                 </div>
                                 <p class="text-onyx-400">Nomor Anggota</p>
                             </div>
@@ -699,7 +698,7 @@ async function downloadMemberLetter() {
                         </div>
                         <div class="flex flex-col gap-2 lg:grid grid-cols-2">
                             <p>Nomor anggota</p>
-                            <p class="font-semibold">{{ memberProfile.id }}</p>
+                            <p class="font-semibold">{{ memberProfile.number }}</p>
                         </div>
                         <div class="flex flex-col gap-2 lg:grid grid-cols-2">
                             <p>Status</p>
