@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 #[Fillable(
     'user_id',
@@ -18,6 +20,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'address',
     'image_url',
 )]
+#[Appends([
+    'number',
+    'is_active',
+    'join_date',
+    'membership_until',
+])]
 class MemberProfile extends Model
 {
     protected function casts(): array
@@ -27,10 +35,31 @@ class MemberProfile extends Model
         ];
     }
 
+    protected function number(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Str::padLeft($this->id, 5, '0'),
+        );
+    }
+
     protected function isActive(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->expired_date->isFuture(),
+        );
+    }
+
+    protected function joinDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->created_at->timezone(config('app.timezone'))->format('d F Y'),
+        );
+    }
+
+    protected function membershipUntil(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->expired_date->timezone(config('app.timezone'))->format('d F Y'),
         );
     }
 
