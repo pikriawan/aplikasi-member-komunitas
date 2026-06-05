@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('department')->nullable();
             $table->string('address')->nullable();
             $table->string('image_url')->nullable();
-            $table->boolean('is_active');
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -16,7 +17,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'department',
     'address',
     'image_url',
-    'is_active',
 )]
 class MemberProfile extends Model
 {
@@ -25,6 +25,13 @@ class MemberProfile extends Model
         return [
             'expired_date' => 'datetime',
         ];
+    }
+
+    protected function isActive(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->expired_date->isFuture(),
+        );
     }
 
     public function user(): BelongsTo

@@ -21,6 +21,7 @@ const storageUrl = computed(() => page.props.storageUrl);
 const setting = computed(() => page.props.setting);
 const user = computed(() => page.props.user);
 const memberProfile = computed(() => page.props.memberProfile);
+console.log(memberProfile.value);
 const leaderName = computed(() => page.props.leaderName);
 
 const profileProgress = computed(() => {

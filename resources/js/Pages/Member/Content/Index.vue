@@ -1,10 +1,19 @@
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
+import { computed } from "vue";
 import DashboardHeader from "../../../Components/DashboardHeader.vue";
+import Alert from "../../../Components/Ui/Alert.vue";
 import Popover from "../../../Components/Ui/Popover.vue";
 import PopoverContent from "../../../Components/Ui/PopoverContent.vue";
 import PopoverTrigger from "../../../Components/Ui/PopoverTrigger.vue";
 import MemberLayout from "../../../Layouts/MemberLayout.vue";
+
+const page = usePage();
+
+const memberProfile = computed(() => page.props.memberProfile);
+const alerts = computed(() => page.flash.alerts);
+
+console.log(alerts);
 </script>
 
 <template>
@@ -31,6 +40,16 @@ import MemberLayout from "../../../Layouts/MemberLayout.vue";
             </Popover>
         </DashboardHeader>
         <main class="w-full h-full overflow-auto">
+            <div class="flex flex-col gap-8 p-8">
+                <div class="flex flex-col gap-2">
+                    <Alert v-for="alert in alerts" :variant="alert.variant">
+                        {{ alert.text }}
+                    </Alert>
+                </div>
+            </div>
+            <div v-if="memberProfile.is_active" class="flex">
+                
+            </div>
         </main>
     </MemberLayout>
 </template>

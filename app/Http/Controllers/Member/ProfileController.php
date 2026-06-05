@@ -19,6 +19,7 @@ class ProfileController extends Controller
         $memberProfile = [
             ...$foundMemberProfile->toArray(),
             'id' => Str::padLeft($foundMemberProfile->id, 5, '0'),
+            'is_active' => $foundMemberProfile->is_active,
             'join_date' => $foundMemberProfile->created_at->timezone(config('app.timezone'))->format('d F Y'),
             'membership_until' => $foundMemberProfile->expired_date->timezone(config('app.timezone'))->format('d F Y'),
         ];

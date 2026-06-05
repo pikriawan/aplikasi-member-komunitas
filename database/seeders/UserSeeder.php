@@ -29,7 +29,6 @@ class UserSeeder extends Seeder
         MemberProfile::create([
             'user_id'       => $member->id,
             'expired_date'  => now()->addYear(),
-            'is_active'     => true,
         ]);
 
         $premiumMember = User::create([
@@ -46,7 +45,6 @@ class UserSeeder extends Seeder
         MemberProfile::create([
             'user_id'       => $premiumMember->id,
             'expired_date'  => now(),
-            'is_active'     => false,
         ]);
 
         $staff = User::create([
