@@ -11,7 +11,7 @@ const props = defineProps({
         type: String,
         default: "primary",
         validator(value) {
-            return ["primary", "success", "warning", "danger"].includes(value);
+            return ["primary", "info", "success", "warning", "danger"].includes(value);
         }
     },
     as: {
@@ -22,8 +22,9 @@ const props = defineProps({
 
 const variantClasses = {
     primary: "bg-surface text-primary",
+    info: "bg-info-50 text-info-500",
     success: "bg-success-50 text-success-600",
-    warning: "bg-warning-50 text-warning-600",
+    warning: "bg-warning-50 text-warning-500",
     danger: "bg-danger-50 text-danger-500"
 };
 

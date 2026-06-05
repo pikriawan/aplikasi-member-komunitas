@@ -29,6 +29,18 @@
     --color-onyx-900: #1A1A1A;
     --color-onyx-950: #121212;
 
+    --color-info-50: #E5F0FF;
+    --color-info-100: #CCE0FF;
+    --color-info-200: #99C2FF;
+    --color-info-300: #66A3FF;
+    --color-info-400: #3385FF;
+    --color-info-500: #0066FF;
+    --color-info-600: #0052CC;
+    --color-info-700: #003D99;
+    --color-info-800: #002966;
+    --color-info-900: #001433;
+    --color-info-950: #000E24;
+
     --color-success-50: #E6FFED;
     --color-success-100: #CDFEDC;
     --color-success-200: #9BFDB8;
