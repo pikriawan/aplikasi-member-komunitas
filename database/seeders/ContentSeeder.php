@@ -17,7 +17,7 @@ class ContentSeeder extends Seeder
     {
         $staffId = User::where('role', UserRole::Staff)->first()->id;
 
-        Content::factory(100)->create([
+        Content::factory(300)->create([
             'uploader_id' => $staffId,
         ]);
     }

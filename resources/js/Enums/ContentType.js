@@ -1,8 +1,4 @@
 const ContentType = {
-    All: {
-        value: "",
-        label: "Semua"
-    },
     Video: {
         value: "video",
         label: "Video"

@@ -53,7 +53,7 @@ function clearProfileImageInput() {
             </Popover>
         </DashboardHeader>
         <main class="w-full h-full overflow-auto">
-            <Form id="edit_profile" class="flex flex-col gap-8 p-8" :action="route('member.profile.update')" method="post" enctype="multipart/form-data" v-slot="{ errors }">
+            <Form id="edit_profile" class="flex flex-col gap-8 p-8 lg:min-h-full" :action="route('member.profile.update')" method="post" enctype="multipart/form-data" v-slot="{ errors }">
                 <div class="flex flex-col gap-8">
                     <div class="flex flex-col gap-4 lg:max-w-150">
                         <label class="font-semibold">Foto profil</label>

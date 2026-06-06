@@ -521,7 +521,7 @@ async function downloadMemberLetter() {
             </Popover>
         </DashboardHeader>
         <main class="w-full h-full overflow-auto">
-            <div class="flex flex-col gap-8 p-8">
+            <div class="flex flex-col gap-8 p-8 lg:min-h-full">
                 <div class="flex flex-col gap-8 lg:flex-row lg:max-w-270 lg:items-center">
                     <img :src="memberProfile.image_url ? `${storageUrl}/${memberProfile.image_url}` : `${appUrl}/images/profile-placeholder.svg`" alt="Profile" class="w-32 aspect-square object-cover rounded-full">
                     <div class="flex flex-col gap-4 w-full">
