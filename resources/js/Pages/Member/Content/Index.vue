@@ -23,11 +23,11 @@ const links = computed(() => contents.value.links.map((link) => {
     const result = {...link};
 
     if (result.label === "&laquo; Previous") {
-        result.label = "&lt; Previous";
+        result.label = "Previous";
     }
 
     if (result.label === "Next &raquo;") {
-        result.label = "Next &gt;";
+        result.label = "Next";
     }
 
     return result;
