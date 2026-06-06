@@ -20,7 +20,7 @@ const messages = computed(() => page.flash.messages);
 const contents = computed(() => page.props.contents);
 const activeType = computed(() => ContentType.from(page.props.type));
 
-const links = computed(() => contents.value.links.map((link) => {
+const links = computed(() => contents.value?.links.map((link) => {
     const result = {...link};
 
     if (result.label === "&laquo; Previous") {
