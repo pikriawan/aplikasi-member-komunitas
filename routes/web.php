@@ -56,6 +56,8 @@ Route::prefix('member')
     ->group(function () {
         Route::get('/contents', [ContentController::class, 'index'])->name('contents.index');
 
+        Route::get('/contents/{file_url}', [ContentController::class, 'show'])->name('contents.show');
+
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');

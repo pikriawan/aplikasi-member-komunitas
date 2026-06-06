@@ -19,8 +19,8 @@ class ContentSeeder extends Seeder
     {
         $staffId = User::where('role', UserRole::Staff)->first()->id;
 
-        $videoUrl = Storage::putFile(new File(public_path('videos/bunny.mp4')));
-        $ebookUrl = Storage::putFile(new File(public_path('documents/hello.pdf')));
+        $videoUrl = Storage::disk('local')->putFile(new File(public_path('videos/bunny.mp4')));
+        $ebookUrl = Storage::disk('local')->putFile(new File(public_path('documents/hello.pdf')));
 
         Content::factory(100)->video()->create([
             'uploader_id' => $staffId,

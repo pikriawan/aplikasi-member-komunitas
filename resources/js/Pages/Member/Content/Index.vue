@@ -4,10 +4,6 @@ import { computed } from "vue";
 import DashboardHeader from "../../../Components/DashboardHeader.vue";
 import Alert from "../../../Components/Ui/Alert.vue";
 import Button from "../../../Components/Ui/Button.vue";
-import Modal from "../../../Components/Ui/Modal.vue";
-import ModalClose from "../../../Components/Ui/ModalClose.vue";
-import ModalContent from "../../../Components/Ui/ModalContent.vue";
-import ModalTrigger from "../../../Components/Ui/ModalTrigger.vue";
 import Popover from "../../../Components/Ui/Popover.vue";
 import PopoverContent from "../../../Components/Ui/PopoverContent.vue";
 import PopoverTrigger from "../../../Components/Ui/PopoverTrigger.vue";
@@ -76,33 +72,11 @@ const links = computed(() => contents.value.links.map((link) => {
                                 </Link>
                             </div>
                             <div :class="cn('flex flex-col lg:grid grid-cols-3 gap-8', activeType.value === ContentType.Ebook.value && 'grid-cols-5')">
-                                <Modal v-for="content in contents.data" :key="content.id">
-                                    <ModalTrigger class="flex flex-col items-start text-start gap-4">
-                                        <img :src="content.thumbnail_url ? `${storageUrl}/${content.thumbnail_url}` : `${appUrl}/images/content-placeholder.svg`" :alt="content.title" :class="cn('w-full rounded-2xl aspect-video object-cover', content.type === ContentType.Ebook.value && 'aspect-3/5')">
-                                        <h3 class="font-semibold text-2xl">{{ content.title }}</h3>
-                                        <p class="text-onyx-400">{{ content.date }}</p>
-                                    </ModalTrigger>
-                                    <ModalContent :class="cn('font-geist flex flex-col gap-5 lg:w-150', content.type === ContentType.Ebook.value && 'lg:w-270')">
-                                        <div class="flex justify-between items-center">
-                                            <h3 class="font-semibold">{{ content.title }}</h3>
-                                            <ModalClose class="shrink-0">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                                            </ModalClose>
-                                        </div>
-                                        <video v-if="content.type === ContentType.Video.value" class="min-w-full aspect-video" controls>
-                                            <source :src="`${storageUrl}/${content.file_url}`" />
-                                        </video>
-                                        <object v-else :data="`${storageUrl}/${content.file_url}`" type="application/pdf" class="min-w-full aspect-3/5 lg:aspect-video overflow-auto">
-                                            <div class="w-full h-full flex flex-col justify-center items-center gap-4">
-                                                <p>Browser Anda tidak mendukung PDF.</p>
-                                                <Button as="a" :href="`${storageUrl}/${content.file_url}`">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download-icon lucide-download shrink-0"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
-                                                    Unduh file PDF
-                                                </Button>
-                                            </div>
-                                        </object>
-                                    </ModalContent>
-                                </Modal>
+                                <a class="flex flex-col gap-4" v-for="content in contents.data" :href="route('member.contents.show', content.file_url)" :key="content.id">
+                                    <img :src="content.thumbnail_url ? `${storageUrl}/${content.thumbnail_url}` : `${appUrl}/images/content-placeholder.svg`" :alt="content.title" :class="cn('w-full rounded-2xl aspect-video object-cover', content.type === ContentType.Ebook.value && 'aspect-3/5')">
+                                    <h3 class="font-semibold text-2xl">{{ content.title }}</h3>
+                                    <p class="text-onyx-400">{{ content.date }}</p>
+                                </a>
                             </div>
                         </div>
                     </div>

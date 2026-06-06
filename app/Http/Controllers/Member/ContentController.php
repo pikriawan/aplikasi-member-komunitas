@@ -6,6 +6,7 @@ use App\Enums\ContentType;
 use App\Http\Controllers\Controller;
 use App\Models\Content;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ContentController extends Controller
@@ -42,5 +43,16 @@ class ContentController extends Controller
             'contents' => $contents,
             'type' => $request->query('type', ContentType::Video->value),
         ]);
+    }
+
+    public function show(Request $request, string $file_url)
+    {
+        $user = $request->user();
+
+        if (!$user->memberProfile->is_active) {
+            abort(403);
+        }
+
+        return Storage::disk('local')->response($file_url);
     }
 }
