@@ -25,4 +25,18 @@ class ContentFactory extends Factory
             'file_url'  => fake()->url(),
         ];
     }
+
+    public function video(): static
+    {
+        return $this->state(fn () => [
+            'type' => ContentType::Video,
+        ]);
+    }
+
+    public function ebook(): static
+    {
+        return $this->state(fn () => [
+            'type' => ContentType::Ebook,
+        ]);
+    }
 }
