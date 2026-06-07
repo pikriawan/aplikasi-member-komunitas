@@ -8,7 +8,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Member\ContentController;
 use App\Http\Controllers\Member\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Pest\Plugins\Profile;
 
 Route::get('/', HomeController::class)->name('home');
 
@@ -56,7 +55,7 @@ Route::prefix('member')
     ->group(function () {
         Route::get('/contents', [ContentController::class, 'index'])->name('contents.index');
 
-        Route::get('/contents/{file_url}', [ContentController::class, 'show'])->name('contents.show');
+        Route::get('/contents/{fileUrl}', [ContentController::class, 'show'])->name('contents.show');
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 
