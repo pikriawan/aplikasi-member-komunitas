@@ -6,6 +6,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Member\ContentController;
+use App\Http\Controllers\Member\ConversationController;
 use App\Http\Controllers\Member\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +57,8 @@ Route::prefix('member')
         Route::get('/contents', [ContentController::class, 'index'])->name('contents.index');
 
         Route::get('/contents/{fileUrl}', [ContentController::class, 'show'])->name('contents.show');
+
+        Route::get('/conversation', [ConversationController::class, 'index'])->name('conversation.index');
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 
