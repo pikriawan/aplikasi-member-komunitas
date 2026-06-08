@@ -45,9 +45,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Content::class, 'uploader_id');
     }
 
-    public function conversations(): HasMany
+    public function conversation(): HasOne
     {
-        return $this->hasMany(Conversation::class, 'submitter_id');
+        return $this->hasOne(Conversation::class, 'submitter_id');
     }
 
     public function invoices(): HasMany

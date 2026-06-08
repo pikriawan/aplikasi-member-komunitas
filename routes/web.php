@@ -60,6 +60,8 @@ Route::prefix('member')
 
         Route::get('/conversation', [ConversationController::class, 'index'])->name('conversation.index');
 
+        Route::post('/conversation', [ConversationController::class, 'store'])->name('conversation.store');
+
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');

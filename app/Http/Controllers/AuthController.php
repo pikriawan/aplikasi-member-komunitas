@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\UserRole;
+use App\Models\Conversation;
 use App\Models\MemberProfile;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
@@ -50,6 +51,10 @@ class AuthController extends Controller
             'department'        => $request->input('department'),
             'address'           => $request->input('address'),
             'is_active'         => false,
+        ]);
+
+        Conversation::create([
+            'submitter_id' => $user->id,
         ]);
 
         Auth::login($user);

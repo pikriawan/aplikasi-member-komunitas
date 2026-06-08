@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\UserRole;
+use App\Models\Conversation;
 use App\Models\MemberProfile;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -31,6 +32,10 @@ class UserSeeder extends Seeder
             'expired_date'  => now()->addYear(),
         ]);
 
+        Conversation::create([
+            'submitter_id' => $member->id,
+        ]);
+
         $premiumMember = User::create([
             'role'      => UserRole::Member,
             'name'      => 'Gus Agus',
@@ -45,6 +50,10 @@ class UserSeeder extends Seeder
         MemberProfile::create([
             'user_id'       => $premiumMember->id,
             'expired_date'  => now(),
+        ]);
+
+        Conversation::create([
+            'submitter_id' => $premiumMember->id,
         ]);
 
         $staff = User::create([

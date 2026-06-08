@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable(
     'submitter_id',
-    'ticket_number',
-    'status',
 )]
 class Conversation extends Model
 {
