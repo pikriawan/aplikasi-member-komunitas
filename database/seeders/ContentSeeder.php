@@ -19,12 +19,12 @@ class ContentSeeder extends Seeder
 
         Content::factory(100)->video()->create([
             'uploader_id' => $staffId,
-            'file_url' => '1eS3BwBr4DjEuiOnhm9XyikUwly-YRv4Q',
+            'file_url' => '#',
         ]);
 
         Content::factory(100)->ebook()->create([
             'uploader_id' => $staffId,
-            'file_url' => '1mY9HfaAXFV0L-J4vt1VNVFHhUunXizmk',
+            'file_url' => '#',
         ]);
     }
 }
