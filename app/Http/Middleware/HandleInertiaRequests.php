@@ -40,7 +40,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'appUrl' => config('app.url'),
-            'storageUrl' => rtrim(Storage::url('/'), '/'),
+            'storageUrl' => rtrim(Storage::url('.'), '/.'),
             'setting' => Setting::allAsMap(),
             'user' => fn () => $request->user()
                 ? $request->user()->only('id', 'name', 'email', 'telephone')
