@@ -69,6 +69,7 @@ const memberCardDataURL = ref();
 function loadImage(src) {
     return new Promise((resolve) => {
         const image = new Image();
+        image.crossOrigin = "anonymous";
         image.onload = () => resolve(image);
         image.src = src;
     });
