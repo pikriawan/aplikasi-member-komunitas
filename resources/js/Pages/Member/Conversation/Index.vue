@@ -21,8 +21,10 @@ const container = useTemplateRef("container");
 const input = useTemplateRef("input");
 
 onMounted(() => {
-    container.value.scrollTop = container.value.scrollHeight;
-    input.value.focus();
+    if (container.value && input.value) {
+        container.value.scrollTop = container.value.scrollHeight;
+        input.value.focus();
+    }
 });
 
 const form = reactive({
@@ -32,7 +34,10 @@ const form = reactive({
 function onSubmit(event) {
     router.post(route('member.conversation.store'), form, {
         onFinish() {
-            container.value.scrollTop = container.value.scrollHeight;
+            if (container.value) {
+                container.value.scrollTop = container.value.scrollHeight;
+            }
+
             form.message = null;
         }
     });
