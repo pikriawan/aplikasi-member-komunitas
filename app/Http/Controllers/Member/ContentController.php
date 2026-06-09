@@ -31,7 +31,7 @@ class ContentController extends Controller
         $contents = Content::with('uploader')
             ->byType($request->query('type', ContentType::Video->value))
             ->latest()
-            ->paginate(25)
+            ->paginate(30)
             ->appends($request->query());
 
         if ($contents->count() === 0) {
