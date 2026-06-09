@@ -11,6 +11,7 @@ use Google\Service\Exception as GoogleException;
 use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ContentController extends Controller
@@ -31,7 +32,7 @@ class ContentController extends Controller
         $contents = Content::with('uploader')
             ->byType($request->query('type', ContentType::Video->value))
             ->latest()
-            ->paginate(30)
+            ->paginate(15)
             ->appends($request->query());
 
         if ($contents->count() === 0) {
@@ -57,6 +58,14 @@ class ContentController extends Controller
             abort(403);
         }
 
-        abort(404);
+        $disk = app()->isProduction()
+            ? Storage::disk('s3-private')
+            : Storage::disk('local');
+
+        if (!$disk->exists($fileUrl)) {
+            abort(404);
+        }
+
+        return $disk->response($fileUrl);
     }
 }

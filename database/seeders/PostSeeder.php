@@ -17,7 +17,7 @@ class PostSeeder extends Seeder
     {
         $staffId = User::where('role', UserRole::Staff)->first()->id;
 
-        Post::factory(100)->create([
+        Post::factory(30)->create([
             'author_id' => $staffId,
         ]);
     }

@@ -7,6 +7,7 @@ use App\Models\Content;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class ContentSeeder extends Seeder
 {
@@ -17,14 +18,18 @@ class ContentSeeder extends Seeder
     {
         $staffId = User::where('role', UserRole::Staff)->first()->id;
 
-        Content::factory(100)->video()->create([
+        $disk = app()->isProduction()
+            ? Storage::disk('s3-private')
+            : Storage::disk('local');
+
+        Content::factory(20)->video()->create([
             'uploader_id' => $staffId,
-            'file_url' => '#',
+            'file_url' => $disk->putFile(public_path('videos/bunny.webm')),
         ]);
 
-        Content::factory(100)->ebook()->create([
+        Content::factory(20)->ebook()->create([
             'uploader_id' => $staffId,
-            'file_url' => '#',
+            'file_url' => $disk->putFile(public_path('documents/lipsum.pdf')),
         ]);
     }
 }
