@@ -7,6 +7,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Member\ContentController;
 use App\Http\Controllers\Member\ConversationController;
+use App\Http\Controllers\Member\PaymentController;
+use App\Http\Controllers\Member\PremiumController;
 use App\Http\Controllers\Member\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +63,10 @@ Route::prefix('member')
         Route::get('/conversation', [ConversationController::class, 'index'])->name('conversation.index');
 
         Route::post('/conversation', [ConversationController::class, 'store'])->name('conversation.store');
+
+        Route::get('/premium', PremiumController::class)->name('premium.index');
+
+        Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 
