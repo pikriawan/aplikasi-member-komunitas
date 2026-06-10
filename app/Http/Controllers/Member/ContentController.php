@@ -33,7 +33,7 @@ class ContentController extends Controller
         if ($contents->count() === 0) {
             return Inertia::flash('messages', [
                 [
-                    'variant' => 'warning',
+                    'variant' => 'info',
                     'text' => 'Tidak ada konten.'
                 ]
             ])->render('Member/Content/Index');

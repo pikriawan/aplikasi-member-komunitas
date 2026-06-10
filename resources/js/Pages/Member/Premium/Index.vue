@@ -1,5 +1,5 @@
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
+import { Form, Link, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
 import DashboardHeader from "../../../Components/DashboardHeader.vue";
 import Button from "../../../Components/Ui/Button.vue";
@@ -73,10 +73,10 @@ const setting = computed(() => page.props.setting);
                                         </ModalClose>
                                     </header>
                                     <p>Apakah Anda yakin ingin lanjut ke pembayaran?</p>
-                                    <div class="flex gap-4">
-                                        <ModalClose class="w-full justify-center" :as="Button" variant="outlined">Batal</ModalClose>
-                                        <Button class="w-full justify-center" :as="Link" href="#">Ya</Button>
-                                    </div>
+                                    <Form class="flex gap-4" :action="route('member.invoices.store')" method="post">
+                                        <ModalClose type="button" class="w-full justify-center" :as="Button" variant="outlined">Batal</ModalClose>
+                                        <Button class="w-full justify-center">Ya</Button>
+                                    </Form>
                                 </div>
                             </ModalContent>
                         </Modal>

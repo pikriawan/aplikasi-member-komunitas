@@ -7,7 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Member\ContentController;
 use App\Http\Controllers\Member\ConversationController;
-use App\Http\Controllers\Member\PaymentController;
+use App\Http\Controllers\Member\InvoiceController;
 use App\Http\Controllers\Member\PremiumController;
 use App\Http\Controllers\Member\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -66,7 +66,11 @@ Route::prefix('member')
 
         Route::get('/premium', PremiumController::class)->name('premium.index');
 
-        Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
+        Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+
+        Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
+
+        Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 
