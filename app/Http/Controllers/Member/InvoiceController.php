@@ -47,15 +47,17 @@ class InvoiceController extends Controller
             return redirect()->route('member.invoices.index');
         }
 
-        $unpaidInvoice = $user->invoices()->where('status', InvoiceStatus::Unpaid)->first();
+        $pendingInvoice = $user->invoices()
+            ->where('status', InvoiceStatus::Unpaid)
+            ->where('due_date', '>', now())
+            ->first();
 
-        if ($unpaidInvoice) {
-            return redirect()->route('member.invoices.show', $unpaidInvoice->id);
+        if ($pendingInvoice) {
+            return redirect()->route('member.invoices.show', $pendingInvoice->id);
         }
 
         $invoice = Invoice::create([
             'user_id' => $user->id,
-            'number' => (string) Uuid::uuid4(),
             'amount' => (float) Setting::get('membership_fee', '0'),
             'due_date' => now()->addHours((float) Setting::get('invoice_countdown', 24)),
             'status' => InvoiceStatus::Unpaid,

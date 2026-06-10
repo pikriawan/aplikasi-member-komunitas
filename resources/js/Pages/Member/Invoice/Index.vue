@@ -54,14 +54,14 @@ console.log(invoices.value);
                                 </thead>
                                 <tbody>
                                     <tr v-for="invoice in invoices.data" :key="invoice.id">
-                                        <td class="whitespace-nowrap p-4">{{ invoice.number }}</td>
-                                        <td class="whitespace-nowrap p-4">{{ invoice.long_date }}</td>
-                                        <td class="whitespace-nowrap p-4">{{ invoice.due_date }}</td>
-                                        <td class="whitespace-nowrap p-4">{{ Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(Number(invoice.amount || "0")) }}</td>
-                                        <td class="whitespace-nowrap p-4">
+                                        <td class="whitespace-nowrap p-4 align-middle">{{ invoice.number }}</td>
+                                        <td class="whitespace-nowrap p-4 align-middle">{{ invoice.long_date }}</td>
+                                        <td class="whitespace-nowrap p-4 align-middle">{{ invoice.due_date }}</td>
+                                        <td class="whitespace-nowrap p-4 align-middle">{{ Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(Number(invoice.amount || "0")) }}</td>
+                                        <td class="whitespace-nowrap p-4 align-middle">
                                             <Badge :variant="InvoiceStatus.from(invoice.status).variant">{{ InvoiceStatus.from(invoice.status).label }}</Badge>
                                         </td>
-                                        <td class="whitespace-nowrap p-4">
+                                        <td class="whitespace-nowrap p-4 align-middle">
                                             <Link :href="route('member.invoices.show', invoice.id)">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
                                             </Link>

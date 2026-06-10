@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\InvoiceStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -33,6 +34,26 @@ class Invoice extends Model
         return $this->belongsTo(User::class);
     }
 
+    protected function status(): Attribute
+    {
+        return Attribute::make(
+            get: function (string $value, array $attributes) {
+                if (now()->isAfter(Carbon::parse($attributes['due_date'])) && $value === InvoiceStatus::Unpaid->value) {
+                    return InvoiceStatus::Canceled->value;
+                }
+
+                return $value;
+            },
+        );
+    }
+
+    protected function dueDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Carbon::parse($value)->timezone(config('app.timezone'))->format('d/m/Y H:i'),
+        );
+    }
+
     protected function number(): Attribute
     {
         return Attribute::make(
@@ -44,13 +65,6 @@ class Invoice extends Model
     {
         return Attribute::make(
             get: fn () => $this->created_at->timezone(config('app.timezone'))->format('d/m/Y H:i'),
-        );
-    }
-
-    protected function dueDate(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => Carbon::parse($value)->timezone(config('app.timezone'))->format('d/m/Y H:i'),
         );
     }
 }
