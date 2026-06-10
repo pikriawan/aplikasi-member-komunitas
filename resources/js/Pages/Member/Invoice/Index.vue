@@ -46,6 +46,7 @@ console.log(invoices.value);
                                     <tr class="border-b border-onyx-200">
                                         <th class="whitespace-nowrap p-4 text-start font-semibold">Nomor tagihan</th>
                                         <th class="whitespace-nowrap p-4 text-start font-semibold">Tanggal tagihan</th>
+                                        <th class="whitespace-nowrap p-4 text-start font-semibold">Tanggal kadaluarsa</th>
                                         <th class="whitespace-nowrap p-4 text-start font-semibold">Jumlah</th>
                                         <th class="whitespace-nowrap p-4 text-start font-semibold">Status</th>
                                         <th class="whitespace-nowrap p-4 text-start font-semibold">Aksi</th>
@@ -55,11 +56,16 @@ console.log(invoices.value);
                                     <tr v-for="invoice in invoices.data" :key="invoice.id">
                                         <td class="whitespace-nowrap p-4">{{ invoice.number }}</td>
                                         <td class="whitespace-nowrap p-4">{{ invoice.long_date }}</td>
+                                        <td class="whitespace-nowrap p-4">{{ invoice.due_date }}</td>
                                         <td class="whitespace-nowrap p-4">{{ Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(Number(invoice.amount || "0")) }}</td>
                                         <td class="whitespace-nowrap p-4">
                                             <Badge :variant="InvoiceStatus.from(invoice.status).variant">{{ InvoiceStatus.from(invoice.status).label }}</Badge>
                                         </td>
-                                        <td class="whitespace-nowrap p-4">Lihat</td>
+                                        <td class="whitespace-nowrap p-4">
+                                            <Link :href="route('member.invoices.show', invoice.id)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+                                            </Link>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

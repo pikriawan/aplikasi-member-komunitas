@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -18,7 +19,7 @@ use Illuminate\Support\Str;
 )]
 #[Appends([
     'number',
-    'long_date'
+    'long_date',
 ])]
 class Invoice extends Model
 {
@@ -43,6 +44,13 @@ class Invoice extends Model
     {
         return Attribute::make(
             get: fn () => $this->created_at->timezone(config('app.timezone'))->format('d/m/Y H:i'),
+        );
+    }
+
+    protected function dueDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Carbon::parse($value)->timezone(config('app.timezone'))->format('d/m/Y H:i'),
         );
     }
 }
