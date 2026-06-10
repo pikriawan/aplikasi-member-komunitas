@@ -5,12 +5,7 @@ namespace App\Http\Controllers\Member;
 use App\Enums\ContentType;
 use App\Http\Controllers\Controller;
 use App\Models\Content;
-use Google\Client;
-use Google\Service\Drive;
-use Google\Service\Exception as GoogleException;
-use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
