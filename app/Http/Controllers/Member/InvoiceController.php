@@ -57,7 +57,7 @@ class InvoiceController extends Controller
             'user_id' => $user->id,
             'number' => (string) Uuid::uuid4(),
             'amount' => (float) Setting::get('membership_fee', '0'),
-            'due_date' => now()->addDay(),
+            'due_date' => now()->addHours((float) Setting::get('invoice_countdown', 24)),
             'status' => InvoiceStatus::Unpaid,
         ]);
 
