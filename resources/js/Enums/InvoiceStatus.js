@@ -7,6 +7,11 @@ const InvoiceStatus = {
     Paid: {
         value: "paid",
         label: "Dibayar",
+        variant: "warning"
+    },
+    Verified: {
+        value: "verified",
+        label: "Diverifikasi",
         variant: "success"
     },
     Canceled: {

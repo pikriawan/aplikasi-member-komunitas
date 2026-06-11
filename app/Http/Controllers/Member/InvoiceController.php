@@ -36,7 +36,23 @@ class InvoiceController extends Controller
 
     public function show(Request $request, string $id)
     {
-        return Inertia::render('Member/Invoice/Show');
+        $user = $request->user();
+        $invoice = $user->invoices()->where('id', $id)->first();
+
+        if (!$invoice) {
+            return Inertia::flash([
+                'messages' => [
+                    [
+                        'variant' => 'danger',
+                        'text' => 'Tagihan tidak ditemukan.'
+                    ]
+                ]
+            ])->render('Member/Invoice/Show');
+        }
+
+        return Inertia::render('Member/Invoice/Show', [
+            'invoice' => $invoice,
+        ]);
     }
 
     public function store(Request $request)
