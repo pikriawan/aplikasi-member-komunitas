@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -16,7 +18,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'account_bank_name',
     'reject_reason',
     'date',
-    'is_accepted',
 )]
 class Payment extends Model
 {
@@ -33,5 +34,13 @@ class Payment extends Model
     public function verifier(): BelongsTo
     {
         return $this->belongsTo(User::class, 'verifier_id');
+    }
+
+    protected function date(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value ? Carbon::parse($value)->timezone(config('app.timezone'))->format('Y-m-d\TH:i') : null,
+            set: fn ($value) => Carbon::createFromFormat('Y-m-d\TH:i', $value)->timezone(config('app.timezone'))->toDateTimeString(),
+        );
     }
 }

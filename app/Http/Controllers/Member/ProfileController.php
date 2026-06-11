@@ -32,15 +32,15 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $rules = [
-            'profile_image'             => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'],
-            'delete_profile_image'      => ['nullable', 'string'],
-            'telephone'                 => ['nullable', 'string'],
-            'gender'                    => ['nullable', 'string', 'in:Laki-laki,Perempuan'],
-            'blood_type'                => ['nullable', 'string', 'in:A,B,AB,O'],
-            'last_education'            => ['nullable', 'string'],
-            'institution'               => ['nullable', 'string'],
-            'department'                => ['nullable', 'string'],
-            'address'                   => ['nullable', 'string'],
+            'profile_image'         => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'delete_profile_image'  => ['nullable', 'string'],
+            'telephone'             => ['nullable', 'string'],
+            'gender'                => ['nullable', 'string', 'in:Laki-laki,Perempuan'],
+            'blood_type'            => ['nullable', 'string', 'in:A,B,AB,O'],
+            'last_education'        => ['nullable', 'string'],
+            'institution'           => ['nullable', 'string'],
+            'department'            => ['nullable', 'string'],
+            'address'               => ['nullable', 'string'],
         ];
 
         if ($request->filled('old_password') || $request->filled('password')) {

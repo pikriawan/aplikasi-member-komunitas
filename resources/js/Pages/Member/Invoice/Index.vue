@@ -26,8 +26,6 @@ const links = computed(() => invoices.value?.links.map((link) => {
 
     return result;
 }));
-
-console.log(invoices.value);
 </script>
 
 <template>

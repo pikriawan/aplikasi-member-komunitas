@@ -15,14 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('invoice_id')->constrained()->cascadeOnDelete();
             $table->foreignId('payer_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('verifier_id')->constrained('users')->cascadeOnDelete();
-            $table->string('payment_proof_url');
-            $table->string('account_holder_name');
-            $table->string('account_number');
-            $table->string('account_bank_name');
+            $table->foreignId('verifier_id')->nullable()->constrained('users')->cascadeOnDelete();
+            $table->string('payment_proof_url')->nullable();
+            $table->string('account_holder_name')->nullable();
+            $table->string('account_number')->nullable();
+            $table->string('account_bank_name')->nullable();
             $table->text('reject_reason')->nullable();
-            $table->timestamp('date');
-            $table->boolean('is_accepted');
+            $table->timestamp('date')->nullable();
             $table->timestamps();
         });
     }

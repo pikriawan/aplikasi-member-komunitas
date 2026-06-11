@@ -72,6 +72,8 @@ Route::prefix('member')
 
         Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
 
+        Route::post('/invoices/{id}', [InvoiceController::class, 'update'])->name('invoices.update');
+
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');

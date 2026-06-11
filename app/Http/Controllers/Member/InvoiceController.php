@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Member;
 use App\Enums\InvoiceStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\Payment;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Ramsey\Uuid\Uuid;
 
 class InvoiceController extends Controller
 {
@@ -37,17 +37,39 @@ class InvoiceController extends Controller
     public function show(Request $request, string $id)
     {
         $user = $request->user();
-        $invoice = $user->invoices()->where('id', $id)->first();
+        $invoice = $user->invoices()
+            ->with('payment')
+            ->where('id', $id)
+            ->first();
+
+        $message = null;
 
         if (!$invoice) {
-            return Inertia::flash([
-                'messages' => [
-                    [
-                        'variant' => 'danger',
-                        'text' => 'Tagihan tidak ditemukan.'
-                    ]
-                ]
-            ])->render('Member/Invoice/Show');
+            $message = [
+                'variant' => 'danger',
+                'text' => 'Tagihan tidak ditemukan.',
+            ];
+        } else if ($invoice->status === InvoiceStatus::Unpaid->value) {
+            $message = [
+                'variant' => 'info',
+                'text' => "Silahkan lakukan transfer ke rekening tujuan dengan jumlah yang ditentukan, lalu unggah bukti pembayaran sebelum {$invoice->due_date}.",
+            ];
+        } else if ($invoice->status === InvoiceStatus::Paid->value) {
+            $message = [
+                'variant' => 'info',
+                'text' => 'Silahkan tunggu verifikasi dari petugas keuangan.',
+            ];
+        } else if ($invoice->status === InvoiceStatus::Verified->value) {
+            $message = [
+                'variant' => 'success',
+                'text' => 'Pembayaran telah berhasil diverifikasi.',
+            ];
+        }
+
+        if ($message) {
+            Inertia::flash([
+                'messages' => [$message],
+            ]);
         }
 
         return Inertia::render('Member/Invoice/Show', [
@@ -78,6 +100,44 @@ class InvoiceController extends Controller
             'due_date' => now()->addHours((float) Setting::get('invoice_countdown', 24)),
             'status' => InvoiceStatus::Unpaid,
         ]);
+
+        Payment::create([
+            'invoice_id' => $invoice->id,
+            'payer_id' => $user->id,
+        ]);
+
+        return redirect()->route('member.invoices.show', $invoice->id);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $user = $request->user();
+        $invoice = $user->invoices()
+            ->with('payment')
+            ->where('id', $id)
+            ->first();
+
+        if (!$invoice) {
+            abort(404);
+        }
+
+        $request->validate([
+            'payment_proof'         => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'date'                  => ['required', 'date_format:Y-m-d\TH:i'],
+            'account_holder_name'   => ['required', 'string'],
+            'account_number'        => ['required', 'string'],
+            'account_bank_name'     => ['required', 'string'],
+        ]);
+
+        $invoice->payment->payment_proof_url = $request->file('payment_proof')->store();
+        $invoice->payment->date = $request->input('date');
+        $invoice->payment->account_holder_name = $request->input('account_holder_name');
+        $invoice->payment->account_number = $request->input('account_number');
+        $invoice->payment->account_bank_name = $request->input('account_bank_name');
+        $invoice->payment->save();
+
+        $invoice->status = InvoiceStatus::Paid;
+        $invoice->save();
 
         return redirect()->route('member.invoices.show', $invoice->id);
     }
