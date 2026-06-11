@@ -5,11 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Member\ContentController;
-use App\Http\Controllers\Member\ConversationController;
-use App\Http\Controllers\Member\InvoiceController;
+use App\Http\Controllers\Member\ContentController as MemberContentController;
+use App\Http\Controllers\Member\ConversationController as MemberConversationController;
+use App\Http\Controllers\Member\InvoiceController as MemberInvoiceController;
 use App\Http\Controllers\Member\PremiumController;
-use App\Http\Controllers\Member\ProfileController;
+use App\Http\Controllers\Member\ProfileController as MemberProfileController;
 use App\Http\Controllers\Staff\ContentController as StaffContentController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,31 +57,31 @@ Route::prefix('member')
     ->name('member.')
     ->middleware(['auth', 'verified', 'role:' . UserRole::Member->value])
     ->group(function () {
-        Route::get('/contents', [ContentController::class, 'index'])->name('contents.index');
+        Route::get('/contents', [MemberContentController::class, 'index'])->name('contents.index');
 
-        Route::get('/contents/{fileUrl}', [ContentController::class, 'show'])->name('contents.show');
+        Route::get('/contents/{fileUrl}', [MemberContentController::class, 'show'])->name('contents.show');
 
-        Route::get('/conversation', [ConversationController::class, 'index'])->name('conversation.index');
+        Route::get('/conversation', [MemberConversationController::class, 'index'])->name('conversation.index');
 
-        Route::post('/conversation', [ConversationController::class, 'store'])->name('conversation.store');
+        Route::post('/conversation', [MemberConversationController::class, 'store'])->name('conversation.store');
 
         Route::get('/premium', PremiumController::class)->name('premium.index');
 
-        Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+        Route::get('/invoices', [MemberInvoiceController::class, 'index'])->name('invoices.index');
 
-        Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
+        Route::get('/invoices/{id}', [MemberInvoiceController::class, 'show'])->name('invoices.show');
 
-        Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
+        Route::post('/invoices', [MemberInvoiceController::class, 'store'])->name('invoices.store');
 
-        Route::post('/invoices/{id}', [InvoiceController::class, 'update'])->name('invoices.update');
+        Route::post('/invoices/{id}', [MemberInvoiceController::class, 'update'])->name('invoices.update');
 
-        Route::put('/invoices/{id}/cancel', [InvoiceController::class, 'cancel'])->name('invoices.cancel');
+        Route::put('/invoices/{id}/cancel', [MemberInvoiceController::class, 'cancel'])->name('invoices.cancel');
 
-        Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+        Route::get('/profile', [MemberProfileController::class, 'index'])->name('profile.index');
 
-        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::get('/profile/edit', [MemberProfileController::class, 'edit'])->name('profile.edit');
 
-        Route::put('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
+        Route::put('/profile/edit', [MemberProfileController::class, 'update'])->name('profile.update');
     });
 
 Route::prefix('staff')
