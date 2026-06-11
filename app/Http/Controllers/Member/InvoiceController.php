@@ -86,8 +86,9 @@ class InvoiceController extends Controller
         }
 
         $pendingInvoice = $user->invoices()
-            ->where('status', InvoiceStatus::Unpaid)
             ->where('due_date', '>', now())
+            ->where('status', InvoiceStatus::Unpaid)
+            ->orWhere('status', InvoiceStatus::Paid)
             ->first();
 
         if ($pendingInvoice) {
@@ -137,6 +138,21 @@ class InvoiceController extends Controller
         $invoice->payment->save();
 
         $invoice->status = InvoiceStatus::Paid;
+        $invoice->save();
+
+        return redirect()->route('member.invoices.show', $invoice->id);
+    }
+
+    public function cancel(Request $request, string $id)
+    {
+        $user = $request->user();
+        $invoice = $user->invoices()->where('id', $id)->first();
+
+        if (!$invoice) {
+            abort(404);
+        }
+
+        $invoice->status = InvoiceStatus::Canceled;
         $invoice->save();
 
         return redirect()->route('member.invoices.show', $invoice->id);

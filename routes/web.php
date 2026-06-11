@@ -74,11 +74,13 @@ Route::prefix('member')
 
         Route::post('/invoices/{id}', [InvoiceController::class, 'update'])->name('invoices.update');
 
+        Route::put('/invoices/{id}/cancel', [InvoiceController::class, 'cancel'])->name('invoices.cancel');
+
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
-        Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
+        Route::put('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
     });
 
 Route::prefix('staff')
