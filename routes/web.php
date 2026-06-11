@@ -10,6 +10,7 @@ use App\Http\Controllers\Member\ConversationController;
 use App\Http\Controllers\Member\InvoiceController;
 use App\Http\Controllers\Member\PremiumController;
 use App\Http\Controllers\Member\ProfileController;
+use App\Http\Controllers\Staff\ContentController as StaffContentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -87,9 +88,7 @@ Route::prefix('staff')
     ->name('staff.')
     ->middleware(['auth', 'verified', 'role:' . UserRole::Staff->value])
     ->group(function () {
-        Route::get('/contents', function () {
-            return 'Staff: contents';
-        })->name('contents.index');
+        Route::get('/contents', [StaffContentController::class, 'index'])->name('contents.index');
     });
 
 Route::prefix('finance')

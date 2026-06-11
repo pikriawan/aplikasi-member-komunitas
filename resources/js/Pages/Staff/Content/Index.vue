@@ -7,14 +7,14 @@ import Popover from "../../../Components/Ui/Popover.vue";
 import PopoverContent from "../../../Components/Ui/PopoverContent.vue";
 import PopoverTrigger from "../../../Components/Ui/PopoverTrigger.vue";
 import ContentType from "../../../Enums/ContentType.js";
-import MemberLayout from "../../../Layouts/MemberLayout.vue";
+import StaffLayout from "../../../Layouts/StaffLayout.vue";
 import { cn } from "../../../lib/utils.js";
 
 const page = usePage();
 
 const appUrl = computed(() => page.props.appUrl);
 const storageUrl = computed(() => page.props.storageUrl);
-const memberProfile = computed(() => page.props.memberProfile);
+const user = computed(() => page.props.user);
 const messages = computed(() => page.flash.messages);
 const contents = computed(() => page.props.contents);
 const activeType = computed(() => ContentType.from(page.props.type));
@@ -35,8 +35,20 @@ const links = computed(() => contents.value?.links.map((link) => {
 </script>
 
 <template>
-    <MemberLayout>
-        <DashboardHeader title="Konten" />
+    <StaffLayout>
+        <DashboardHeader title="Konten">
+            <Popover class="h-full aspect-square">
+                <PopoverTrigger class="w-full h-full flex justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                </PopoverTrigger>
+                <PopoverContent class="top-[calc(100%-1rem)] right-4 flex flex-col gap-px bg-onyx-200">
+                    <Link class="flex items-center gap-4 p-4 bg-white first:rounded-t-[0.4375rem] last:rounded-b-[0.4375rem] whitespace-nowrap" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus shrink-0"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                        Unggah konten baru
+                    </Link>
+                </PopoverContent>
+            </Popover>
+        </DashboardHeader>
         <main class="flex-1 overflow-auto">
             <div class="flex flex-col gap-8 p-8 lg:min-h-full">
                 <div class="flex-1 flex flex-col gap-8 justify-between">
@@ -46,15 +58,15 @@ const links = computed(() => contents.value?.links.map((link) => {
                         </Alert>
                         <div v-if="contents?.data?.length > 0" class="flex flex-col gap-8">
                             <div class="flex gap-4">
-                                <Link :class="cn('px-4 py-3 rounded-full bg-surface text-primary', type.value === activeType.value && 'bg-primary text-white')" v-for="[key, type] in ContentType.entries()" :key="key" :href="route('member.contents.index', { _query: { type: type.value } })">
+                                <Link :class="cn('px-4 py-3 rounded-full bg-surface text-primary', type.value === activeType.value && 'bg-primary text-white')" v-for="[key, type] in ContentType.entries()" :key="key" :href="route('staff.contents.index', { _query: { type: type.value } })">
                                     {{ type.label }}
                                 </Link>
                             </div>
                             <div :class="cn('flex flex-col lg:grid grid-cols-3 gap-8', activeType.value === ContentType.Ebook.value && 'grid-cols-5')">
-                                <a class="flex flex-col gap-4" v-for="content in contents.data" :href="route('member.contents.show', content.file_url)" :key="content.id">
+                                <a class="flex flex-col gap-4" v-for="content in contents.data" href="#" :key="content.id">
                                     <img :src="content.thumbnail_url ? `${storageUrl}/${content.thumbnail_url}` : `${appUrl}/images/content-placeholder.svg`" :alt="content.title" :class="cn('w-full rounded-2xl aspect-video object-cover', content.type === ContentType.Ebook.value && 'aspect-3/5')">
                                     <h3 class="font-semibold text-2xl">{{ content.title }}</h3>
-                                    <p class="text-onyx-400"><span class="font-semibold">{{ content.uploader.name }}</span> • {{ content.date }}</p>
+                                    <p class="text-onyx-400"><span class="font-semibold">{{ content.uploader.id === user.id ? "Saya" : content.uploader.name }}</span> • {{ content.date }}</p>
                                 </a>
                             </div>
                         </div>
@@ -70,5 +82,5 @@ const links = computed(() => contents.value?.links.map((link) => {
                 </div>
             </div>
         </main>
-    </MemberLayout>
+    </StaffLayout>
 </template>
