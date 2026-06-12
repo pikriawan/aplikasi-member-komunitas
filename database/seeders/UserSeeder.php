@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
     {
         $member = User::create([
             'role'      => UserRole::Member,
-            'name'      => 'Min Paimin',
-            'email'     => 'minpaimin@mail.com',
+            'name'      => 'Gus Agus',
+            'email'     => 'gusagus@mail.com',
             'telephone' => fake()->phoneNumber(),
             'password'  => 'password',
             'is_active' => true,
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
 
         MemberProfile::create([
             'user_id'       => $member->id,
-            'expired_date'  => now()->addYear(),
+            'expired_date'  => now(),
         ]);
 
         Conversation::create([
@@ -38,8 +38,8 @@ class UserSeeder extends Seeder
 
         $premiumMember = User::create([
             'role'      => UserRole::Member,
-            'name'      => 'Gus Agus',
-            'email'     => 'gusagus@mail.com',
+            'name'      => 'Min Paimin',
+            'email'     => 'minpaimin@mail.com',
             'telephone' => fake()->phoneNumber(),
             'password'  => 'password',
             'is_active' => true,
@@ -49,7 +49,7 @@ class UserSeeder extends Seeder
 
         MemberProfile::create([
             'user_id'       => $premiumMember->id,
-            'expired_date'  => now(),
+            'expired_date'  => now()->addYear(),
         ]);
 
         Conversation::create([
