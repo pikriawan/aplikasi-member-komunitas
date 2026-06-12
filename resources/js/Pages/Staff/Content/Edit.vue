@@ -126,7 +126,7 @@ function onFileInputChange(event) {
                                 </ul>
                             </div>
                             <div class="flex flex-wrap gap-4">
-                                <input type="file" :accept="type === ContentType.Video.value ? '.mov, .mp4, .webm' : '.pdf'" class="hidden" name="file" id="file" @change="onFileInputChange">
+                                <input type="file" :accept="(type || content.type) === ContentType.Video.value ? '.mov, .mp4, .webm' : '.pdf'" class="hidden" name="file" id="file" @change="onFileInputChange">
                                 <Button as="label" for="file" class="whitespace-nowrap">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload-icon lucide-upload shrink-0"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
                                     Unggah file
