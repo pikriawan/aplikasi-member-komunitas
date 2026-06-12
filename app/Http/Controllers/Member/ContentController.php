@@ -31,12 +31,12 @@ class ContentController extends Controller
             ->appends($request->query());
 
         if ($contents->count() === 0) {
-            return Inertia::flash('messages', [
+            Inertia::flash('messages', [
                 [
                     'variant' => 'info',
                     'text' => 'Tidak ada konten.'
-                ]
-            ])->render('Member/Content/Index');
+                ],
+            ]);
         }
 
         return Inertia::render('Member/Content/Index', [
