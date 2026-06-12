@@ -53,16 +53,13 @@ const links = computed(() => contents.value?.links.map((link) => {
             <div class="flex flex-col gap-8 p-8 lg:min-h-full">
                 <div class="flex-1 flex flex-col gap-8 justify-between">
                     <div class="flex flex-col gap-8">
-                        <Alert v-for="message in messages" :variant="message.variant" :key="message.text">
-                            {{ message.text }}
-                        </Alert>
-                        <div v-if="contents?.data?.length > 0" class="flex flex-col gap-8">
+                        <div class="flex flex-col gap-8">
                             <div class="flex gap-4">
                                 <Link :class="cn('px-4 py-3 rounded-full bg-surface text-primary', type.value === activeType.value && 'bg-primary text-white')" v-for="[key, type] in ContentType.entries()" :key="key" :href="route('staff.contents.index', { _query: { type: type.value } })">
                                     {{ type.label }}
                                 </Link>
                             </div>
-                            <div :class="cn('flex flex-col lg:grid grid-cols-3 gap-8', activeType.value === ContentType.Ebook.value && 'grid-cols-5')">
+                            <div v-if="contents?.data?.length > 0" :class="cn('flex flex-col lg:grid grid-cols-3 gap-8', activeType.value === ContentType.Ebook.value && 'grid-cols-5')">
                                 <Link class="flex flex-col gap-4" v-for="content in contents.data" :href="route('staff.contents.edit', content.id)" :key="content.id">
                                     <img :src="content.thumbnail_url ? `${storageUrl}/${content.thumbnail_url}` : `${appUrl}/images/content-placeholder.svg`" :alt="content.title" :class="cn('w-full rounded-2xl aspect-video object-cover', content.type === ContentType.Ebook.value && 'aspect-9/16')">
                                     <h3 class="font-semibold text-2xl">{{ content.title }}</h3>
@@ -70,6 +67,9 @@ const links = computed(() => contents.value?.links.map((link) => {
                                 </Link>
                             </div>
                         </div>
+                        <Alert v-for="message in messages" :variant="message.variant" :key="message.text">
+                            {{ message.text }}
+                        </Alert>
                     </div>
                     <div class="flex justify-center">
                         <div class="flex justify-center items-center flex-wrap gap-3">

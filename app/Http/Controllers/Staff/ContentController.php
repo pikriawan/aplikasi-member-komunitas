@@ -70,7 +70,7 @@ class ContentController extends Controller
             $content->thumbnail_url = $request->file('thumbnail')->store();
         }
 
-        $content->file_url = $request->file('file')->store();
+        $content->file_url = $request->file('file')->store('', app()->isProduction() ? 's3-private' : 'local');
         $content->save();
 
         return redirect()->route('staff.contents.index', [
@@ -131,7 +131,7 @@ class ContentController extends Controller
         }
 
         if ($request->hasFile('file')) {
-            $content->file_url = $request->file('file')->store();
+            $content->file_url = $request->file('file')->store('', app()->isProduction() ? 's3-private' : 'local');
         }
 
         $content->title = $request->input('title');
