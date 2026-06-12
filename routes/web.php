@@ -89,6 +89,10 @@ Route::prefix('staff')
     ->middleware(['auth', 'verified', 'role:' . UserRole::Staff->value])
     ->group(function () {
         Route::get('/contents', [StaffContentController::class, 'index'])->name('contents.index');
+
+        Route::inertia('/contents/create', 'Staff/Content/Create')->name('contents.create');
+
+        Route::post('/contents/store', [StaffContentController::class, 'store'])->name('contents.store');
     });
 
 Route::prefix('finance')

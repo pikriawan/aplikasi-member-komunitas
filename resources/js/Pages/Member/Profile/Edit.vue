@@ -63,7 +63,7 @@ function clearProfileImageInput() {
                             Format JPG atau PNG, ukuran maksimal 1MB
                         </div>
                         <div class="flex flex-wrap gap-4">
-                            <input type="file" accept=".jpg, .jpeg, .png, " class="hidden" name="profile_image" id="profile_image" @change="onProfileImageInputChange" ref="profile-image-input">
+                            <input type="file" accept=".jpg, .jpeg, .png" class="hidden" name="profile_image" id="profile_image" @change="onProfileImageInputChange" ref="profile-image-input">
                             <Button as="label" for="profile_image" class="whitespace-nowrap">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload-icon lucide-upload shrink-0"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
                                 Unggah foto profil
@@ -82,7 +82,7 @@ function clearProfileImageInput() {
                         <p class="text-danger-500 text-sm" v-if="errors.telephone">{{ errors.telephone }}</p>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <span class="font-medium">Jenis kelamin</span>
+                        <span class="font-semibold">Jenis kelamin</span>
                         <div class="flex flex-col gap-2">
                             <label class="flex items-center gap-2" for="gender_male">
                                 <input type="radio" name="gender" id="gender_male" value="Laki-laki" :checked="memberProfile.gender === 'Laki-laki'">
@@ -100,7 +100,7 @@ function clearProfileImageInput() {
                         <p class="text-danger-500 text-sm" v-if="errors.gender">{{ errors.gender }}</p>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <span class="font-medium">Golongan darah</span>
+                        <span class="font-semibold">Golongan darah</span>
                         <div class="flex flex-col gap-2">
                             <label class="flex items-center gap-2" for="blood_type_a">
                                 <input type="radio" name="blood_type" id="blood_type_a" value="A" :checked="memberProfile.blood_type === 'A'">
