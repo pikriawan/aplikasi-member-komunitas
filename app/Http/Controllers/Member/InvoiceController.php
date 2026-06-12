@@ -42,33 +42,41 @@ class InvoiceController extends Controller
             ->where('id', $id)
             ->first();
 
-        $message = null;
-
         if (!$invoice) {
-            $message = [
-                'variant' => 'danger',
-                'text' => 'Tagihan tidak ditemukan.',
-            ];
-        } else if ($invoice->status === InvoiceStatus::Unpaid->value) {
-            $message = [
-                'variant' => 'info',
-                'text' => "Silahkan lakukan transfer ke rekening tujuan dengan jumlah yang ditentukan, lalu unggah bukti pembayaran sebelum {$invoice->due_date}.",
-            ];
-        } else if ($invoice->status === InvoiceStatus::Paid->value) {
-            $message = [
-                'variant' => 'info',
-                'text' => 'Silahkan tunggu verifikasi dari petugas keuangan.',
-            ];
-        } else if ($invoice->status === InvoiceStatus::Verified->value) {
-            $message = [
-                'variant' => 'success',
-                'text' => 'Pembayaran telah berhasil diverifikasi.',
-            ];
-        }
-
-        if ($message) {
             Inertia::flash([
-                'messages' => [$message],
+                'messages' => [
+                    [
+                        'variant' => 'danger',
+                        'text' => 'Tagihan tidak ditemukan.',
+                    ],
+                ],
+            ]);
+        } else if ($invoice->status === InvoiceStatus::Unpaid->value) {
+            Inertia::flash([
+                'messages' => [
+                    [
+                        'variant' => 'info',
+                        'text' => "Silahkan lakukan transfer ke rekening tujuan dengan jumlah yang ditentukan, lalu unggah bukti pembayaran sebelum {$invoice->due_date}.",
+                    ],
+                ],
+            ]);
+        } else if ($invoice->status === InvoiceStatus::Paid->value) {
+            Inertia::flash([
+                'messages' => [
+                    [
+                        'variant' => 'info',
+                        'text' => 'Silahkan tunggu verifikasi dari petugas keuangan.',
+                    ],
+                ],
+            ]);
+        } else if ($invoice->status === InvoiceStatus::Verified->value) {
+            Inertia::flash([
+                'messages' => [
+                    [
+                        'variant' => 'success',
+                        'text' => 'Pembayaran telah berhasil diverifikasi.',
+                    ],
+                ],
             ]);
         }
 

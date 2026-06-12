@@ -79,7 +79,7 @@ Route::prefix('member')
 
         Route::get('/profile', [MemberProfileController::class, 'index'])->name('profile.index');
 
-        Route::get('/profile/edit', [MemberProfileController::class, 'edit'])->name('profile.edit');
+        Route::inertia('/profile/edit', 'Member/Profile/Edit')->name('profile.edit');
 
         Route::put('/profile/edit', [MemberProfileController::class, 'update'])->name('profile.update');
     });
@@ -93,6 +93,10 @@ Route::prefix('staff')
         Route::inertia('/contents/create', 'Staff/Content/Create')->name('contents.create');
 
         Route::post('/contents/store', [StaffContentController::class, 'store'])->name('contents.store');
+
+        Route::get('/contents/{id}', [StaffContentController::class, 'edit'])->name('contents.edit');
+
+        Route::put('/contents/{id}', [StaffContentController::class, 'update'])->name('contents.update');
     });
 
 Route::prefix('finance')

@@ -63,11 +63,11 @@ const links = computed(() => contents.value?.links.map((link) => {
                                 </Link>
                             </div>
                             <div :class="cn('flex flex-col lg:grid grid-cols-3 gap-8', activeType.value === ContentType.Ebook.value && 'grid-cols-5')">
-                                <a class="flex flex-col gap-4" v-for="content in contents.data" href="#" :key="content.id">
+                                <Link class="flex flex-col gap-4" v-for="content in contents.data" :href="route('staff.contents.edit', content.id)" :key="content.id">
                                     <img :src="content.thumbnail_url ? `${storageUrl}/${content.thumbnail_url}` : `${appUrl}/images/content-placeholder.svg`" :alt="content.title" :class="cn('w-full rounded-2xl aspect-video object-cover', content.type === ContentType.Ebook.value && 'aspect-9/16')">
                                     <h3 class="font-semibold text-2xl">{{ content.title }}</h3>
-                                    <p class="text-onyx-400"><span class="font-semibold">{{ content.uploader.id === user.id ? "Saya" : content.uploader.name }}</span> • {{ content.date }}</p>
-                                </a>
+                                    <p class="text-onyx-400">{{ content.date }}</p>
+                                </Link>
                             </div>
                         </div>
                     </div>

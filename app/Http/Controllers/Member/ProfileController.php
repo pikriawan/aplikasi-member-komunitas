@@ -24,11 +24,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function edit()
-    {
-        return Inertia::render('Member/Profile/Edit');
-    }
-
     public function update(Request $request)
     {
         $rules = [
