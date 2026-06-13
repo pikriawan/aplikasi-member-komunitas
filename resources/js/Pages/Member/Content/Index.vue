@@ -41,11 +41,11 @@ const links = computed(() => contents.value?.links.map((link) => {
             <div class="flex flex-col gap-8 p-8 lg:min-h-full">
                 <div class="flex-1 flex flex-col gap-8 justify-between">
                     <div class="flex flex-col gap-8">
-                        <div v-if="memberProfile.is_active" class="flex flex-col gap-8">
+                        <div class="flex flex-col gap-8">
                             <Alert v-for="message in messages" :variant="message.variant" :key="message.text">
                                 {{ message.text }}
                             </Alert>
-                            <div class="flex gap-4">
+                            <div v-if="memberProfile.is_active" class="flex gap-4">
                                 <Link :class="cn('px-4 py-3 rounded-full bg-surface text-primary', type.value === activeType.value && 'bg-primary text-white')" v-for="[key, type] in ContentType.entries()" :key="key" :href="route('member.contents.index', { _query: { type: type.value } })">
                                     {{ type.label }}
                                 </Link>

@@ -128,6 +128,10 @@ function onPaymentProofInputChange(event) {
                                         <Badge :variant="InvoiceStatus.from(invoice.status).variant">{{ InvoiceStatus.from(invoice.status).label }}</Badge>
                                     </div>
                                 </div>
+                                <div v-if="payment.reject_reason" class="flex flex-col gap-2 lg:grid grid-cols-2">
+                                    <p>Alasan penolakan</p>
+                                    <p class="font-semibold">{{ payment.reject_reason }}</p>
+                                </div>
                             </div>
                         </div>
                         <div class="flex flex-col gap-8">

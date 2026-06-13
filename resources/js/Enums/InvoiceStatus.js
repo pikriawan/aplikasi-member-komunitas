@@ -18,6 +18,11 @@ const InvoiceStatus = {
         value: "canceled",
         label: "Dibatalkan",
         variant: "warning"
+    },
+    Rejected: {
+        value: "rejected",
+        label: "Ditolak",
+        variant: "danger"
     }
 };
 
