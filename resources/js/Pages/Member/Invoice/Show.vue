@@ -153,7 +153,7 @@ function onPaymentProofInputChange(event) {
                                 </div>
                                 <div class="flex flex-col gap-2 lg:max-w-150">
                                     <label for="date" class="font-semibold">Tanggal pembayaran</label>
-                                    <TextField id="date" name="date" type="datetime-local" placeholder="Tanggal pembayaran" :value="payment.date" :disabled="invoice.status !== InvoiceStatus.Unpaid.value" />
+                                    <TextField class="w-full appearance-[textfield] [&::-webkit-outer-spin-button]:appearance-[textfield] [&::-webkit-inner-spin-button]:appearance-[textfield]" id="date" name="date" type="datetime-local" placeholder="Tanggal pembayaran" :value="payment.date" :disabled="invoice.status !== InvoiceStatus.Unpaid.value" />
                                     <p class="text-danger-500 text-sm" v-if="errors.date">{{ errors.date }}</p>
                                 </div>
                                 <div class="flex flex-col gap-2 lg:max-w-150">
