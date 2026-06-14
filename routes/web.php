@@ -11,6 +11,7 @@ use App\Http\Controllers\Member\InvoiceController as MemberInvoiceController;
 use App\Http\Controllers\Member\PremiumController;
 use App\Http\Controllers\Member\ProfileController as MemberProfileController;
 use App\Http\Controllers\Staff\ContentController as StaffContentController;
+use App\Http\Controllers\Staff\BlogController as StaffBlogController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -97,6 +98,8 @@ Route::prefix('staff')
         Route::get('/contents/{id}', [StaffContentController::class, 'edit'])->name('contents.edit');
 
         Route::put('/contents/{id}', [StaffContentController::class, 'update'])->name('contents.update');
+
+        Route::get('/blog', [StaffBlogController::class, 'index'])->name('posts.index');
     });
 
 Route::prefix('finance')

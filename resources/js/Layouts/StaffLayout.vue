@@ -39,7 +39,7 @@ provide("sidebar", { setSidebarVisible });
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-play-icon lucide-circle-play shrink-0"><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"/><circle cx="12" cy="12" r="10"/></svg>
                         Konten
                     </Link>
-                    <Link :class="cn('w-full flex items-center gap-4 p-4 rounded-lg font-medium', route().current() === '' && 'bg-surface text-primary')" href="#">
+                    <Link :class="cn('w-full flex items-center gap-4 p-4 rounded-lg font-medium', route().current() === 'staff.posts.index' && 'bg-surface text-primary')" :href="route('staff.posts.index')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-notebook-icon lucide-notebook shrink-0"><path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M16 2v20"/></svg>
                         Blog
                     </Link>
