@@ -1,11 +1,13 @@
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
+import { Form, Link, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
 import DashboardHeader from "../../../Components/DashboardHeader.vue";
 import Alert from "../../../Components/Ui/Alert.vue";
+import Button from "../../../Components/Ui/Button.vue";
 import Popover from "../../../Components/Ui/Popover.vue";
 import PopoverContent from "../../../Components/Ui/PopoverContent.vue";
 import PopoverTrigger from "../../../Components/Ui/PopoverTrigger.vue";
+import TextField from "../../../Components/Ui/TextField.vue";
 import ContentType from "../../../Enums/ContentType.js";
 import MemberLayout from "../../../Layouts/MemberLayout.vue";
 import { cn } from "../../../lib/utils.js";
@@ -18,6 +20,7 @@ const memberProfile = computed(() => page.props.memberProfile);
 const messages = computed(() => page.flash.messages);
 const contents = computed(() => page.props.contents);
 const activeType = computed(() => ContentType.from(page.props.type));
+const q = computed(() => page.props.q);
 
 const links = computed(() => contents.value?.links.map((link) => {
     const result = {...link};
@@ -45,11 +48,20 @@ const links = computed(() => contents.value?.links.map((link) => {
                             <Alert v-for="message in messages" :variant="message.variant" :key="message.text">
                                 {{ message.text }}
                             </Alert>
-                            <div v-if="memberProfile.is_active" class="flex gap-4">
-                                <Link :class="cn('px-4 py-3 rounded-full bg-surface text-primary', type.value === activeType.value && 'bg-primary text-white')" v-for="[key, type] in ContentType.entries()" :key="key" :href="route('member.contents.index', { _query: { type: type.value } })">
-                                    {{ type.label }}
-                                </Link>
-                            </div>
+                            <template v-if="memberProfile.is_active">
+                                <Form class="flex flex-col gap-4 lg:max-w-150">
+                                    <label class="font-semibold" for="search">Cari konten</label>
+                                    <div class="flex items-center gap-4">
+                                        <TextField class="w-full" id="search" name="q" placeholder="Cari konten" :value="q" />
+                                        <Button>Cari</Button>
+                                    </div>
+                                </Form>
+                                <div class="flex gap-4">
+                                    <Link :class="cn('px-4 py-3 rounded-full bg-surface text-primary', type.value === activeType.value && 'bg-primary text-white')" v-for="[key, type] in ContentType.entries()" :key="key" :href="route('member.contents.index', { _query: { ...route().params, type: type.value } })">
+                                        {{ type.label }}
+                                    </Link>
+                                </div>
+                            </template>
                             <div v-if="contents?.data?.length > 0" :class="cn('flex flex-col lg:grid grid-cols-3 gap-8', activeType.value === ContentType.Ebook.value && 'grid-cols-5')">
                                 <a class="flex flex-col gap-4" v-for="content in contents.data" :href="route('member.contents.show', content.file_url)" :key="content.id">
                                     <img :src="content.thumbnail_url ? `${storageUrl}/${content.thumbnail_url}` : `${appUrl}/images/content-placeholder.svg`" :alt="content.title" :class="cn('w-full rounded-2xl aspect-video object-cover', content.type === ContentType.Ebook.value && 'aspect-9/16')">

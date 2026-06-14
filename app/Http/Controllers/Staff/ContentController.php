@@ -16,6 +16,7 @@ class ContentController extends Controller
     {
         $user = $request->user();
         $contents = $user->contents()
+            ->search($request->query('q'))
             ->byType($request->query('type', ContentType::Video->value))
             ->latest()
             ->paginate(15)
@@ -33,6 +34,7 @@ class ContentController extends Controller
         return Inertia::render('Staff/Content/Index', [
             'contents' => $contents,
             'type' => $request->query('type', ContentType::Video->value),
+            'q' => $request->query('q'),
         ]);
     }
 

@@ -40,6 +40,17 @@ class Content extends Model
         return $query->where('type', $type);
     }
 
+    #[Scope]
+    protected function search(Builder $query, ?string $term): Builder
+    {
+        if (!$term) {
+            return $query;
+        }
+
+        return $query->where('title', 'like', "%{$term}%");
+    }
+         
+
     protected function date(): Attribute
     {
         return Attribute::make(

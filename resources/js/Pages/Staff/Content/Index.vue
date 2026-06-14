@@ -1,11 +1,13 @@
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
+import { Form, Link, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
 import DashboardHeader from "../../../Components/DashboardHeader.vue";
 import Alert from "../../../Components/Ui/Alert.vue";
+import Button from "../../../Components/Ui/Button.vue";
 import Popover from "../../../Components/Ui/Popover.vue";
 import PopoverContent from "../../../Components/Ui/PopoverContent.vue";
 import PopoverTrigger from "../../../Components/Ui/PopoverTrigger.vue";
+import TextField from "../../../Components/Ui/TextField.vue";
 import ContentType from "../../../Enums/ContentType.js";
 import StaffLayout from "../../../Layouts/StaffLayout.vue";
 import { cn } from "../../../lib/utils.js";
@@ -18,6 +20,7 @@ const user = computed(() => page.props.user);
 const messages = computed(() => page.flash.messages);
 const contents = computed(() => page.props.contents);
 const activeType = computed(() => ContentType.from(page.props.type));
+const q = computed(() => page.props.q);
 
 const links = computed(() => contents.value?.links.map((link) => {
     const result = {...link};
@@ -57,8 +60,15 @@ const links = computed(() => contents.value?.links.map((link) => {
                             {{ message.text }}
                         </Alert>
                         <div class="flex flex-col gap-8">
+                            <Form class="flex flex-col gap-4 lg:max-w-150">
+                                <label class="font-semibold" for="search">Cari konten</label>
+                                <div class="flex items-center gap-4">
+                                    <TextField class="w-full" id="search" name="q" placeholder="Cari konten" :value="q" />
+                                    <Button>Cari</Button>
+                                </div>
+                            </Form>
                             <div class="flex gap-4">
-                                <Link :class="cn('px-4 py-3 rounded-full bg-surface text-primary', type.value === activeType.value && 'bg-primary text-white')" v-for="[key, type] in ContentType.entries()" :key="key" :href="route('staff.contents.index', { _query: { type: type.value } })">
+                                <Link :class="cn('px-4 py-3 rounded-full bg-surface text-primary', type.value === activeType.value && 'bg-primary text-white')" v-for="[key, type] in ContentType.entries()" :key="key" :href="route('staff.contents.index', { _query: { ...route().params, type: type.value } })">
                                     {{ type.label }}
                                 </Link>
                             </div>
