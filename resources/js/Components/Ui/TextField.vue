@@ -6,6 +6,8 @@ defineOptions({
     inheritAttrs: false
 });
 
+defineEmits(["update:modelValue"]);
+
 const props = defineProps({
     class: {
         type: String,
@@ -21,10 +23,12 @@ const props = defineProps({
         validator(value) {
             return ["input", "textarea"].includes(value);
         }
+    },
+    modelValue: {
+        type: String,
+        default: ""
     }
 });
-
-const model = defineModel();
 
 const mergedClasses = computed(() => {
     return cn(
@@ -52,7 +56,7 @@ const passwordVisible = ref(false);
         </button>
     </div>
     <template v-else>
-        <input v-if="as === 'input'" :type="type" :class="mergedClasses" v-model="model" v-bind="$attrs">
-        <textarea v-else :class="mergedClasses" v-model="model" v-bind="$attrs" />
+        <input v-if="as === 'input'" :type="type" :class="mergedClasses" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" v-bind="$attrs">
+        <textarea v-else :class="mergedClasses" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" v-bind="$attrs" />
     </template>
 </template>

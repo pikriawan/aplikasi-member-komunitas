@@ -144,4 +144,18 @@ class ContentController extends Controller
             'type' => $content->type,
         ]);
     }
+
+    public function destroy(Request $request, string $id)
+    {
+        $user = $request->user();
+        $content = $user->contents()->where('id', $id)->first();
+
+        if (!$content) {
+            abort(404);
+        }
+
+        $content->delete();
+
+        return redirect()->route('staff.contents.index');
+    }
 }
