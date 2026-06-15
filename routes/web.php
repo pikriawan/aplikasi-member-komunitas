@@ -100,6 +100,10 @@ Route::prefix('staff')
         Route::put('/contents/{id}', [StaffContentController::class, 'update'])->name('contents.update');
 
         Route::get('/blog', [StaffBlogController::class, 'index'])->name('posts.index');
+
+        Route::post('/blog', [StaffBlogController::class, 'store'])->name('posts.store');
+
+        Route::inertia('/blog/create', 'Staff/Blog/Create')->name('posts.create');
     });
 
 Route::prefix('finance')
