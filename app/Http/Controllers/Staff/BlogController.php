@@ -27,6 +27,20 @@ class BlogController extends Controller
         ]);
     }
 
+    public function generateUniqueSlug(string $title)
+    {
+        $slug = Str::slug($title);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        while (Post::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+        }
+
+        return $slug;
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -41,7 +55,7 @@ class BlogController extends Controller
         Post::create([
             'author_id' => $user->id,
             'title' => $request->input('title'),
-            'slug' => Str::slug($request->input('title')),
+            'slug' => $this->generateUniqueSlug($request->input('title')),
             'category' => $request->input('category'),
             'summary' => $request->input('summary', ''),
             'content' => $request->input('content'),
