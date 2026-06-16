@@ -39,7 +39,7 @@ const category = computed(() => PostCategory.from(post.value?.category));
                     <span class="bg-primary text-white text-sm p-1 self-start">{{ post.long_date }}</span>
                     <h1 class="font-medium text-2xl">{{ post.title }}</h1>
                     <span class="h-px bg-onyx-200" />
-                    <div class="text-onyx-400 flex flex-col gap-4" v-html="post.content" />
+                    <div class="post-content" v-html="post.content" />
                     <div class="flex items-center gap-2.5">
                         <div class="shrink-0 w-8 h-8 flex justify-center items-center">
                             <span class="w-6 h-0.5 bg-primary" />
@@ -68,3 +68,31 @@ const category = computed(() => PostCategory.from(post.value?.category));
         </section>
     </HomeLayout>
 </template>
+
+<style>
+.post-content {
+    color: var(--color-onyx-400);
+
+    ul {
+        list-style-type: disc;
+        padding: 0 1rem;
+    }
+
+    ol {
+        list-style-type: decimal;
+        padding: 0 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+}
+</style>

@@ -1,5 +1,6 @@
 <script setup>
 import { router } from "@inertiajs/vue3";
+import Dropcursor from "@tiptap/extension-dropcursor";
 import Image from "@tiptap/extension-image";
 import TextAlign from "@tiptap/extension-text-align";
 import { Color, TextStyle } from "@tiptap/extension-text-style";
@@ -26,6 +27,7 @@ onMounted(() => {
             TextStyle,
             Color,
             Image,
+            Dropcursor,
             TextAlign.configure({
                 types: ["heading", "paragraph"]
             }),
@@ -171,6 +173,34 @@ async function addImage(event) {
 
     &:focus {
         outline: 0;
+    }
+
+    ul {
+        list-style-type: disc;
+        padding: 0 1rem;
+    }
+
+    ol {
+        list-style-type: decimal;
+        padding: 0 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    img {
+        &.ProseMirror-selectednode {
+            outline: 0.125rem solid var(--color-primary);
+        }
     }
 }
 </style>
