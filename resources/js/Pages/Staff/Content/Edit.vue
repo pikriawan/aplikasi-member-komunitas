@@ -56,7 +56,7 @@ function onFileInputChange(event) {
 
 <template>
     <StaffLayout>
-        <DashboardHeader title="Edit Konten" :back-href="content.type === ContentType.Ebook.value ? route('staff.contents.index', { _query: { type: 'ebook' } }) : route('staff.contents.index')">
+        <DashboardHeader title="Edit Konten" :back-href="content?.type === ContentType.Ebook.value ? route('staff.contents.index', { _query: { type: 'ebook' } }) : route('staff.contents.index')">
             <Popover v-if="content" class="h-full aspect-square">
                 <PopoverTrigger class="w-full h-full flex justify-center items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
