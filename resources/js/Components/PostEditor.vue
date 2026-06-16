@@ -71,7 +71,16 @@ function setLink() {
     editor.value.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
 }
 
-function addImage(event) {
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error("Failed reading file"));
+        reader.readAsDataURL(file);
+    });
+}
+
+async function addImage(event) {
     const fileList = event.target.files;
 
     if (fileList.length === 0) {
@@ -84,7 +93,7 @@ function addImage(event) {
         content.push({
             type: "image",
             attrs: {
-                src: URL.createObjectURL(file)
+                src: await fileToBase64(file)
             }
         });
 
