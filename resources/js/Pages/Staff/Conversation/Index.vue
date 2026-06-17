@@ -12,6 +12,7 @@ const page = usePage();
 const appUrl = computed(() => page.props.appUrl);
 const storageUrl = computed(() => page.props.storageUrl);
 const conversations = computed(() => page.props.conversations);
+const q = computed(() => page.props.q);
 
 const links = computed(() => conversations.value?.links.map((link) => {
     const result = {...link};
@@ -35,8 +36,11 @@ const links = computed(() => conversations.value?.links.map((link) => {
             <div class="h-full block lg:grid grid-cols-[22.5rem_1fr]">
                 <div class="h-full overflow-y-auto border-r border-onyx-200">
                     <Form class="flex flex-col gap-4 p-5 shadow-[0_-0.0625rem_0_var(--color-onyx-200)_inset]">
-                        <label class="font-semibold" for="search">Cari pertanyaan</label>
-                        <TextField class="w-full" id="search" name="q" placeholder="Cari pertanyaan" value="" />
+                        <label class="font-semibold" for="search">Cari member</label>
+                        <div class="flex items-center gap-4">
+                            <TextField class="w-full" id="search" name="q" placeholder="Cari member" :value="q" />
+                            <Button>Cari</Button>
+                        </div>
                     </Form>
                     <div class="flex flex-col">
                         <Link v-for="conversation in conversations.data" :key="conversation.id" class="flex items-center gap-5 p-5 shadow-[0_-0.0625rem_0_var(--color-onyx-200)_inset]" href="#">

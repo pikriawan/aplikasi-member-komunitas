@@ -9,14 +9,17 @@ use Inertia\Inertia;
 
 class ConversationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $conversations = Conversation::with('submitter')
+            ->search($request->query('q'))
             ->latest()
-            ->paginate(20);
+            ->paginate(20)
+            ->appends($request->query());
 
         return Inertia::render('Staff/Conversation/Index', [
             'conversations' => $conversations,
+            'q' => $request->query('q'),
         ]);
     }
 }
