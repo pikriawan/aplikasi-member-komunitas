@@ -11,7 +11,7 @@ class ConversationController extends Controller
 {
     public function index(Request $request)
     {
-        $conversations = Conversation::with('submitter')
+        $conversations = Conversation::with(['submitter', 'submitter.memberProfile'])
             ->search($request->query('q'))
             ->latest()
             ->paginate(20)

@@ -14,6 +14,8 @@ const storageUrl = computed(() => page.props.storageUrl);
 const conversations = computed(() => page.props.conversations);
 const q = computed(() => page.props.q);
 
+console.log(conversations.value);
+
 const links = computed(() => conversations.value?.links.map((link) => {
     const result = {...link};
 
@@ -44,7 +46,7 @@ const links = computed(() => conversations.value?.links.map((link) => {
                     </Form>
                     <div class="flex flex-col">
                         <Link v-for="conversation in conversations.data" :key="conversation.id" class="flex items-center gap-5 p-5 shadow-[0_-0.0625rem_0_var(--color-onyx-200)_inset]" href="#">
-                            <img :src="conversation.submitter.image_url ? `${storageUrl}/${conversation.submitter.image_url}` : `${appUrl}/images/profile-placeholder.svg`" :alt="conversation.submitter.name" class="w-12 aspect-square rounded-full">
+                            <img :src="conversation.submitter.member_profile.image_url ? `${storageUrl}/${conversation.submitter.member_profile.image_url}` : `${appUrl}/images/profile-placeholder.svg`" :alt="conversation.submitter.name" class="w-12 aspect-square rounded-full">
                             <p>{{ conversation.submitter.name }}</p>
                         </Link>
                     </div>
