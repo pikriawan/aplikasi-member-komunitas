@@ -16,76 +16,34 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $member = User::create([
-            'role'      => UserRole::Member,
-            'name'      => 'Gus Agus',
-            'email'     => 'gusagus@mail.com',
-            'telephone' => fake()->phoneNumber(),
-            'password'  => 'password',
-            'is_active' => true,
+        User::factory()->member()->create([
+            'name' => 'Min Paimin',
+            'email' => 'minpaimin@mail.com',
         ]);
 
-        MemberProfile::create([
-            'user_id'       => $member->id,
-            'expired_date'  => now(),
+        User::factory()->inactiveMember()->create([
+            'name' => 'Gus Agus',
+            'email' => 'gusagus@mail.com',
         ]);
 
-        Conversation::create([
-            'submitter_id' => $member->id,
+        User::factory()->staff()->create([
+            'name' => 'Nem Painem',
+            'email' => 'nempainem@mail.com',
         ]);
 
-        $premiumMember = User::create([
-            'role'      => UserRole::Member,
-            'name'      => 'Min Paimin',
-            'email'     => 'minpaimin@mail.com',
-            'telephone' => fake()->phoneNumber(),
-            'password'  => 'password',
-            'is_active' => true,
+        User::factory()->finance()->create([
+            'name' => 'Jo Paijo',
+            'email' => 'jopaijo@mail.com',
         ]);
 
-        MemberProfile::create([
-            'user_id'       => $premiumMember->id,
-            'expired_date'  => now()->addYear(),
+        User::factory()->leader()->create([
+            'name' => 'Jo Bejo',
+            'email' => 'jobejo@mail.com',
         ]);
 
-        Conversation::create([
-            'submitter_id' => $premiumMember->id,
-        ]);
-
-        User::create([
-            'role'      => UserRole::Staff,
-            'name'      => 'Nem Painem',
-            'email'     => 'nempainem@mail.com',
-            'telephone' => fake()->phoneNumber(),
-            'password'  => 'password',
-            'is_active' => true,
-        ]);
-
-        User::create([
-            'role'      => UserRole::Finance,
-            'name'      => 'Jo Paijo',
-            'email'     => 'jopaijo@mail.com',
-            'telephone' => fake()->phoneNumber(),
-            'password'  => 'password',
-            'is_active' => true,
-        ]);
-
-        User::create([
-            'role'      => UserRole::Leader,
-            'name'      => 'Jo Bejo',
-            'email'     => 'jobejo@mail.com',
-            'telephone' => fake()->phoneNumber(),
-            'password'  => 'password',
-            'is_active' => true,
-        ]);
-
-        User::create([
-            'role'      => UserRole::SuperAdmin,
-            'name'      => 'Met Slamet',
-            'email'     => 'metslamet@mail.com',
-            'telephone' => fake()->phoneNumber(),
-            'password'  => 'password',
-            'is_active' => true,
+        User::factory()->superAdmin()->create([
+            'name' => 'Met Slamet',
+            'email' => 'metslamet@mail.com',
         ]);
     }
 }
