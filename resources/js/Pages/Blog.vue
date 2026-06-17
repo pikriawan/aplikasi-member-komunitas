@@ -55,7 +55,7 @@ const links = computed(() => posts.value.links.map((link) => {
                     <h3 class="font-medium">Kategori</h3>
                     <div class="flex flex-col gap-2">
                         <template v-for="[key, category] in PostCategory.entries()" :key="key">
-                            <Link :class="cn('font-medium text-onyx-400', category.value === activeCategory.value && 'text-primary')" :href="route('blog', { _query: { category: category.value } })">
+                            <Link :class="cn('font-medium text-onyx-400', category.value === activeCategory?.value && 'text-primary')" :href="route('blog', { _query: { category: category.value } })">
                                 {{ category.label }}
                             </Link>
                             <span class="h-px bg-onyx-200 last:hidden" />
@@ -90,7 +90,7 @@ const links = computed(() => posts.value.links.map((link) => {
                     <h3 class="font-medium">Kategori</h3>
                     <div class="flex flex-col gap-2">
                         <template v-for="[key, category] in PostCategory.entries()" :key="key">
-                            <Link :class="cn('font-medium text-onyx-400', category.value === activeCategory.value && 'text-primary')" :href="route('blog', { _query: { category: category.value } })">
+                            <Link :class="cn('font-medium text-onyx-400', category.value === activeCategory?.value && 'text-primary')" :href="route('blog', { _query: { category: category.value } })">
                                 {{ category.label }}
                             </Link>
                             <span class="h-px bg-onyx-200 last:hidden" />
