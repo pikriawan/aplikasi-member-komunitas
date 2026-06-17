@@ -73,6 +73,11 @@ const category = computed(() => PostCategory.from(post.value?.category));
 .post-content {
     color: var(--color-onyx-400);
 
+    p:empty::before {
+        content: '';
+        display: inline-block;
+    }
+
     ul {
         list-style-type: disc;
         padding: 0 1rem;
