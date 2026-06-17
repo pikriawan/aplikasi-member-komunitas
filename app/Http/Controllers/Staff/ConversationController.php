@@ -17,6 +17,15 @@ class ConversationController extends Controller
             ->paginate(20)
             ->appends($request->query());
 
+        if ($conversations->count() === 0) {
+            Inertia::flash('messages', [
+                [
+                    'variant' => 'info',
+                    'text' => 'Percakapan tidak ditemukan.'
+                ]
+            ]);
+        }
+
         return Inertia::render('Staff/Conversation/Index', [
             'conversations' => $conversations,
             'q' => $request->query('q'),
