@@ -21,6 +21,15 @@ class BlogController extends Controller
             ->paginate(10)
             ->appends($request->query());
 
+        if ($posts->count() === 0) {
+            Inertia::flash('messages', [
+                [
+                    'variant' => 'info',
+                    'text' => 'Tidak ada postingan.'
+                ]
+            ]);
+        }
+
         return Inertia::render('Staff/Blog/Index', [
             'posts' => $posts,
             'q' => $request->query('q'),

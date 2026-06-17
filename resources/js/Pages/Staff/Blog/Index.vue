@@ -14,7 +14,7 @@ import { cn } from "../../../lib/utils.js";
 const page = usePage();
 
 const storageUrl = computed(() => page.props.storageUrl);
-const messages = computed(() => page.props.messages);
+const messages = computed(() => page.flash.messages);
 const posts = computed(() => page.props.posts);
 const q = computed(() => page.props.q);
 
