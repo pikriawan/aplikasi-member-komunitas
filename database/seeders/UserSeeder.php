@@ -25,8 +25,6 @@ class UserSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        $member->markEmailAsVerified();
-
         MemberProfile::create([
             'user_id'       => $member->id,
             'expired_date'  => now(),
@@ -45,8 +43,6 @@ class UserSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        $premiumMember->markEmailAsVerified();
-
         MemberProfile::create([
             'user_id'       => $premiumMember->id,
             'expired_date'  => now()->addYear(),
@@ -56,7 +52,7 @@ class UserSeeder extends Seeder
             'submitter_id' => $premiumMember->id,
         ]);
 
-        $staff = User::create([
+        User::create([
             'role'      => UserRole::Staff,
             'name'      => 'Nem Painem',
             'email'     => 'nempainem@mail.com',
@@ -65,9 +61,7 @@ class UserSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        $staff->markEmailAsVerified();
-
-        $finance = User::create([
+        User::create([
             'role'      => UserRole::Finance,
             'name'      => 'Jo Paijo',
             'email'     => 'jopaijo@mail.com',
@@ -76,9 +70,7 @@ class UserSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        $finance->markEmailAsVerified();
-
-        $leader = User::create([
+        User::create([
             'role'      => UserRole::Leader,
             'name'      => 'Jo Bejo',
             'email'     => 'jobejo@mail.com',
@@ -87,9 +79,7 @@ class UserSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        $leader->markEmailAsVerified();
-
-        $superAdmin = User::create([
+        User::create([
             'role'      => UserRole::SuperAdmin,
             'name'      => 'Met Slamet',
             'email'     => 'metslamet@mail.com',
@@ -97,7 +87,5 @@ class UserSeeder extends Seeder
             'password'  => 'password',
             'is_active' => true,
         ]);
-
-        $superAdmin->markEmailAsVerified();
     }
 }
