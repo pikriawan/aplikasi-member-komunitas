@@ -52,7 +52,7 @@ const links = computed(() => conversations.value?.links.map((link) => {
                                 </Form>
                                 <div v-if="conversations?.data?.length > 0" class="flex flex-col rounded-lg ring ring-inset ring-onyx-200">
                                     <div class="flex flex-col">
-                                    <Link v-for="conversation in conversations.data" :key="conversation.id" class="flex items-center gap-5 p-5 not-last:shadow-[0_-0.0625rem_0_var(--color-onyx-200)_inset]" href="#">
+                                    <Link v-for="conversation in conversations.data" :key="conversation.id" class="flex items-center gap-5 p-5 not-last:shadow-[0_-0.0625rem_0_var(--color-onyx-200)_inset]" :href="route('staff.conversations.show', conversation.id)">
                                         <img :src="conversation.submitter.member_profile.image_url ? `${storageUrl}/${conversation.submitter.member_profile.image_url}` : `${appUrl}/images/profile-placeholder.svg`" :alt="conversation.submitter.name" class="w-12 aspect-square rounded-full">
                                         <p>{{ conversation.submitter.name }}</p>
                                     </Link>

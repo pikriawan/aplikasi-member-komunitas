@@ -115,6 +115,10 @@ Route::prefix('staff')
         Route::delete('/blog/{id}', [StaffBlogController::class, 'destroy'])->name('posts.destroy');
 
         Route::get('/conversations', [StaffConversationController::class, 'index'])->name('conversations.index');
+
+        Route::get('/conversations/{id}', [StaffConversationController::class, 'show'])->name('conversations.show');
+
+        Route::post('/conversations/{conversationId}/message', [StaffConversationController::class, 'storeMessage'])->name('conversations.message.store');
     });
 
 Route::prefix('finance')
