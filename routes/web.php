@@ -110,6 +110,8 @@ Route::prefix('staff')
         Route::get('/blog/{id}', [StaffBlogController::class, 'edit'])->name('posts.edit');
 
         Route::put('/blog/{id}', [StaffBlogController::class, 'update'])->name('posts.update');
+
+        Route::delete('/blog/{id}', [StaffBlogController::class, 'destroy'])->name('posts.destroy');
     });
 
 Route::prefix('finance')

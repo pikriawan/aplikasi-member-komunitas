@@ -54,7 +54,7 @@ function onSubmit() {
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload-icon lucide-upload shrink-0"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
                         Simpan perubahan
                     </button>
-                    <Form class="flex first:rounded-t-[0.4375rem] last:rounded-b-[0.4375rem] bg-white text-red-500">
+                    <Form class="flex first:rounded-t-[0.4375rem] last:rounded-b-[0.4375rem] bg-white text-red-500" :action="route('staff.posts.destroy', post.id)" method="delete">
                         <button class="w-full flex items-center gap-4 p-4 whitespace-nowrap">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2 shrink-0"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                             Hapus postingan

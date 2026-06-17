@@ -113,4 +113,18 @@ class BlogController extends Controller
 
         return redirect()->route('staff.posts.index');
     }
+
+    public function destroy(Request $request, string $id)
+    {
+        $user = $request->user();
+        $post = $user->posts()->where('id', $id)->first();
+
+        if (!$post) {
+            abort(404);
+        }
+
+        $post->delete();
+
+        return redirect()->route('staff.posts.index');
+    }
 }
