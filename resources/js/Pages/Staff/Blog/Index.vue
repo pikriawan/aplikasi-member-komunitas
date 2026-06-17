@@ -65,7 +65,7 @@ const links = computed(() => posts.value?.links.map((link) => {
                                     </div>
                                 </Form>
                                 <template v-if="posts?.data?.length > 0">
-                                    <Link v-for="post in posts.data" :key="post.id" href="#" class="flex flex-col gap-4 p-6 rounded-lg ring ring-inset ring-onyx-200">
+                                    <Link v-for="post in posts.data" :key="post.id" :href="route('staff.posts.edit', post.id)" class="flex flex-col gap-4 p-6 rounded-lg ring ring-inset ring-onyx-200">
                                         <span class="p-1 self-start text-sm rounded bg-primary text-white">{{ post.date }}</span>
                                         <h2 class="font-semibold text-2xl">{{ post.title }}</h2>
                                         <p>{{ post.summary }}</p>

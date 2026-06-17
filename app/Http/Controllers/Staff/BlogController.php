@@ -63,4 +63,54 @@ class BlogController extends Controller
 
         return redirect()->route('staff.posts.index');
     }
+
+    public function edit(Request $request, string $id)
+    {
+        $user = $request->user();
+        $post = $user->posts()->where('id', $id)->first();
+
+        if (!$post) {
+            Inertia::flash([
+                'messages' => [
+                    [
+                        'variant' => 'danger',
+                        'text' => 'Postingan tidak ditemukan.',
+                    ]
+                ]
+            ]);
+        }
+
+        return Inertia::render('Staff/Blog/Edit', [
+            'post' => $post,
+        ]);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $user = $request->user();
+        $post = $user->posts()->where('id', $id)->first();
+
+        if (!$post) {
+            abort(404);
+        }
+
+        $request->validate([
+            'title' => ['required', 'string'],
+            'category' => ['required', new Enum(PostCategory::class)],
+            'summary' => ['required', 'string'],
+            'content' => ['required', 'string'],
+        ]);
+
+        if ($post->title !== $request->input('title')) {
+            $post->title = $request->input('title');
+            $post->slug = $this->generateUniqueSlug($request->input('title'));
+        }
+
+        $post->category = $request->input('category');
+        $post->summary = $request->input('summary');
+        $post->content = $request->input('content');
+        $post->save();
+
+        return redirect()->route('staff.posts.index');
+    }
 }

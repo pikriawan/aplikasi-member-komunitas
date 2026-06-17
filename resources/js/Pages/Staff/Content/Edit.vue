@@ -19,8 +19,6 @@ const storageUrl = computed(() => page.props.storageUrl);
 const messages = computed(() => page.flash.messages);
 const content = computed(() => page.props.content);
 
-console.log(content.value);
-
 const type = ref();
 
 const thumbnail = useTemplateRef("thumbnail");

@@ -93,7 +93,7 @@ Route::prefix('staff')
 
         Route::inertia('/contents/create', 'Staff/Content/Create')->name('contents.create');
 
-        Route::post('/contents/store', [StaffContentController::class, 'store'])->name('contents.store');
+        Route::post('/contents', [StaffContentController::class, 'store'])->name('contents.store');
 
         Route::get('/contents/{id}', [StaffContentController::class, 'edit'])->name('contents.edit');
 
@@ -103,9 +103,13 @@ Route::prefix('staff')
 
         Route::get('/blog', [StaffBlogController::class, 'index'])->name('posts.index');
 
+        Route::inertia('/blog/create', 'Staff/Blog/Create')->name('posts.create');
+
         Route::post('/blog', [StaffBlogController::class, 'store'])->name('posts.store');
 
-        Route::inertia('/blog/create', 'Staff/Blog/Create')->name('posts.create');
+        Route::get('/blog/{id}', [StaffBlogController::class, 'edit'])->name('posts.edit');
+
+        Route::put('/blog/{id}', [StaffBlogController::class, 'update'])->name('posts.update');
     });
 
 Route::prefix('finance')

@@ -1,6 +1,5 @@
 <script setup>
 import { router } from "@inertiajs/vue3";
-import Dropcursor from "@tiptap/extension-dropcursor";
 import Image from "@tiptap/extension-image";
 import TextAlign from "@tiptap/extension-text-align";
 import { Color, TextStyle } from "@tiptap/extension-text-style";
@@ -26,8 +25,9 @@ onMounted(() => {
             StarterKit,
             TextStyle,
             Color,
-            Image,
-            Dropcursor,
+            Image.configure({
+                allowBase64: true
+            }),
             TextAlign.configure({
                 types: ["heading", "paragraph"]
             }),
