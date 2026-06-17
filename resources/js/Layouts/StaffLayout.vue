@@ -43,7 +43,7 @@ provide("sidebar", { setSidebarVisible });
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-notebook-icon lucide-notebook shrink-0"><path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M16 2v20"/></svg>
                         Blog
                     </Link>
-                    <Link :class="cn('w-full flex items-center gap-4 p-4 rounded-lg font-medium', route().current() === '' && 'bg-surface text-primary')" href="#">
+                    <Link :class="cn('w-full flex items-center gap-4 p-4 rounded-lg font-medium', route().current() === 'staff.conversations.index' && 'bg-surface text-primary')" :href="route('staff.conversations.index')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle-more-icon lucide-message-circle-more shrink-0"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
                         Pertanyaan
                     </Link>

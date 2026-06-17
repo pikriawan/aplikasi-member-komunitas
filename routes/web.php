@@ -11,6 +11,7 @@ use App\Http\Controllers\Member\InvoiceController as MemberInvoiceController;
 use App\Http\Controllers\Member\PremiumController;
 use App\Http\Controllers\Member\ProfileController as MemberProfileController;
 use App\Http\Controllers\Staff\ContentController as StaffContentController;
+use App\Http\Controllers\Staff\ConversationController as StaffConversationController;
 use App\Http\Controllers\Staff\BlogController as StaffBlogController;
 use Illuminate\Support\Facades\Route;
 
@@ -112,6 +113,8 @@ Route::prefix('staff')
         Route::put('/blog/{id}', [StaffBlogController::class, 'update'])->name('posts.update');
 
         Route::delete('/blog/{id}', [StaffBlogController::class, 'destroy'])->name('posts.destroy');
+
+        Route::get('/conversations', [StaffConversationController::class, 'index'])->name('conversations.index');
     });
 
 Route::prefix('finance')
