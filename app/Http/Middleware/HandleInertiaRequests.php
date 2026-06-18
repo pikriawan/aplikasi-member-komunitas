@@ -43,7 +43,7 @@ class HandleInertiaRequests extends Middleware
             'storageUrl' => rtrim(Storage::url('.'), '/.'),
             'setting' => Setting::allAsMap(),
             'user' => fn () => $request->user()
-                ? $request->user()->only('id', 'name', 'email', 'telephone')
+                ? $request->user()->only('id', 'name', 'email', 'telephone', 'role', 'is_active', 'join_date')
                 : null,
             'memberProfile' => $request->user()?->role === UserRole::Member->value
                 ? $request->user()->memberProfile

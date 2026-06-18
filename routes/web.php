@@ -13,6 +13,7 @@ use App\Http\Controllers\Member\ProfileController as MemberProfileController;
 use App\Http\Controllers\Staff\ContentController as StaffContentController;
 use App\Http\Controllers\Staff\ConversationController as StaffConversationController;
 use App\Http\Controllers\Staff\BlogController as StaffBlogController;
+use App\Http\Controllers\Staff\ProfileController as StaffProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -119,6 +120,12 @@ Route::prefix('staff')
         Route::get('/conversations/{id}', [StaffConversationController::class, 'show'])->name('conversations.show');
 
         Route::post('/conversations/{conversationId}/message', [StaffConversationController::class, 'storeMessage'])->name('conversations.message.store');
+
+        Route::inertia('/profile', 'Staff/Profile/Index')->name('profile.index');
+
+        Route::inertia('/profile/edit', 'Staff/Profile/Edit')->name('profile.edit');
+
+        Route::put('/profile/edit', [StaffProfileController::class, 'update'])->name('profile.update');
     });
 
 Route::prefix('finance')

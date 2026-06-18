@@ -5,8 +5,10 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -21,7 +23,13 @@ use Illuminate\Notifications\Notifiable;
     'password',
     'is_active',
 ])]
-#[Hidden(['password', 'remember_token'])]
+#[Appends([
+    'join_date',
+])]
+#[Hidden([
+    'password',
+    'remember_token',
+])]
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
@@ -83,5 +91,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function verifiedPayments(): HasMany
     {
         return $this->hasMany(Payment::class, 'verifier_id');
+    }
+
+    protected function joinDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->created_at->timezone(config('app.timezone'))->format('d F Y'),
+        );
     }
 }
