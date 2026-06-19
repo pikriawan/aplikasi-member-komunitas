@@ -18,7 +18,7 @@ class DashboardController extends Controller
             case UserRole::Staff->value:
                 return redirect()->route('staff.contents.index');
             case UserRole::Finance->value:
-                return redirect()->route('finance.payments.index');
+                return redirect()->route('finance.invoices.index');
             case UserRole::Leader->value:
                 return redirect()->route('leader.statistics.index');
             case UserRole::SuperAdmin->value:

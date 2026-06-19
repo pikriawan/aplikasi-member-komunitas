@@ -160,6 +160,10 @@ class InvoiceController extends Controller
             abort(404);
         }
 
+        if ($invoice->status === InvoiceStatus::Paid->value) {
+            abort(400);
+        }
+
         $invoice->status = InvoiceStatus::Canceled;
         $invoice->save();
 

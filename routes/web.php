@@ -4,6 +4,7 @@ use App\Enums\UserRole;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Finance\InvoiceController as FinanceInvoiceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Member\ContentController as MemberContentController;
 use App\Http\Controllers\Member\ConversationController as MemberConversationController;
@@ -132,9 +133,7 @@ Route::prefix('finance')
     ->name('finance.')
     ->middleware(['auth', 'verified', 'role:' . UserRole::Finance->value])
     ->group(function () {
-        Route::get('/payments', function () {
-            return 'Finance: payments';
-        })->name('payments.index');
+        Route::get('/invoices', [FinanceInvoiceController::class, 'index'])->name('invoices.index');
     });
 
 Route::prefix('leader')

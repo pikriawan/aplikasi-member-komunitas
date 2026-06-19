@@ -37,12 +37,12 @@ function onPaymentProofInputChange(event) {
 <template>
     <MemberLayout>
         <DashboardHeader title="Rincian Tagihan" :back-href="route('member.invoices.index')">
-            <Popover v-if="[InvoiceStatus.Unpaid.value, InvoiceStatus.Paid.value].includes(invoice.status)" class="h-full aspect-square">
+            <Popover v-if="invoice.status === InvoiceStatus.Unpaid.value" class="h-full aspect-square">
                 <PopoverTrigger class="w-full h-full flex justify-center items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                 </PopoverTrigger>
                 <PopoverContent class="top-[calc(100%-1rem)] right-4 flex flex-col gap-px bg-onyx-200">
-                    <button v-if="invoice.status === InvoiceStatus.Unpaid.value" form="edit_invoice" class="flex items-center gap-4 p-4 bg-white first:rounded-t-[0.4375rem] last:rounded-b-[0.4375rem] whitespace-nowrap">
+                    <button form="edit_invoice" class="flex items-center gap-4 p-4 bg-white first:rounded-t-[0.4375rem] last:rounded-b-[0.4375rem] whitespace-nowrap">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-icon lucide-file shrink-0"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/></svg>
                         Simpan bukti pembayaran
                     </button>

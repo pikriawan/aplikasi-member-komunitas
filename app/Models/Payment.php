@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'reject_reason',
     'date',
 )]
+#[Appends([
+    'long_date',
+])]
 class Payment extends Model
 {
     public function invoice(): BelongsTo
@@ -41,6 +45,13 @@ class Payment extends Model
         return Attribute::make(
             get: fn ($value) => $value ? Carbon::parse($value)->timezone(config('app.timezone'))->format('Y-m-d\TH:i') : null,
             set: fn ($value) => Carbon::createFromFormat('Y-m-d\TH:i', $value)->timezone(config('app.timezone'))->toDateTimeString(),
+        );
+    }
+
+    protected function longDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->date ? Carbon::parse($this->date)->timezone(config('app.timezone'))->format('d/m/Y H:i') : null,
         );
     }
 }
