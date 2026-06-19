@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Finance;
 
+use App\Enums\InvoiceStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Enum;
 use Inertia\Inertia;
 
 class InvoiceController extends Controller
@@ -21,14 +23,80 @@ class InvoiceController extends Controller
                 'messages' => [
                     [
                         'variant' => 'info',
-                        'text' => 'Tidak ada tagihan.'
-                    ]
-                ]
+                        'text' => 'Tidak ada tagihan.',
+                    ],
+                ],
             ]);
         }
 
         return Inertia::render('Finance/Invoice/Index', [
             'invoices' => $invoices,
         ]);
+    }
+
+    public function show(Request $request, ?string $id)
+    {
+        $invoice = Invoice::with('payment')->find($id);
+
+        if (!$invoice) {
+            Inertia::flash([
+                'messages' => [
+                    [
+                        'variant' => 'danger',
+                        'text' => 'Tagihan tidak ditemukan.',
+                    ],
+                ],
+            ]);
+        }
+
+        return Inertia::render('Finance/Invoice/Show', [
+            'invoice' => $invoice,
+        ]);
+    }
+
+    public function accept(Request $request, ?string $id)
+    {
+        $invoice = Invoice::find($id);
+
+        if (!$invoice) {
+            abort(404);
+        }
+
+        if ($invoice->status !== InvoiceStatus::Paid->value) {
+            abort(400);
+        }
+
+        $invoice->status = InvoiceStatus::Verified;
+        $invoice->save();
+
+        # Aktifasi member premium
+
+        return redirect()->route('finance.invoices.show', $invoice->id);
+    }
+
+    public function reject(Request $request, ?string $id)
+    {
+        $invoice = Invoice::find($id);
+
+        if (!$invoice) {
+            abort(404);
+        }
+
+        if ($invoice->status !== InvoiceStatus::Paid->value) {
+            abort(400);
+        }
+
+        $invoice->status = InvoiceStatus::Rejected;
+        $invoice->save();
+
+        $request->validate([
+            'reject_reason' => ['nullable', 'string'],
+        ]);
+
+        $payment = $invoice->payment()->first();
+        $payment->reject_reason = $request->input('reject_reason');
+        $payment->save();
+
+        return redirect()->route('finance.invoices.show', $invoice->id);
     }
 }

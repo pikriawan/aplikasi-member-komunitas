@@ -68,7 +68,7 @@ const links = computed(() => invoices.value?.links.map((link) => {
                                         </td>
                                         <td class="whitespace-nowrap p-4 align-middle">{{ invoice.payment?.verifier?.name || "-" }}</td>
                                         <td class="whitespace-nowrap p-4 align-middle">
-                                            <Link href="#">
+                                            <Link :href="route('finance.invoices.show', invoice.id)">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
                                             </Link>
                                         </td>

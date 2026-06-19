@@ -134,6 +134,12 @@ Route::prefix('finance')
     ->middleware(['auth', 'verified', 'role:' . UserRole::Finance->value])
     ->group(function () {
         Route::get('/invoices', [FinanceInvoiceController::class, 'index'])->name('invoices.index');
+
+        Route::get('/invoices/{id}', [FinanceInvoiceController::class, 'show'])->name('invoices.show');
+
+        Route::put('/invoices/{id}/accept', [FinanceInvoiceController::class, 'accept'])->name('invoices.accept');
+
+        Route::put('/invoices/{id}/reject', [FinanceInvoiceController::class, 'reject'])->name('invoices.reject');
     });
 
 Route::prefix('leader')
