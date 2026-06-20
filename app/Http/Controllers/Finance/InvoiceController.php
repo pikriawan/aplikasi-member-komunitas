@@ -9,7 +9,6 @@ use App\Models\MemberProfile;
 use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Enum;
 use Inertia\Inertia;
 
 class InvoiceController extends Controller
