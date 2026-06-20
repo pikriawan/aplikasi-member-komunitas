@@ -21,9 +21,9 @@ class InvoiceController extends Controller
                 'messages' => [
                     [
                         'variant' => 'info',
-                        'text' => 'Tidak ada tagihan.'
-                    ]
-                ]
+                        'text' => 'Tidak ada tagihan.',
+                    ],
+                ],
             ])->render('Member/Invoice/Index');
         }
 

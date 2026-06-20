@@ -6,6 +6,7 @@ import Button from "../Components/Ui/Button.vue";
 import Popover from "../Components/Ui/Popover.vue";
 import PopoverContent from "../Components/Ui/PopoverContent.vue";
 import PopoverTrigger from "../Components/Ui/PopoverTrigger.vue";
+import UserRole from "../Enums/UserRole.js";
 import { cn } from "../lib/utils";
 
 const page = usePage();
@@ -58,7 +59,7 @@ provide("sidebar", { setSidebarVisible });
                             <div class="w-full flex flex-col gap-4">
                                 <span>{{ user.name }}</span>
                                 <div>
-                                    <Badge>Petugas</Badge>
+                                    <Badge>{{ UserRole.from(user.role).label }}</Badge>
                                 </div>
                             </div>
                         </PopoverTrigger>

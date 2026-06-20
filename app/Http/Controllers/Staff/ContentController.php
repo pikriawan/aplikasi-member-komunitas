@@ -26,8 +26,8 @@ class ContentController extends Controller
             Inertia::flash('messages', [
                 [
                     'variant' => 'info',
-                    'text' => 'Tidak ada konten.'
-                ]
+                    'text' => 'Tidak ada konten.',
+                ],
             ]);
         }
 
@@ -91,8 +91,8 @@ class ContentController extends Controller
                     [
                         'variant' => 'danger',
                         'text' => 'Konten tidak ditemukan.',
-                    ]
-                ]
+                    ],
+                ],
             ]);
         }
 

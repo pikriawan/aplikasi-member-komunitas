@@ -22,8 +22,8 @@ class ConversationController extends Controller
             Inertia::flash('messages', [
                 [
                     'variant' => 'info',
-                    'text' => 'Percakapan tidak ditemukan.'
-                ]
+                    'text' => 'Percakapan tidak ditemukan.',
+                ],
             ]);
         }
 
@@ -41,8 +41,8 @@ class ConversationController extends Controller
             return Inertia::flash('messages', [
                 [
                     'variant' => 'info',
-                    'text' => 'Percakapan tidak ditemukan.'
-                ]
+                    'text' => 'Percakapan tidak ditemukan.',
+                ],
             ])->render('Staff/Conversation/Show');
         }
 

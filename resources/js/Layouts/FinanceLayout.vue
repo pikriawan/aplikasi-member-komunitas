@@ -6,6 +6,7 @@ import Button from "../Components/Ui/Button.vue";
 import Popover from "../Components/Ui/Popover.vue";
 import PopoverContent from "../Components/Ui/PopoverContent.vue";
 import PopoverTrigger from "../Components/Ui/PopoverTrigger.vue";
+import UserRole from "../Enums/UserRole.js";
 import { cn } from "../lib/utils";
 
 const page = usePage();
@@ -36,7 +37,7 @@ provide("sidebar", { setSidebarVisible });
             <div class="w-full h-full flex flex-col justify-between p-8">
                 <nav class="w-full flex flex-col">
                     <Link :class="cn('w-full flex items-center gap-4 p-4 rounded-lg font-medium', route().current() === 'finance.invoices.index' && 'bg-surface text-primary')" :href="route('finance.invoices.index')">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-credit-card-icon lucide-credit-card"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-credit-card-icon lucide-credit-card shrink-0"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
                         Tagihan
                     </Link>
                     <Link class="w-full flex items-center gap-4 p-4 rounded-lg font-medium" :href="route('home')">
@@ -54,7 +55,7 @@ provide("sidebar", { setSidebarVisible });
                             <div class="w-full flex flex-col gap-4">
                                 <span>{{ user.name }}</span>
                                 <div>
-                                    <Badge>Petugas</Badge>
+                                    <Badge>{{ UserRole.from(user.role).label }}</Badge>
                                 </div>
                             </div>
                         </PopoverTrigger>

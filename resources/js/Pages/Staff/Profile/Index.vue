@@ -1,10 +1,8 @@
 <script setup>
-import { Link, progress, usePage } from "@inertiajs/vue3";
-import QRCode from "qrcode";
-import { computed, ref, useTemplateRef, watch, watchEffect } from "vue";
+import { Link, usePage } from "@inertiajs/vue3";
+import { computed } from "vue";
 import DashboardHeader from "../../../Components/DashboardHeader.vue";
 import Badge from "../../../Components/Ui/Badge.vue";
-import Button from "../../../Components/Ui/Button.vue";
 import Popover from "../../../Components/Ui/Popover.vue";
 import PopoverContent from "../../../Components/Ui/PopoverContent.vue";
 import PopoverTrigger from "../../../Components/Ui/PopoverTrigger.vue";

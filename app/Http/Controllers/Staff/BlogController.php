@@ -25,8 +25,8 @@ class BlogController extends Controller
             Inertia::flash('messages', [
                 [
                     'variant' => 'info',
-                    'text' => 'Tidak ada postingan.'
-                ]
+                    'text' => 'Tidak ada postingan.',
+                ],
             ]);
         }
 
@@ -84,8 +84,8 @@ class BlogController extends Controller
                     [
                         'variant' => 'danger',
                         'text' => 'Postingan tidak ditemukan.',
-                    ]
-                ]
+                    ],
+                ],
             ]);
         }
 

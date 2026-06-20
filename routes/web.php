@@ -7,6 +7,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Finance\InvoiceController as FinanceInvoiceController;
 use App\Http\Controllers\Finance\ProfileController as FinanceProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Leader\ProfileController as LeaderProfileController;
+use App\Http\Controllers\Leader\StatisticController;
 use App\Http\Controllers\Member\ContentController as MemberContentController;
 use App\Http\Controllers\Member\ConversationController as MemberConversationController;
 use App\Http\Controllers\Member\InvoiceController as MemberInvoiceController;
@@ -153,9 +155,13 @@ Route::prefix('leader')
     ->name('leader.')
     ->middleware(['auth', 'verified', 'role:' . UserRole::Leader->value])
     ->group(function () {
-        Route::get('/statistics', function () {
-            return 'Leader: statistics';
-        })->name('statistics.index');
+        Route::get('/statistics', [StatisticController::class, 'index'])->name('statistics.index');
+
+        Route::inertia('/profile', 'Leader/Profile/Index')->name('profile.index');
+
+        Route::inertia('/profile/edit', 'Leader/Profile/Edit')->name('profile.edit');
+
+        Route::put('/profile/edit', [LeaderProfileController::class, 'update'])->name('profile.update');
     });
 
 Route::prefix('super-admin')
