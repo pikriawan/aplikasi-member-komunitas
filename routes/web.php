@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Finance\InvoiceController as FinanceInvoiceController;
+use App\Http\Controllers\Finance\ProfileController as FinanceProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Member\ContentController as MemberContentController;
 use App\Http\Controllers\Member\ConversationController as MemberConversationController;
@@ -140,6 +141,12 @@ Route::prefix('finance')
         Route::put('/invoices/{id}/accept', [FinanceInvoiceController::class, 'accept'])->name('invoices.accept');
 
         Route::put('/invoices/{id}/reject', [FinanceInvoiceController::class, 'reject'])->name('invoices.reject');
+
+        Route::inertia('/profile', 'Finance/Profile/Index')->name('profile.index');
+
+        Route::inertia('/profile/edit', 'Finance/Profile/Edit')->name('profile.edit');
+
+        Route::put('/profile/edit', [FinanceProfileController::class, 'update'])->name('profile.update');
     });
 
 Route::prefix('leader')
