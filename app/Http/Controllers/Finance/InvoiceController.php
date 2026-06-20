@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Finance;
 use App\Enums\InvoiceStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\MemberProfile;
+use App\Models\Setting;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Enum;
 use Inertia\Inertia;
@@ -69,7 +72,14 @@ class InvoiceController extends Controller
         $invoice->status = InvoiceStatus::Verified;
         $invoice->save();
 
-        # Aktifasi member premium
+        $payment = $invoice->payment()->first();
+        $payment->verifier_id = $request->user()->id;
+        $payment->save();
+
+        $memberProfile = MemberProfile::find($invoice->user_id);
+        $membershipDuration = Carbon::createFromFormat('m', Setting::get('membership_duration', '0'));
+        $memberProfile->expired_date = now()->addMonths($membershipDuration->month);
+        $memberProfile->save();
 
         return redirect()->route('finance.invoices.show', $invoice->id);
     }
@@ -94,6 +104,7 @@ class InvoiceController extends Controller
         ]);
 
         $payment = $invoice->payment()->first();
+        $payment->verifier_id = $request->user()->id;
         $payment->reject_reason = $request->input('reject_reason');
         $payment->save();
 
