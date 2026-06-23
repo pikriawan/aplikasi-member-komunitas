@@ -157,6 +157,14 @@ Route::prefix('leader')
     ->group(function () {
         Route::get('/statistics', [StatisticController::class, 'index'])->name('statistics.index');
 
+        Route::inertia('/statistics/members', 'Leader/Statistic/Member/Index')->name('statistics.members.index');
+
+        Route::inertia('/statistics/contents', 'Leader/Statistic/Content/Index')->name('statistics.contents.index');
+
+        Route::inertia('/statistics/posts', 'Leader/Statistic/Post/Index')->name('statistics.posts.index');
+
+        Route::inertia('/statistics/revenues', 'Leader/Statistic/Revenue/Index')->name('statistics.revenues.index');
+
         Route::inertia('/profile', 'Leader/Profile/Index')->name('profile.index');
 
         Route::inertia('/profile/edit', 'Leader/Profile/Edit')->name('profile.edit');
