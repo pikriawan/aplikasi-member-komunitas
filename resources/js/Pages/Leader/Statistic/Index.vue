@@ -1,5 +1,5 @@
 <script setup>
-import { usePage } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
 import { Line } from "vue-chartjs";
 import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, PointElement, LinearScale, CategoryScale } from "chart.js";
@@ -25,26 +25,38 @@ ChartJS.register(Title, Tooltip, Legend, LineElement, PointElement, LinearScale,
         </DashboardHeader>
         <main class="flex-1 overflow-auto">
             <div class="flex flex-col gap-8 p-8 lg:grid grid-cols-[repeat(auto-fill,minmax(25rem,1fr))]">
-                <div class="flex flex-col gap-4">
-                    <h2 class="font-semibold">Statistik Member</h2>
+                <div class="flex flex-col gap-4 p-5 rounded-lg ring ring-inset ring-onyx-200">
+                    <Link :href="route('leader.statistics.members.index')" class="font-semibold flex items-center gap-2">
+                        Statistik Member
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right-icon lucide-chevron-right shrink-0"><path d="m9 18 6-6-6-6"/></svg>
+                    </Link>
                     <div>
                         <Line :data="memberProfiles" :options="chartOptions" />
                     </div>
                 </div>
-                <div class="flex flex-col gap-4">
-                    <h2 class="font-semibold">Statistik Konten</h2>
+                <div class="flex flex-col gap-4 p-5 rounded-lg ring ring-inset ring-onyx-200">
+                    <Link href="#" class="font-semibold flex items-center gap-2">
+                        Statistik Konten
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right-icon lucide-chevron-right shrink-0"><path d="m9 18 6-6-6-6"/></svg>
+                    </Link>
                     <div>
                         <Line :data="contents" :options="chartOptions" />
                     </div>
                 </div>
-                <div class="flex flex-col gap-4">
-                    <h2 class="font-semibold">Statistik Postingan</h2>
+                <div class="flex flex-col gap-4 p-5 rounded-lg ring ring-inset ring-onyx-200">
+                    <Link href="#" class="font-semibold flex items-center gap-2">
+                        Statistik Postingan
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right-icon lucide-chevron-right shrink-0"><path d="m9 18 6-6-6-6"/></svg>
+                    </Link>
                     <div>
                         <Line :data="posts" :options="chartOptions" />
                     </div>
                 </div>
-                <div class="flex flex-col gap-4">
-                    <h2 class="font-semibold">Statistik Pendapatan</h2>
+                <div class="flex flex-col gap-4 p-5 rounded-lg ring ring-inset ring-onyx-200">
+                    <Link href="#" class="font-semibold flex items-center gap-2">
+                        Statistik Pendapatan
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right-icon lucide-chevron-right shrink-0"><path d="m9 18 6-6-6-6"/></svg>
+                    </Link>
                     <div>
                         <Line :data="invoices" :options="chartOptions" />
                     </div>

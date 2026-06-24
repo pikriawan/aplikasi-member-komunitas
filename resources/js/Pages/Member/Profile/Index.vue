@@ -702,7 +702,7 @@ async function downloadMemberLetter() {
                             <p class="font-semibold">{{ memberProfile.number }}</p>
                         </div>
                         <div class="flex flex-col gap-2 lg:grid grid-cols-2">
-                            <p>Status</p>
+                            <p>Status membership</p>
                             <div>
                                 <Badge v-if="memberProfile.is_active" variant="success">Aktif</Badge>
                                 <Badge v-else variant="danger">Nonaktif</Badge>

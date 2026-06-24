@@ -26,6 +26,10 @@ class UserSeeder extends Seeder
             'email' => 'gusagus@mail.com',
         ]);
 
+        User::factory(10)->member()->create();
+
+        User::factory(10)->inactiveMember()->create();
+
         User::factory()->staff()->create([
             'name' => 'Nem Painem',
             'email' => 'nempainem@mail.com',

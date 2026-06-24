@@ -7,12 +7,9 @@ use App\Enums\InvoiceStatus;
 use App\Enums\PostCategory;
 use App\Http\Controllers\Controller;
 use App\Models\Content;
-use App\Models\Conversation;
 use App\Models\Invoice;
 use App\Models\MemberProfile;
-use App\Models\Payment;
 use App\Models\Post;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -146,6 +143,29 @@ class StatisticController extends Controller
             'contents' => $contents,
             'posts' => $posts,
             'invoices' => $invoices,
+        ]);
+    }
+
+    public function indexMembers(Request $request)
+    {
+        $memberProfiles = MemberProfile::with('user')
+            ->latest()
+            ->paginate(10)
+            ->appends($request->query());
+
+        if ($memberProfiles->count() === 0) {
+            Inertia::flash([
+                'messages' => [
+                    [
+                        'variant' => 'info',
+                        'text' => 'Tidak ada member.',
+                    ],
+                ],
+            ]);
+        }
+
+        return Inertia::render('Leader/Statistic/Member/Index', [
+            'memberProfiles' => $memberProfiles,
         ]);
     }
 }
