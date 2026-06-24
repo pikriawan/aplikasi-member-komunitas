@@ -1,11 +1,13 @@
 const ContentType = {
     Video: {
         value: "video",
-        label: "Video"
+        label: "Video",
+        variant: "info"
     },
     Ebook: {
         value: "ebook",
-        label: "Ebook"
+        label: "Ebook",
+        variant: "warning"
     }
 };
 

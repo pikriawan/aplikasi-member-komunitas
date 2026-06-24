@@ -168,4 +168,27 @@ class StatisticController extends Controller
             'memberProfiles' => $memberProfiles,
         ]);
     }
+
+    public function indexContents(Request $request)
+    {
+        $contents = Content::with('uploader')
+            ->latest()
+            ->paginate(10)
+            ->appends($request->query());
+
+        if ($contents->count() === 0) {
+            Inertia::flash([
+                'messages' => [
+                    [
+                        'variant' => 'info',
+                        'text' => 'Tidak ada konten.',
+                    ],
+                ],
+            ]);
+        }
+
+        return Inertia::render('Leader/Statistic/Content/Index', [
+            'contents' => $contents,
+        ]);
+    }
 }
