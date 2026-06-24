@@ -5,11 +5,13 @@ const PostCategory = {
     },
     News: {
         value: "news",
-        label: "Berita"
+        label: "Berita",
+        variant: "info"
     },
     Event: {
         value: "event",
-        label: "Acara"
+        label: "Acara",
+        variant: "warning"
     }
 };
 

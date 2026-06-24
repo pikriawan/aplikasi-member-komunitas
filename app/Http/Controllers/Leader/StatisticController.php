@@ -191,4 +191,50 @@ class StatisticController extends Controller
             'contents' => $contents,
         ]);
     }
+
+    public function indexPosts(Request $request)
+    {
+        $posts = Post::with('author')
+            ->latest()
+            ->paginate(10)
+            ->appends($request->query());
+
+        if ($posts->count() === 0) {
+            Inertia::flash([
+                'messages' => [
+                    [
+                        'variant' => 'info',
+                        'text' => 'Tidak ada postingan.',
+                    ],
+                ],
+            ]);
+        }
+
+        return Inertia::render('Leader/Statistic/Post/Index', [
+            'posts' => $posts,
+        ]);
+    }
+
+    public function indexRevenues(Request $request)
+    {
+        $invoices = Invoice::with(['user', 'payment'])
+            ->latest()
+            ->paginate(10)
+            ->appends($request->query());
+
+        if ($invoices->count() === 0) {
+            Inertia::flash([
+                'messages' => [
+                    [
+                        'variant' => 'info',
+                        'text' => 'Tidak ada tagihan.',
+                    ],
+                ],
+            ]);
+        }
+
+        return Inertia::render('Leader/Statistic/Revenue/Index', [
+            'invoices' => $invoices,
+        ]);
+    }
 }

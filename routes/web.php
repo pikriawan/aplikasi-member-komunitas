@@ -161,9 +161,9 @@ Route::prefix('leader')
 
         Route::get('/statistics/contents', [StatisticController::class, 'indexContents'])->name('statistics.contents.index');
 
-        Route::inertia('/statistics/posts', 'Leader/Statistic/Post/Index')->name('statistics.posts.index');
+        Route::get('/statistics/posts', [StatisticController::class, 'indexPosts'])->name('statistics.posts.index');
 
-        Route::inertia('/statistics/revenues', 'Leader/Statistic/Revenue/Index')->name('statistics.revenues.index');
+        Route::get('/statistics/revenues', [StatisticController::class, 'indexRevenues'])->name('statistics.revenues.index');
 
         Route::inertia('/profile', 'Leader/Profile/Index')->name('profile.index');
 
