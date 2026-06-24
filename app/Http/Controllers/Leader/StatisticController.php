@@ -23,7 +23,7 @@ class StatisticController extends Controller
         $months = collect(range(11, 0))->map(fn ($i) => $now->copy()->subMonths($i));
 
         $memberProfiles = [
-            'labels' => $months->map(fn ($month) => $month->format('i/Y')),
+            'labels' => $months->map(fn ($month) => $month->format('M/Y')),
             'datasets' => [
                 [
                     'label' => 'Aktif',
@@ -55,7 +55,7 @@ class StatisticController extends Controller
         $result = Content::select('created_at', 'type')->get();
 
         $contents = [
-            'labels' => $months->map(fn ($month) => $month->format('i/Y')),
+            'labels' => $months->map(fn ($month) => $month->format('M/Y')),
             'datasets' => [
                 [
                     'label' => 'Video',
@@ -87,7 +87,7 @@ class StatisticController extends Controller
         $result = Post::select('created_at', 'category')->get();
 
         $posts = [
-            'labels' => $months->map(fn ($month) => $month->format('i/Y')),
+            'labels' => $months->map(fn ($month) => $month->format('M/Y')),
             'datasets' => [
                 [
                     'label' => 'Berita',
@@ -119,7 +119,7 @@ class StatisticController extends Controller
         $result = Invoice::select('created_at', 'amount', 'due_date', 'status')->get();
 
         $invoices = [
-            'labels' => $months->map(fn ($month) => $month->format('i/Y')),
+            'labels' => $months->map(fn ($month) => $month->format('M/Y')),
             'datasets' => [
                 [
                     'label' => 'Pendapatan',
