@@ -57,7 +57,7 @@ const payment = computed(() => invoice.value?.payment);
                                 <TextField as="textarea" name="reject_reason" placeholder="Alasan penolakan" />
                                 <div class="flex gap-4">
                                     <ModalClose type="button" class="w-full justify-center" :as="Button" variant="outlined">Batal</ModalClose>
-                                    <Button class="w-full justify-center">Simpan alasan penolakan</Button>
+                                    <Button class="w-full justify-center">Simpan</Button>
                                 </div>
                             </div>
                         </ModalContent>
