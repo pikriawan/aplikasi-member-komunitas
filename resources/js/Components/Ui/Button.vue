@@ -23,7 +23,7 @@ const props = defineProps({
 const variantClasses = {
     primary: "bg-primary text-white",
     outlined: "ring ring-inset ring-primary text-primary",
-    danger: "bg-danger text-white",
+    danger: "bg-danger-500 text-white",
     "danger-outlined": "ring ring-inset ring-danger-500 text-danger-500"
 };
 

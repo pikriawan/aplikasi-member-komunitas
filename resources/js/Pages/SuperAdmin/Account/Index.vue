@@ -14,7 +14,6 @@ const page = usePage();
 
 const messages = computed(() => page.flash.messages);
 const accounts = computed(() => page.props.accounts);
-console.log(accounts.value);
 
 const links = computed(() => accounts.value?.links.map((link) => {
     const result = {...link};
@@ -61,10 +60,10 @@ const links = computed(() => accounts.value?.links.map((link) => {
                                         </td>
                                         <td class="whitespace-nowrap p-4 align-middle">
                                             <Badge v-if="account.is_active" variant="success">Aktif</Badge>
-                                            <Badge v-else variant="success">Nonaktif</Badge>
+                                            <Badge v-else variant="danger">Nonaktif</Badge>
                                         </td>
                                         <td class="whitespace-nowrap p-4 align-middle">
-                                            <Link href="#">
+                                            <Link :href="route('super_admin.accounts.show', account.id)">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
                                             </Link>
                                         </td>

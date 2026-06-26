@@ -178,4 +178,6 @@ Route::prefix('super-admin')
     ->middleware(['auth', 'verified', 'role:' . UserRole::SuperAdmin->value])
     ->group(function () {
         Route::get('/accounts', [AccountController::class, 'index'])->name('accounts.index');
+
+        Route::get('/accounts/{id}', [AccountController::class, 'show'])->name('accounts.show');
     });

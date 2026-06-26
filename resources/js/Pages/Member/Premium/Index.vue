@@ -63,7 +63,7 @@ const setting = computed(() => page.props.setting);
                             </div>
                         </div>
                         <Modal>
-                            <ModalTrigger :as="Button" class="justify-center text-center bg-white text-primary" href="#">Langganan sekarang</ModalTrigger>
+                            <ModalTrigger :as="Button" class="justify-center text-center bg-white text-primary">Langganan sekarang</ModalTrigger>
                             <ModalContent class="lg:min-w-150 font-geist">
                                 <div class="flex flex-col gap-5">
                                     <header class="flex justify-between items-center gap-4">

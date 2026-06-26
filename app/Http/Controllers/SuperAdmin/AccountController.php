@@ -28,4 +28,24 @@ class AccountController extends Controller
             'accounts' => $accounts,
         ]);
     }
+
+    public function show(Request $request, string $id)
+    {
+        $account = User::with('memberProfile')->find($id);
+
+        if (!$account) {
+            Inertia::flash([
+                'messages' => [
+                    [
+                        'variant' => 'danger',
+                        'text' => 'Akun tidak ditemukan.',
+                    ],
+                ],
+            ]);
+        }
+
+        return Inertia::render('SuperAdmin/Account/Show', [
+            'account' => $account,
+        ]);
+    }
 }
