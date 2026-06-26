@@ -18,6 +18,7 @@ use App\Http\Controllers\Staff\ContentController as StaffContentController;
 use App\Http\Controllers\Staff\ConversationController as StaffConversationController;
 use App\Http\Controllers\Staff\BlogController as StaffBlogController;
 use App\Http\Controllers\Staff\ProfileController as StaffProfileController;
+use App\Http\Controllers\SuperAdmin\AccountController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -176,7 +177,5 @@ Route::prefix('super-admin')
     ->name('super_admin.')
     ->middleware(['auth', 'verified', 'role:' . UserRole::SuperAdmin->value])
     ->group(function () {
-        Route::get('/accounts', function () {
-            return 'Super Admin: accounts';
-        })->name('accounts.index');
+        Route::get('/accounts', [AccountController::class, 'index'])->name('accounts.index');
     });

@@ -1,23 +1,28 @@
 const UserRole = {
     Member: {
         value: "member",
-        label: "Member"
+        label: "Member",
+        variant: "success"
     },
     Staff: {
         value: "staff",
-        label: "Petugas"
+        label: "Petugas",
+        variant: "warning"
     },
     Finance: {
         value: "finance",
-        label: "Keuangan"
+        label: "Keuangan",
+        variant: "danger"
     },
     Leader: {
         value: "leader",
-        label: "Ketua"
+        label: "Ketua",
+        variant: "info"
     },
     SuperAdmin: {
         value: "super_admin",
-        label: "Super Admin"
+        label: "Super Admin",
+        variant: "primary"
     }
 };
 
