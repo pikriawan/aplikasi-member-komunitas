@@ -20,7 +20,6 @@ const page = usePage();
 const appUrl = computed(() => page.props.appUrl);
 const storageUrl = computed(() => page.props.storageUrl);
 const account = computed(() => page.props.account);
-console.log(account.value);
 const messages = computed(() => page.flash.messages);
 </script>
 
@@ -179,7 +178,8 @@ const messages = computed(() => page.flash.messages);
                                             </ModalClose>
                                         </header>
                                         <p>Apakah Anda yakin ingin menonaktifkan akun ini?</p>
-                                        <Form class="flex gap-4" action="" method="">
+                                        <Form class="flex gap-4" :action="route('super_admin.accounts.status.update', account.id)" method="put">
+                                            <input type="hidden" name="status" value="false">
                                             <ModalClose type="button" class="w-full justify-center" :as="Button" variant="outlined">Batal</ModalClose>
                                             <Button class="w-full justify-center">Ya</Button>
                                         </Form>
@@ -200,7 +200,8 @@ const messages = computed(() => page.flash.messages);
                                             </ModalClose>
                                         </header>
                                         <p>Apakah Anda yakin ingin mengaktifkan akun ini?</p>
-                                        <Form class="flex gap-4" action="" method="">
+                                        <Form class="flex gap-4" :action="route('super_admin.accounts.status.update', account.id)" method="put">
+                                            <input type="hidden" name="status" value="true">
                                             <ModalClose type="button" class="w-full justify-center" :as="Button" variant="outlined">Batal</ModalClose>
                                             <Button class="w-full justify-center">Ya</Button>
                                         </Form>

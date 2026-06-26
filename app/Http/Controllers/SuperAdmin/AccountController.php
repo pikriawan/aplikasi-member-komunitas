@@ -48,4 +48,22 @@ class AccountController extends Controller
             'account' => $account,
         ]);
     }
+
+    public function updateStatus(Request $request, string $id)
+    {
+        $account = User::find($id);
+
+        if (!$account) {
+            abort(404);
+        }
+
+        $request->validate([
+            'status' => ['required', 'string'],
+        ]);
+
+        $account->is_active = $request->boolean('status');
+        $account->save();
+
+        return redirect()->route('super_admin.accounts.show', $id);
+    }
 }

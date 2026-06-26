@@ -94,7 +94,15 @@ class AuthController extends Controller
             'password'  => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        $user = User::where('email', $credentials['email'])->first();
+
+        if ($user && $user->is_active === 0) {
+            return back()->withErrors([
+                'email' => 'Anda tidak bisa login karena akun Anda telah dinonaktifkan.',
+            ])->onlyInput('email');
+        }
+
+        if (Auth::attempt([ ...$credentials, 'is_active' => 1 ])) {
             $request->session()->regenerate();
 
             return redirect()->intended(route('dashboard'));

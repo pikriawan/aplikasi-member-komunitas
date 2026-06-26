@@ -180,4 +180,6 @@ Route::prefix('super-admin')
         Route::get('/accounts', [AccountController::class, 'index'])->name('accounts.index');
 
         Route::get('/accounts/{id}', [AccountController::class, 'show'])->name('accounts.show');
+
+        Route::put('/accounts/{id}/status', [AccountController::class, 'updateStatus'])->name('accounts.status.update');
     });
