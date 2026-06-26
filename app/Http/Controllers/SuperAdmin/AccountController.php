@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -60,6 +61,12 @@ class AccountController extends Controller
         $request->validate([
             'status' => ['required', 'string'],
         ]);
+
+        if ($account->role === UserRole::SuperAdmin->value) {
+            return back()->withErrors([
+                'status' => 'Tidak bisa mengubah status akun dengan role super admin.'
+            ])->onlyInput('status');
+        }
 
         $account->is_active = $request->boolean('status');
         $account->save();

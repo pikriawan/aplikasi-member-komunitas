@@ -178,10 +178,13 @@ const messages = computed(() => page.flash.messages);
                                             </ModalClose>
                                         </header>
                                         <p>Apakah Anda yakin ingin menonaktifkan akun ini?</p>
-                                        <Form class="flex gap-4" :action="route('super_admin.accounts.status.update', account.id)" method="put">
+                                        <Form class="flex flex-col gap-4" :action="route('super_admin.accounts.status.update', account.id)" method="put" v-slot="{ errors }">
                                             <input type="hidden" name="status" value="false">
-                                            <ModalClose type="button" class="w-full justify-center" :as="Button" variant="outlined">Batal</ModalClose>
-                                            <Button class="w-full justify-center">Ya</Button>
+                                            <div class="w-full flex gap-4">
+                                                <ModalClose type="button" class="w-full justify-center" :as="Button" variant="outlined">Batal</ModalClose>
+                                                <Button class="w-full justify-center">Ya</Button>
+                                            </div>
+                                            <p class="text-danger-500 text-sm" v-if="errors.status">{{ errors.status }}</p>
                                         </Form>
                                     </div>
                                 </ModalContent>
@@ -200,10 +203,13 @@ const messages = computed(() => page.flash.messages);
                                             </ModalClose>
                                         </header>
                                         <p>Apakah Anda yakin ingin mengaktifkan akun ini?</p>
-                                        <Form class="flex gap-4" :action="route('super_admin.accounts.status.update', account.id)" method="put">
+                                        <Form class="flex flex-col gap-4" :action="route('super_admin.accounts.status.update', account.id)" method="put" v-slot="{ errors }">
                                             <input type="hidden" name="status" value="true">
-                                            <ModalClose type="button" class="w-full justify-center" :as="Button" variant="outlined">Batal</ModalClose>
-                                            <Button class="w-full justify-center">Ya</Button>
+                                            <div class="w-full flex gap-4">
+                                                <ModalClose type="button" class="w-full justify-center" :as="Button" variant="outlined">Batal</ModalClose>
+                                                <Button class="w-full justify-center">Ya</Button>
+                                            </div>
+                                            <p class="text-danger-500 text-sm" v-if="errors.status">{{ errors.status }}</p>
                                         </Form>
                                     </div>
                                 </ModalContent>
