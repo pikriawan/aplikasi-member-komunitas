@@ -185,7 +185,9 @@ Route::prefix('super-admin')
 
         Route::put('/accounts/{id}/status', [AccountController::class, 'updateStatus'])->name('accounts.status.update');
 
-        Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+        Route::inertia('/settings', 'SuperAdmin/Setting/Index')->name('settings.index');
+
+        Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
 
         Route::inertia('/profile', 'SuperAdmin/Profile/Index')->name('profile.index');
 

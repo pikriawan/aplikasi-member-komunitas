@@ -17,9 +17,14 @@ class Setting extends Model
         return static::where('key', $key)->value('value') ?? $default;
     }
 
-    public static function set(string $key, string $value): void
+    public static function set(string $key, ?string $value): void
     {
         static::updateOrCreate(['key' => $key], ['value' => $value]);
+    }
+
+    public static function del(string $key): void
+    {
+        static::where('key', $key)->delete();
     }
 
     public static function allAsMap(): Collection
