@@ -19,6 +19,7 @@ use App\Http\Controllers\Staff\ConversationController as StaffConversationContro
 use App\Http\Controllers\Staff\BlogController as StaffBlogController;
 use App\Http\Controllers\Staff\ProfileController as StaffProfileController;
 use App\Http\Controllers\SuperAdmin\AccountController;
+use App\Http\Controllers\SuperAdmin\ProfileController as SuperAdminProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -182,4 +183,10 @@ Route::prefix('super-admin')
         Route::get('/accounts/{id}', [AccountController::class, 'show'])->name('accounts.show');
 
         Route::put('/accounts/{id}/status', [AccountController::class, 'updateStatus'])->name('accounts.status.update');
+
+        Route::inertia('/profile', 'SuperAdmin/Profile/Index')->name('profile.index');
+
+        Route::inertia('/profile/edit', 'SuperAdmin/Profile/Edit')->name('profile.edit');
+
+        Route::put('/profile/edit', [SuperAdminProfileController::class, 'update'])->name('profile.update');
     });
