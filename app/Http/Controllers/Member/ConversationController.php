@@ -30,6 +30,15 @@ class ConversationController extends Controller
             ->get()
             ->groupBy(fn ($message) => $message->date);
 
+        if ($messages->count() === 0) {
+            Inertia::flash('messages', [
+                [
+                    'variant' => 'info',
+                    'text' => 'Belum ada pesan.',
+                ],
+            ]);
+        }
+
         return Inertia::render('Member/Conversation/Index', [
             'messages' => $messages,
         ]);

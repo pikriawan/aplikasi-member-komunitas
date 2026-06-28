@@ -60,6 +60,9 @@ function onSubmit(event) {
             <div v-else class="flex flex-col h-[calc(100dvh-5rem)]">
                 <div class="h-full overflow-y-auto" ref="container">
                     <div class="flex flex-col gap-8 p-8">
+                        <Alert v-for="message in flashMessages" :variant="message.variant" :key="message.text">
+                            {{ message.text }}
+                        </Alert>
                         <template v-for="[date, messages] in Object.entries(messages)" :key="date">
                             <p class="text-center">{{ date }}</p>
                             <div v-for="message in messages" :class="cn('flex break-all', message.sender_id === user.id && 'justify-end')">
