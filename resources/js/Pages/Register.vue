@@ -108,7 +108,7 @@ const passwordConfirmationVisible = ref(false);
                     <p class="text-danger-500 text-sm" v-if="errors.password">{{ errors.password }}</p>
                 </div>
                 <div class="flex flex-col gap-2">
-                    <label class="font-medium" for="password">Konfirmasi password *</label>
+                    <label class="font-medium" for="password_confirmation">Konfirmasi password *</label>
                     <div class="relative">
                         <input class="w-full pl-6 pr-10 py-2 ring ring-inset ring-onyx-400 rounded-full placeholder:text-onyx-400" name="password_confirmation" id="password_confirmation" :type="passwordConfirmationVisible ? 'text' : 'password'" placeholder="Konfirmasi password">
                         <button type="button" class="absolute top-0 right-0 h-full aspect-square flex justify-center items-center" @click="passwordConfirmationVisible = !passwordConfirmationVisible">
