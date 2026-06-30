@@ -6,6 +6,8 @@ use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 
 class AccountController extends Controller
@@ -72,5 +74,37 @@ class AccountController extends Controller
         $account->save();
 
         return redirect()->route('super_admin.accounts.show', $id);
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string'],
+            'email' => ['required', 'email'],
+            'telephone' => ['nullable', 'string'],
+            'role' => ['required', new Enum(UserRole::class)],
+            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()]
+        ]);
+
+        $existingUser = User::where('email', $validated['email'])->first();
+
+        if ($existingUser) {
+            return back()->withErrors([
+                'email' => 'Email ini sudah dipakai.'
+            ])->onlyInput('email');
+        }
+
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'is_active' => true,
+            'password' => $request->input('password'),
+            'role' => $request->input('role'),
+            'telephone' => $request->input('telephone'),
+        ]);
+
+        $user->markEmailAsVerified();
+
+        return redirect()->route('super_admin.accounts.index');
     }
 }

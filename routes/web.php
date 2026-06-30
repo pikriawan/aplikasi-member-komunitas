@@ -181,6 +181,10 @@ Route::prefix('super-admin')
     ->group(function () {
         Route::get('/accounts', [AccountController::class, 'index'])->name('accounts.index');
 
+        Route::inertia('/accounts/create', 'SuperAdmin/Account/Create')->name('accounts.create');
+
+        Route::post('/accounts', [AccountController::class, 'store'])->name('accounts.store');
+
         Route::get('/accounts/{id}', [AccountController::class, 'show'])->name('accounts.show');
 
         Route::put('/accounts/{id}/status', [AccountController::class, 'updateStatus'])->name('accounts.status.update');

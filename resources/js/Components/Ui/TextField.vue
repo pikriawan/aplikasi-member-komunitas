@@ -47,7 +47,8 @@ const passwordVisible = ref(false);
         <input
             :type="passwordVisible ? 'text' : 'password'"
             :class="mergedClasses"
-            v-model="model"
+            :value="modelValue"
+            @input="$emit('update:modelValue', $event.target.value)"
             v-bind="$attrs"
         >
         <button type="button" class="absolute top-0 right-0 h-full aspect-square flex justify-center items-center" @click="passwordVisible = !passwordVisible">

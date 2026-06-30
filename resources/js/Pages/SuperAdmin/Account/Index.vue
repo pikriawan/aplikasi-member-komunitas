@@ -5,7 +5,9 @@ import DashboardHeader from "../../../Components/DashboardHeader.vue";
 import Alert from "../../../Components/Ui/Alert.vue";
 import Badge from "../../../Components/Ui/Badge.vue";
 import Button from "../../../Components/Ui/Button.vue";
-import TextField from "../../../Components/Ui/TextField.vue";
+import Popover from "../../../Components/Ui/Popover.vue";
+import PopoverContent from "../../../Components/Ui/PopoverContent.vue";
+import PopoverTrigger from "../../../Components/Ui/PopoverTrigger.vue";
 import UserRole from "../../../Enums/UserRole.js";
 import SuperAdminLayout from "../../../Layouts/SuperAdminLayout.vue";
 import { cn } from "../../../lib/utils.js";
@@ -32,7 +34,19 @@ const links = computed(() => accounts.value?.links.map((link) => {
 
 <template>
     <SuperAdminLayout>
-        <DashboardHeader title="Kelola Akun" />
+        <DashboardHeader title="Kelola Akun">
+            <Popover class="h-full aspect-square">
+                <PopoverTrigger class="w-full h-full flex justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical-icon lucide-ellipsis-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                </PopoverTrigger>
+                <PopoverContent class="top-[calc(100%-1rem)] right-4 flex flex-col gap-px bg-onyx-200">
+                    <Link class="flex items-center gap-4 p-4 bg-white first:rounded-t-[0.4375rem] last:rounded-b-[0.4375rem] whitespace-nowrap" :href="route('super_admin.accounts.create')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus shrink-0"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                        Buat akun baru
+                    </Link>
+                </PopoverContent>
+            </Popover>
+        </DashboardHeader>
         <main class="flex-1 overflow-auto">
             <div class="flex flex-col gap-8 p-8 lg:min-h-full">
                 <div class="flex-1 flex flex-col gap-8 justify-between">
