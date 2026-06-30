@@ -75,7 +75,7 @@ class InvoiceController extends Controller
         $payment->verifier_id = $request->user()->id;
         $payment->save();
 
-        $memberProfile = MemberProfile::find($invoice->user_id);
+        $memberProfile = MemberProfile::where('user_id', $invoice->user_id)->first();
         $membershipDuration = Carbon::createFromFormat('m', Setting::get('membership_duration', '0'));
         $memberProfile->expired_date = now()->addMonths($membershipDuration->month);
         $memberProfile->save();
