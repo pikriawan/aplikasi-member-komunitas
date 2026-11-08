@@ -18,18 +18,14 @@ class ContentSeeder extends Seeder
     {
         $staffId = User::where('role', UserRole::Staff)->first()->id;
 
-        $disk = app()->isProduction()
-            ? Storage::disk('s3-private')
-            : Storage::disk('local');
-
         Content::factory(20)->video()->create([
             'uploader_id' => $staffId,
-            'file_url' => $disk->putFile(public_path('videos/bunny.webm')),
+            'file_url' => Storage::putFile(public_path('videos/bunny.webm')),
         ]);
 
         Content::factory(20)->ebook()->create([
             'uploader_id' => $staffId,
-            'file_url' => $disk->putFile(public_path('documents/lipsum.pdf')),
+            'file_url' => Storage::putFile(public_path('documents/lipsum.pdf')),
         ]);
     }
 }

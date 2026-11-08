@@ -55,14 +55,10 @@ class ContentController extends Controller
             abort(403);
         }
 
-        $disk = app()->isProduction()
-            ? Storage::disk('s3-private')
-            : Storage::disk('local');
-
-        if (!$disk->exists($fileUrl)) {
+        if (!Storage::exists($fileUrl)) {
             abort(404);
         }
 
-        return $disk->response($fileUrl);
+        return Storage::response($fileUrl);
     }
 }
